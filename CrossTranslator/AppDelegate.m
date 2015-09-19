@@ -27,7 +27,38 @@
     UINavigationController *masterNavigationController = splitViewController.viewControllers[0];
     MasterViewController *controller = (MasterViewController *)masterNavigationController.topViewController;
     controller.managedObjectContext = self.managedObjectContext;
+    
+    
+#warning TODO default languages
+    NSArray* objs = [[NSArray alloc] initWithObjects:
+                     [NSNumber numberWithInt:1],
+                     nil];
+    NSArray* keys = [[NSArray alloc] initWithObjects:
+                     @"8989",
+                     nil];
+    NSDictionary *appDefaults = [NSDictionary dictionaryWithObjects:objs forKeys:keys];
+    
+    [[NSUserDefaults standardUserDefaults] registerDefaults:appDefaults];
+    
+    
+    
+    //Load language codes in Core Data the first time app runs
+    if (![[NSUserDefaults standardUserDefaults] objectForKey:@"FirstRun"]) {
+        [self loadLangCodes];
+        [[NSUserDefaults standardUserDefaults] setValue:@"1strun" forKey:@"FirstRun"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+    
+    
+    
+    
+    
+    
     return YES;
+}
+
+- (void) loadLangCodes{
+    
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

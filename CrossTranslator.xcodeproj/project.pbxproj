@@ -17,6 +17,12 @@
 		A9EE875F1BAD4DC800A63533 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A9EE875D1BAD4DC800A63533 /* LaunchScreen.storyboard */; };
 		A9EE876A1BAD4DC800A63533 /* CrossTranslatorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A9EE87691BAD4DC800A63533 /* CrossTranslatorTests.m */; };
 		A9EE87751BAD4DC800A63533 /* CrossTranslatorUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = A9EE87741BAD4DC800A63533 /* CrossTranslatorUITests.m */; };
+		A9EE87831BAD516000A63533 /* codes.csv in Resources */ = {isa = PBXBuildFile; fileRef = A9EE87821BAD516000A63533 /* codes.csv */; settings = {ASSET_TAGS = (); }; };
+		A9EE87891BAD54DA00A63533 /* CHCSVParser.m in Sources */ = {isa = PBXBuildFile; fileRef = A9EE87881BAD54DA00A63533 /* CHCSVParser.m */; settings = {ASSET_TAGS = (); }; };
+		A9EE87981BAD5B7700A63533 /* LangCodeModel+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = A9EE87911BAD5B7700A63533 /* LangCodeModel+CoreDataProperties.m */; settings = {ASSET_TAGS = (); }; };
+		A9EE87991BAD5B7700A63533 /* LangCodeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A9EE87931BAD5B7700A63533 /* LangCodeModel.m */; settings = {ASSET_TAGS = (); }; };
+		A9EE879A1BAD5B7700A63533 /* LangName+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = A9EE87951BAD5B7700A63533 /* LangName+CoreDataProperties.m */; settings = {ASSET_TAGS = (); }; };
+		A9EE879B1BAD5B7700A63533 /* LangName.m in Sources */ = {isa = PBXBuildFile; fileRef = A9EE87971BAD5B7700A63533 /* LangName.m */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +62,17 @@
 		A9EE87701BAD4DC800A63533 /* CrossTranslatorUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CrossTranslatorUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A9EE87741BAD4DC800A63533 /* CrossTranslatorUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CrossTranslatorUITests.m; sourceTree = "<group>"; };
 		A9EE87761BAD4DC800A63533 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A9EE87821BAD516000A63533 /* codes.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = codes.csv; sourceTree = "<group>"; };
+		A9EE87871BAD54DA00A63533 /* CHCSVParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHCSVParser.h; sourceTree = "<group>"; };
+		A9EE87881BAD54DA00A63533 /* CHCSVParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHCSVParser.m; sourceTree = "<group>"; };
+		A9EE87901BAD5B7700A63533 /* LangCodeModel+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "LangCodeModel+CoreDataProperties.h"; sourceTree = "<group>"; };
+		A9EE87911BAD5B7700A63533 /* LangCodeModel+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "LangCodeModel+CoreDataProperties.m"; sourceTree = "<group>"; };
+		A9EE87921BAD5B7700A63533 /* LangCodeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LangCodeModel.h; sourceTree = "<group>"; };
+		A9EE87931BAD5B7700A63533 /* LangCodeModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LangCodeModel.m; sourceTree = "<group>"; };
+		A9EE87941BAD5B7700A63533 /* LangName+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "LangName+CoreDataProperties.h"; sourceTree = "<group>"; };
+		A9EE87951BAD5B7700A63533 /* LangName+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "LangName+CoreDataProperties.m"; sourceTree = "<group>"; };
+		A9EE87961BAD5B7700A63533 /* LangName.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LangName.h; sourceTree = "<group>"; };
+		A9EE87971BAD5B7700A63533 /* LangName.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LangName.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +123,9 @@
 		A9EE87481BAD4DC800A63533 /* CrossTranslator */ = {
 			isa = PBXGroup;
 			children = (
+				A9EE87851BAD54A800A63533 /* Libs */,
+				A9EE87841BAD549C00A63533 /* Utils */,
+				A9EE87861BAD54AF00A63533 /* Model */,
 				A9EE874C1BAD4DC800A63533 /* AppDelegate.h */,
 				A9EE874D1BAD4DC800A63533 /* AppDelegate.m */,
 				A9EE87521BAD4DC800A63533 /* MasterViewController.h */,
@@ -125,6 +145,7 @@
 		A9EE87491BAD4DC800A63533 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				A9EE87821BAD516000A63533 /* codes.csv */,
 				A9EE874A1BAD4DC800A63533 /* main.m */,
 			);
 			name = "Supporting Files";
@@ -146,6 +167,37 @@
 				A9EE87761BAD4DC800A63533 /* Info.plist */,
 			);
 			path = CrossTranslatorUITests;
+			sourceTree = "<group>";
+		};
+		A9EE87841BAD549C00A63533 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				A9EE87871BAD54DA00A63533 /* CHCSVParser.h */,
+				A9EE87881BAD54DA00A63533 /* CHCSVParser.m */,
+			);
+			name = Utils;
+			sourceTree = "<group>";
+		};
+		A9EE87851BAD54A800A63533 /* Libs */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Libs;
+			sourceTree = "<group>";
+		};
+		A9EE87861BAD54AF00A63533 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				A9EE87901BAD5B7700A63533 /* LangCodeModel+CoreDataProperties.h */,
+				A9EE87911BAD5B7700A63533 /* LangCodeModel+CoreDataProperties.m */,
+				A9EE87921BAD5B7700A63533 /* LangCodeModel.h */,
+				A9EE87931BAD5B7700A63533 /* LangCodeModel.m */,
+				A9EE87941BAD5B7700A63533 /* LangName+CoreDataProperties.h */,
+				A9EE87951BAD5B7700A63533 /* LangName+CoreDataProperties.m */,
+				A9EE87961BAD5B7700A63533 /* LangName.h */,
+				A9EE87971BAD5B7700A63533 /* LangName.m */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -252,6 +304,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A9EE875F1BAD4DC800A63533 /* LaunchScreen.storyboard in Resources */,
+				A9EE87831BAD516000A63533 /* codes.csv in Resources */,
 				A9EE875C1BAD4DC800A63533 /* Assets.xcassets in Resources */,
 				A9EE875A1BAD4DC800A63533 /* Main.storyboard in Resources */,
 			);
@@ -278,8 +331,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A9EE879B1BAD5B7700A63533 /* LangName.m in Sources */,
+				A9EE87991BAD5B7700A63533 /* LangCodeModel.m in Sources */,
 				A9EE87571BAD4DC800A63533 /* DetailViewController.m in Sources */,
+				A9EE879A1BAD5B7700A63533 /* LangName+CoreDataProperties.m in Sources */,
 				A9EE87541BAD4DC800A63533 /* MasterViewController.m in Sources */,
+				A9EE87981BAD5B7700A63533 /* LangCodeModel+CoreDataProperties.m in Sources */,
+				A9EE87891BAD54DA00A63533 /* CHCSVParser.m in Sources */,
 				A9EE874E1BAD4DC800A63533 /* AppDelegate.m in Sources */,
 				A9EE874B1BAD4DC800A63533 /* main.m in Sources */,
 				A9EE87511BAD4DC800A63533 /* CrossTranslator.xcdatamodeld in Sources */,
