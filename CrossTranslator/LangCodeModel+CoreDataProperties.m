@@ -15,5 +15,6 @@
 
 @dynamic code;
 @dynamic names;
+@dynamic index;
 
 @end

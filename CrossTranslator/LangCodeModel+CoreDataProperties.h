@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nullable, nonatomic, retain) NSString *code;
 @property (nullable, nonatomic, retain) NSSet<NSManagedObject *> *names;
+@property (nullable, nonatomic, retain) NSNumber *index;
 
 @end
 

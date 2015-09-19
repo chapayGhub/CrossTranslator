@@ -2,6 +2,7 @@
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="8195" systemVersion="14F27" minimumToolsVersion="Automatic">
     <entity name="LangCodeModel" representedClassName="LangCodeModel" syncable="YES">
         <attribute name="code" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="index" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <relationship name="names" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="LangName" syncable="YES"/>
     </entity>
     <entity name="LangName" representedClassName="LangName" syncable="YES">
@@ -9,7 +10,7 @@
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="LangCodeModel" positionX="-63" positionY="-18" width="128" height="73"/>
+        <element name="LangCodeModel" positionX="-63" positionY="-18" width="128" height="90"/>
         <element name="LangName" positionX="288" positionY="9" width="128" height="73"/>
     </elements>
 </model>

@@ -9,7 +9,31 @@
 #import "MasterViewController.h"
 #import "DetailViewController.h"
 
+#import "FromLanguageCell.h"
+#import "ToLanguageCell.h"
+#import "WikiSuggestsCell.h"
+#import "GoogleAudioCell.h"
+#import "Constants.h"
+
 @interface MasterViewController ()
+
+@property (strong, nonatomic) NSMutableArray *wikiSuggestions;
+
+
+
+@property (strong, nonatomic) NSString *startLangCode;
+@property (strong, nonatomic) NSString *endLangCode;
+@property (strong, nonatomic) NSString *inputString;
+
+
+
+@property (weak, nonatomic) UITextField *inputText;
+@property (weak, nonatomic) UITextField *startLang;
+@property (weak, nonatomic) UITextField *endLang;
+@property (weak, nonatomic) UITextView *translatedText;
+
+@property (strong, nonatomic) NSNumber *currentLanguage;
+
 
 @end
 
@@ -20,9 +44,13 @@
     // Do any additional setup after loading the view, typically from a nib.
     self.navigationItem.leftBarButtonItem = self.editButtonItem;
 
-    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
-    self.navigationItem.rightBarButtonItem = addButton;
+//    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
+//    self.navigationItem.rightBarButtonItem = addButton;
     self.detailViewController = (DetailViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
+    
+    
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    self.currentLanguage = [prefs objectForKey:kCurrentLang];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -33,25 +61,6 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-- (void)insertNewObject:(id)sender {
-    NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
-    NSEntityDescription *entity = [[self.fetchedResultsController fetchRequest] entity];
-    NSManagedObject *newManagedObject = [NSEntityDescription insertNewObjectForEntityForName:[entity name] inManagedObjectContext:context];
-        
-    // If appropriate, configure the new managed object.
-    // Normally you should use accessor methods, but using KVC here avoids the need to add a custom class to the template.
-    [newManagedObject setValue:[NSDate date] forKey:@"timeStamp"];
-        
-    // Save the context.
-    NSError *error = nil;
-    if (![context save:&error]) {
-        // Replace this implementation with code to handle the error appropriately.
-        // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-        abort();
-    }
 }
 
 #pragma mark - Segues
@@ -70,43 +79,77 @@
 #pragma mark - Table View
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return [[self.fetchedResultsController sections] count];
+    return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    id <NSFetchedResultsSectionInfo> sectionInfo = [self.fetchedResultsController sections][section];
-    return [sectionInfo numberOfObjects];
+    if (section == 0) {
+        return 2;
+    }else if (section == 1){
+        [self.wikiSuggestions count];
+    }else{
+        return 1;
+    }
+    return 0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
-    [self configureCell:cell atIndexPath:indexPath];
+    static NSString* fromLangCellID = @"FromTranslate";
+    static NSString* toLangCellID = @"ToTranslate";
+    static NSString* wikiCellID = @"WikiSuggests";
+    static NSString* googleAudioCellID = @"GoogleAudio";
+    
+    UITableViewCell *cell;
+    
+    if (indexPath.section == 0) {
+        if (indexPath.row == 0) {
+            cell = (FromLanguageCell*)[tableView dequeueReusableCellWithIdentifier:fromLangCellID
+                                                                      forIndexPath:indexPath];
+            
+        }else if (indexPath.row == 1){
+            cell = (ToLanguageCell*)[tableView dequeueReusableCellWithIdentifier:toLangCellID
+                                                                      forIndexPath:indexPath];
+        }
+    }else if (indexPath.section == 1){
+        cell = (WikiSuggestsCell*)[tableView dequeueReusableCellWithIdentifier:wikiCellID
+                                                                  forIndexPath:indexPath];
+    }else{
+        cell = (GoogleAudioCell*)[tableView dequeueReusableCellWithIdentifier:googleAudioCellID
+                                                                  forIndexPath:indexPath];
+    }
+
     return cell;
+}
+
+
+- (void) invokeTranslate{
+    
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     // Return NO if you do not want the specified item to be editable.
-    return YES;
+    return NO;
 }
 
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
-        [context deleteObject:[self.fetchedResultsController objectAtIndexPath:indexPath]];
-            
-        NSError *error = nil;
-        if (![context save:&error]) {
-            // Replace this implementation with code to handle the error appropriately.
-            // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-            abort();
-        }
-    }
-}
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     NSManagedObject *object = [self.fetchedResultsController objectAtIndexPath:indexPath];
     cell.textLabel.text = [[object valueForKey:@"timeStamp"] description];
+}
+
+- (double) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (indexPath.section == 0) {
+        if (indexPath.row == 0) {
+            return 195;
+        }else if (indexPath.row == 1){
+            return 149;
+        }
+    }else if (indexPath.section == 1){
+        return 44;
+    }else{
+        return 44;
+    }
+    return 44;
 }
 
 #pragma mark - Fetched results controller
@@ -199,15 +242,5 @@
 {
     [self.tableView endUpdates];
 }
-
-/*
-// Implementing the above methods to update the table view in response to individual changes may have performance implications if a large number of changes are made simultaneously. If this proves to be an issue, you can instead just implement controllerDidChangeContent: which notifies the delegate that all section and object changes have been processed. 
- 
- - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
-{
-    // In the simplest, most efficient, case, reload the table view.
-    [self.tableView reloadData];
-}
- */
 
 @end

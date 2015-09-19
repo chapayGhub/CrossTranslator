@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A9D645D21BAD691000E29D2A /* FromLanguageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D645D11BAD691000E29D2A /* FromLanguageCell.m */; settings = {ASSET_TAGS = (); }; };
+		A9D645D51BAD692600E29D2A /* ToLanguageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D645D41BAD692600E29D2A /* ToLanguageCell.m */; settings = {ASSET_TAGS = (); }; };
+		A9D645D81BAD694E00E29D2A /* WikiSuggestsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D645D71BAD694E00E29D2A /* WikiSuggestsCell.m */; settings = {ASSET_TAGS = (); }; };
+		A9D645DB1BAD696300E29D2A /* GoogleAudioCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D645DA1BAD696300E29D2A /* GoogleAudioCell.m */; settings = {ASSET_TAGS = (); }; };
+		A9D645DF1BAD764200E29D2A /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D645DE1BAD764200E29D2A /* Constants.m */; settings = {ASSET_TAGS = (); }; };
 		A9EE874B1BAD4DC800A63533 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A9EE874A1BAD4DC800A63533 /* main.m */; };
 		A9EE874E1BAD4DC800A63533 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A9EE874D1BAD4DC800A63533 /* AppDelegate.m */; };
 		A9EE87511BAD4DC800A63533 /* CrossTranslator.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A9EE874F1BAD4DC800A63533 /* CrossTranslator.xcdatamodeld */; };
@@ -43,6 +48,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A9D645D01BAD691000E29D2A /* FromLanguageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FromLanguageCell.h; path = view/FromLanguageCell.h; sourceTree = "<group>"; };
+		A9D645D11BAD691000E29D2A /* FromLanguageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FromLanguageCell.m; path = view/FromLanguageCell.m; sourceTree = "<group>"; };
+		A9D645D31BAD692600E29D2A /* ToLanguageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ToLanguageCell.h; path = view/ToLanguageCell.h; sourceTree = "<group>"; };
+		A9D645D41BAD692600E29D2A /* ToLanguageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ToLanguageCell.m; path = view/ToLanguageCell.m; sourceTree = "<group>"; };
+		A9D645D61BAD694E00E29D2A /* WikiSuggestsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WikiSuggestsCell.h; path = view/WikiSuggestsCell.h; sourceTree = "<group>"; };
+		A9D645D71BAD694E00E29D2A /* WikiSuggestsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WikiSuggestsCell.m; path = view/WikiSuggestsCell.m; sourceTree = "<group>"; };
+		A9D645D91BAD696300E29D2A /* GoogleAudioCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoogleAudioCell.h; sourceTree = "<group>"; };
+		A9D645DA1BAD696300E29D2A /* GoogleAudioCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoogleAudioCell.m; sourceTree = "<group>"; };
+		A9D645DD1BAD764200E29D2A /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Constants.h; path = model/Constants.h; sourceTree = "<group>"; };
+		A9D645DE1BAD764200E29D2A /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Constants.m; path = model/Constants.m; sourceTree = "<group>"; };
 		A9EE87461BAD4DC800A63533 /* CrossTranslator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CrossTranslator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A9EE874A1BAD4DC800A63533 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		A9EE874C1BAD4DC800A63533 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -100,6 +115,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A9D645CF1BAD68C100E29D2A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				A9D645D01BAD691000E29D2A /* FromLanguageCell.h */,
+				A9D645D11BAD691000E29D2A /* FromLanguageCell.m */,
+				A9D645D31BAD692600E29D2A /* ToLanguageCell.h */,
+				A9D645D41BAD692600E29D2A /* ToLanguageCell.m */,
+				A9D645D61BAD694E00E29D2A /* WikiSuggestsCell.h */,
+				A9D645D71BAD694E00E29D2A /* WikiSuggestsCell.m */,
+				A9D645D91BAD696300E29D2A /* GoogleAudioCell.h */,
+				A9D645DA1BAD696300E29D2A /* GoogleAudioCell.m */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
 		A9EE873D1BAD4DC800A63533 = {
 			isa = PBXGroup;
 			children = (
@@ -126,6 +156,7 @@
 				A9EE87851BAD54A800A63533 /* Libs */,
 				A9EE87841BAD549C00A63533 /* Utils */,
 				A9EE87861BAD54AF00A63533 /* Model */,
+				A9D645CF1BAD68C100E29D2A /* View */,
 				A9EE874C1BAD4DC800A63533 /* AppDelegate.h */,
 				A9EE874D1BAD4DC800A63533 /* AppDelegate.m */,
 				A9EE87521BAD4DC800A63533 /* MasterViewController.h */,
@@ -196,6 +227,8 @@
 				A9EE87951BAD5B7700A63533 /* LangName+CoreDataProperties.m */,
 				A9EE87961BAD5B7700A63533 /* LangName.h */,
 				A9EE87971BAD5B7700A63533 /* LangName.m */,
+				A9D645DD1BAD764200E29D2A /* Constants.h */,
+				A9D645DE1BAD764200E29D2A /* Constants.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -333,11 +366,16 @@
 			files = (
 				A9EE879B1BAD5B7700A63533 /* LangName.m in Sources */,
 				A9EE87991BAD5B7700A63533 /* LangCodeModel.m in Sources */,
+				A9D645D51BAD692600E29D2A /* ToLanguageCell.m in Sources */,
+				A9D645D81BAD694E00E29D2A /* WikiSuggestsCell.m in Sources */,
 				A9EE87571BAD4DC800A63533 /* DetailViewController.m in Sources */,
+				A9D645DF1BAD764200E29D2A /* Constants.m in Sources */,
 				A9EE879A1BAD5B7700A63533 /* LangName+CoreDataProperties.m in Sources */,
 				A9EE87541BAD4DC800A63533 /* MasterViewController.m in Sources */,
+				A9D645DB1BAD696300E29D2A /* GoogleAudioCell.m in Sources */,
 				A9EE87981BAD5B7700A63533 /* LangCodeModel+CoreDataProperties.m in Sources */,
 				A9EE87891BAD54DA00A63533 /* CHCSVParser.m in Sources */,
+				A9D645D21BAD691000E29D2A /* FromLanguageCell.m in Sources */,
 				A9EE874E1BAD4DC800A63533 /* AppDelegate.m in Sources */,
 				A9EE874B1BAD4DC800A63533 /* main.m in Sources */,
 				A9EE87511BAD4DC800A63533 /* CrossTranslator.xcdatamodeld in Sources */,
@@ -485,6 +523,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.crossover.CrossTranslator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -496,6 +535,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.crossover.CrossTranslator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -566,6 +606,7 @@
 				A9EE877B1BAD4DC800A63533 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		A9EE877C1BAD4DC800A63533 /* Build configuration list for PBXNativeTarget "CrossTranslatorTests" */ = {
 			isa = XCConfigurationList;
@@ -574,6 +615,7 @@
 				A9EE877E1BAD4DC800A63533 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		A9EE877F1BAD4DC800A63533 /* Build configuration list for PBXNativeTarget "CrossTranslatorUITests" */ = {
 			isa = XCConfigurationList;
@@ -582,6 +624,7 @@
 				A9EE87811BAD4DC800A63533 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

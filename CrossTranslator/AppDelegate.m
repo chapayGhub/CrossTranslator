@@ -10,7 +10,16 @@
 #import "DetailViewController.h"
 #import "MasterViewController.h"
 
-@interface AppDelegate () <UISplitViewControllerDelegate>
+#import "LangName.h"
+#import "LangCodeModel.h"
+#import "CHCSVParser.h"
+#import "Constants.h"
+
+@interface AppDelegate () <CHCSVParserDelegate>
+
+@property (strong, nonatomic) NSMutableArray *lines;
+@property (strong, nonatomic) NSMutableArray *currentLine;
+@property (strong, nonatomic) NSMutableArray * langs;
 
 @end
 
@@ -18,23 +27,12 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
-    UISplitViewController *splitViewController = (UISplitViewController *)self.window.rootViewController;
-    UINavigationController *navigationController = [splitViewController.viewControllers lastObject];
-    navigationController.topViewController.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem;
-    splitViewController.delegate = self;
 
-    UINavigationController *masterNavigationController = splitViewController.viewControllers[0];
-    MasterViewController *controller = (MasterViewController *)masterNavigationController.topViewController;
-    controller.managedObjectContext = self.managedObjectContext;
-    
-    
-#warning TODO default languages
     NSArray* objs = [[NSArray alloc] initWithObjects:
-                     [NSNumber numberWithInt:1],
+                     [NSNumber numberWithInt:0],
                      nil];
     NSArray* keys = [[NSArray alloc] initWithObjects:
-                     @"8989",
+                     kCurrentLang,
                      nil];
     NSDictionary *appDefaults = [NSDictionary dictionaryWithObjects:objs forKeys:keys];
     
@@ -48,18 +46,77 @@
         [[NSUserDefaults standardUserDefaults] setValue:@"1strun" forKey:@"FirstRun"];
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
+    [NSThread sleepForTimeInterval:0.5];
     
     
-    
-    
-    
-    
+    MasterViewController *controller = (MasterViewController *)[(UINavigationController*)self.window.rootViewController topViewController];
+    controller.managedObjectContext = self.managedObjectContext;
     return YES;
 }
 
 - (void) loadLangCodes{
+    // For the assignment app only Italian and English languages
+    self.langs = [[NSMutableArray alloc] init];
     
+    LangCodeModel *english = [NSEntityDescription insertNewObjectForEntityForName:@"LangCodeModel" inManagedObjectContext:self.managedObjectContext];
+    [english setValue:@"en" forKey:@"code"];
+    [english setValue:[NSNumber numberWithInt:0] forKey:@"index"];
+    [self.langs addObject:english];
+    
+    
+    LangCodeModel *italian = [NSEntityDescription insertNewObjectForEntityForName:@"LangCodeModel" inManagedObjectContext:self.managedObjectContext];
+    [italian setValue:@"it" forKey:@"code"];
+    [italian setValue:[NSNumber numberWithInt:1] forKey:@"index"];
+    [self.langs addObject:italian];
+    
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"codes" ofType:@"csv"];
+    NSURL *url = [NSURL fileURLWithPath:path];
+    CHCSVParser *parser = [[CHCSVParser alloc] initWithContentsOfDelimitedURL:url delimiter:';'];
+    parser.delegate = self;
+    [parser parse];
 }
+
+#pragma mark - Parsing Delegate Methods
+
+- (void)parserDidBeginDocument:(CHCSVParser *)parser {
+    self.lines = [[NSMutableArray alloc] init];
+}
+- (void)parser:(CHCSVParser *)parser didBeginLine:(NSUInteger)recordNumber {
+    self.currentLine = [[NSMutableArray alloc] init];
+}
+- (void)parser:(CHCSVParser *)parser didReadField:(NSString *)field atIndex:(NSInteger)fieldIndex {
+    NSLog(@"%@", field);
+    [self.currentLine addObject:field];
+}
+- (void)parser:(CHCSVParser *)parser didEndLine:(NSUInteger)recordNumber {
+    [self.lines addObject:_currentLine];
+    
+    //Add english language name
+    LangName *englishName = [NSEntityDescription insertNewObjectForEntityForName:@"LangName" inManagedObjectContext:self.managedObjectContext];
+    
+    [englishName setValue:[self.currentLine objectAtIndex:2] forKey:@"code"];
+    [englishName setValue:[self.currentLine objectAtIndex:0] forKey:@"name"];
+    [(LangCodeModel*)[self.langs objectAtIndex:0] addNamesObject:englishName];
+
+    
+    //Add italian language name
+    LangName *italianName = [NSEntityDescription insertNewObjectForEntityForName:@"LangName" inManagedObjectContext:self.managedObjectContext];
+    
+    [italianName setValue:[self.currentLine objectAtIndex:2] forKey:@"code"];
+    [italianName setValue:[self.currentLine objectAtIndex:1] forKey:@"name"];
+    [(LangCodeModel*)[self.langs objectAtIndex:1] addNamesObject:italianName];
+    
+    self.currentLine = nil;
+}
+- (void)parserDidEndDocument:(CHCSVParser *)parser {
+    NSError *error;
+    if (![self.managedObjectContext save:&error]) {
+        NSLog(@"HANDLE ERROR WHEN SAVING THE OBJECT");
+    }
+    NSLog(@"parser ended");
+}
+
+#pragma mark - Application Delegate Methods
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -83,17 +140,6 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     // Saves changes in the application's managed object context before the application terminates.
     [self saveContext];
-}
-
-#pragma mark - Split view
-
-- (BOOL)splitViewController:(UISplitViewController *)splitViewController collapseSecondaryViewController:(UIViewController *)secondaryViewController ontoPrimaryViewController:(UIViewController *)primaryViewController {
-    if ([secondaryViewController isKindOfClass:[UINavigationController class]] && [[(UINavigationController *)secondaryViewController topViewController] isKindOfClass:[DetailViewController class]] && ([(DetailViewController *)[(UINavigationController *)secondaryViewController topViewController] detailItem] == nil)) {
-        // Return YES to indicate that we have handled the collapse by doing nothing; the secondary controller will be discarded.
-        return YES;
-    } else {
-        return NO;
-    }
 }
 
 #pragma mark - Core Data stack
