@@ -9,11 +9,15 @@
 #import "MasterViewController.h"
 #import "DetailViewController.h"
 
+#import "MLPAutoCompleteTextField.h"
+
 #import "FromLanguageCell.h"
 #import "ToLanguageCell.h"
 #import "WikiSuggestsCell.h"
 #import "GoogleAudioCell.h"
 #import "Constants.h"
+
+#import "TranslatorFacade.h"
 
 @interface MasterViewController ()
 
@@ -26,14 +30,15 @@
 @property (strong, nonatomic) NSString *inputString;
 
 
+@property (weak, nonatomic) MLPAutoCompleteTextField *inputText;
+@property (weak, nonatomic) MLPAutoCompleteTextField *startLang;
+@property (weak, nonatomic) MLPAutoCompleteTextField *endLang;
 
-@property (weak, nonatomic) UITextField *inputText;
-@property (weak, nonatomic) UITextField *startLang;
-@property (weak, nonatomic) UITextField *endLang;
 @property (weak, nonatomic) UITextView *translatedText;
 
 @property (strong, nonatomic) NSNumber *currentLanguage;
 
+@property (strong, nonatomic) TranslatorFacade *translator;
 
 @end
 
@@ -48,6 +53,8 @@
 //    self.navigationItem.rightBarButtonItem = addButton;
     self.detailViewController = (DetailViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
     
+    self.translator = [[TranslatorFacade alloc] init];
+    [self.translator translatePhrase:@"begin" from:@"en" to:@"it" completition:nil];
     
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     self.currentLanguage = [prefs objectForKey:kCurrentLang];

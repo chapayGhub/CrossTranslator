@@ -12,6 +12,28 @@
 		A9D645D81BAD694E00E29D2A /* WikiSuggestsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D645D71BAD694E00E29D2A /* WikiSuggestsCell.m */; settings = {ASSET_TAGS = (); }; };
 		A9D645DB1BAD696300E29D2A /* GoogleAudioCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D645DA1BAD696300E29D2A /* GoogleAudioCell.m */; settings = {ASSET_TAGS = (); }; };
 		A9D645DF1BAD764200E29D2A /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D645DE1BAD764200E29D2A /* Constants.m */; settings = {ASSET_TAGS = (); }; };
+		A9D645E91BAD7E5D00E29D2A /* MLPAutoCompleteTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D645E31BAD7E5D00E29D2A /* MLPAutoCompleteTextField.m */; settings = {ASSET_TAGS = (); }; };
+		A9D645EA1BAD7E5D00E29D2A /* NSString+Levenshtein.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D645E81BAD7E5D00E29D2A /* NSString+Levenshtein.m */; settings = {ASSET_TAGS = (); }; };
+		A9D645EF1BAD805A00E29D2A /* CachedResult+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D645EC1BAD805A00E29D2A /* CachedResult+CoreDataProperties.m */; settings = {ASSET_TAGS = (); }; };
+		A9D645F01BAD805A00E29D2A /* CachedResult.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D645EE1BAD805A00E29D2A /* CachedResult.m */; settings = {ASSET_TAGS = (); }; };
+		A9D645F41BAD80D800E29D2A /* APIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D645F31BAD80D800E29D2A /* APIClient.m */; settings = {ASSET_TAGS = (); }; };
+		A9D645FC1BAD818F00E29D2A /* APNetworkClient.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D645F71BAD818F00E29D2A /* APNetworkClient.m */; settings = {ASSET_TAGS = (); }; };
+		A9D645FD1BAD818F00E29D2A /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D645F91BAD818F00E29D2A /* NSData+Base64.m */; settings = {ASSET_TAGS = (); }; };
+		A9D645FE1BAD818F00E29D2A /* NSDictionary+QueryString.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D645FB1BAD818F00E29D2A /* NSDictionary+QueryString.m */; settings = {ASSET_TAGS = (); }; };
+		A9D646011BAD965800E29D2A /* TranslatorFacade.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D646001BAD965800E29D2A /* TranslatorFacade.m */; settings = {ASSET_TAGS = (); }; };
+		A9D646051BAD982C00E29D2A /* CoreDataTranslationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D646041BAD982C00E29D2A /* CoreDataTranslationManager.m */; settings = {ASSET_TAGS = (); }; };
+		A9D6460C1BAD999800E29D2A /* Translator.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D6460B1BAD999800E29D2A /* Translator.m */; settings = {ASSET_TAGS = (); }; };
+		A9D6460F1BADA6BA00E29D2A /* Translation.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D6460E1BADA6BA00E29D2A /* Translation.m */; settings = {ASSET_TAGS = (); }; };
+		A9D6462A1BADAC1D00E29D2A /* JSONModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D646131BADAC1D00E29D2A /* JSONModel.m */; settings = {ASSET_TAGS = (); }; };
+		A9D6462B1BADAC1D00E29D2A /* JSONModelArray.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D646151BADAC1D00E29D2A /* JSONModelArray.m */; settings = {ASSET_TAGS = (); }; };
+		A9D6462C1BADAC1D00E29D2A /* JSONModelClassProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D646171BADAC1D00E29D2A /* JSONModelClassProperty.m */; settings = {ASSET_TAGS = (); }; };
+		A9D6462D1BADAC1D00E29D2A /* JSONModelError.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D646191BADAC1D00E29D2A /* JSONModelError.m */; settings = {ASSET_TAGS = (); }; };
+		A9D6462E1BADAC1D00E29D2A /* NSArray+JSONModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D6461C1BADAC1D00E29D2A /* NSArray+JSONModel.m */; settings = {ASSET_TAGS = (); }; };
+		A9D6462F1BADAC1D00E29D2A /* JSONAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D646201BADAC1D00E29D2A /* JSONAPI.m */; settings = {ASSET_TAGS = (); }; };
+		A9D646301BADAC1D00E29D2A /* JSONHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D646221BADAC1D00E29D2A /* JSONHTTPClient.m */; settings = {ASSET_TAGS = (); }; };
+		A9D646311BADAC1D00E29D2A /* JSONModel+networking.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D646241BADAC1D00E29D2A /* JSONModel+networking.m */; settings = {ASSET_TAGS = (); }; };
+		A9D646321BADAC1D00E29D2A /* JSONKeyMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D646271BADAC1D00E29D2A /* JSONKeyMapper.m */; settings = {ASSET_TAGS = (); }; };
+		A9D646331BADAC1D00E29D2A /* JSONValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D646291BADAC1D00E29D2A /* JSONValueTransformer.m */; settings = {ASSET_TAGS = (); }; };
 		A9EE874B1BAD4DC800A63533 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A9EE874A1BAD4DC800A63533 /* main.m */; };
 		A9EE874E1BAD4DC800A63533 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A9EE874D1BAD4DC800A63533 /* AppDelegate.m */; };
 		A9EE87511BAD4DC800A63533 /* CrossTranslator.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A9EE874F1BAD4DC800A63533 /* CrossTranslator.xcdatamodeld */; };
@@ -58,6 +80,55 @@
 		A9D645DA1BAD696300E29D2A /* GoogleAudioCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoogleAudioCell.m; sourceTree = "<group>"; };
 		A9D645DD1BAD764200E29D2A /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Constants.h; path = model/Constants.h; sourceTree = "<group>"; };
 		A9D645DE1BAD764200E29D2A /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Constants.m; path = model/Constants.m; sourceTree = "<group>"; };
+		A9D645E21BAD7E5D00E29D2A /* MLPAutoCompleteTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLPAutoCompleteTextField.h; sourceTree = "<group>"; };
+		A9D645E31BAD7E5D00E29D2A /* MLPAutoCompleteTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLPAutoCompleteTextField.m; sourceTree = "<group>"; };
+		A9D645E41BAD7E5D00E29D2A /* MLPAutoCompleteTextFieldDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLPAutoCompleteTextFieldDataSource.h; sourceTree = "<group>"; };
+		A9D645E51BAD7E5D00E29D2A /* MLPAutoCompleteTextFieldDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLPAutoCompleteTextFieldDelegate.h; sourceTree = "<group>"; };
+		A9D645E61BAD7E5D00E29D2A /* MLPAutoCompletionObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLPAutoCompletionObject.h; sourceTree = "<group>"; };
+		A9D645E71BAD7E5D00E29D2A /* NSString+Levenshtein.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Levenshtein.h"; sourceTree = "<group>"; };
+		A9D645E81BAD7E5D00E29D2A /* NSString+Levenshtein.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Levenshtein.m"; sourceTree = "<group>"; };
+		A9D645EB1BAD805A00E29D2A /* CachedResult+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "CachedResult+CoreDataProperties.h"; path = "model/CachedResult+CoreDataProperties.h"; sourceTree = "<group>"; };
+		A9D645EC1BAD805A00E29D2A /* CachedResult+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "CachedResult+CoreDataProperties.m"; path = "model/CachedResult+CoreDataProperties.m"; sourceTree = "<group>"; };
+		A9D645ED1BAD805A00E29D2A /* CachedResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CachedResult.h; path = model/CachedResult.h; sourceTree = "<group>"; };
+		A9D645EE1BAD805A00E29D2A /* CachedResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CachedResult.m; path = model/CachedResult.m; sourceTree = "<group>"; };
+		A9D645F21BAD80D800E29D2A /* APIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = APIClient.h; path = model/APIClient.h; sourceTree = "<group>"; };
+		A9D645F31BAD80D800E29D2A /* APIClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = APIClient.m; path = model/APIClient.m; sourceTree = "<group>"; };
+		A9D645F61BAD818F00E29D2A /* APNetworkClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APNetworkClient.h; sourceTree = "<group>"; };
+		A9D645F71BAD818F00E29D2A /* APNetworkClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APNetworkClient.m; sourceTree = "<group>"; };
+		A9D645F81BAD818F00E29D2A /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
+		A9D645F91BAD818F00E29D2A /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
+		A9D645FA1BAD818F00E29D2A /* NSDictionary+QueryString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+QueryString.h"; sourceTree = "<group>"; };
+		A9D645FB1BAD818F00E29D2A /* NSDictionary+QueryString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+QueryString.m"; sourceTree = "<group>"; };
+		A9D645FF1BAD965800E29D2A /* TranslatorFacade.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TranslatorFacade.h; path = model/TranslatorFacade.h; sourceTree = "<group>"; };
+		A9D646001BAD965800E29D2A /* TranslatorFacade.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TranslatorFacade.m; path = model/TranslatorFacade.m; sourceTree = "<group>"; };
+		A9D646031BAD982C00E29D2A /* CoreDataTranslationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CoreDataTranslationManager.h; path = model/CoreDataTranslationManager.h; sourceTree = "<group>"; };
+		A9D646041BAD982C00E29D2A /* CoreDataTranslationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CoreDataTranslationManager.m; path = model/CoreDataTranslationManager.m; sourceTree = "<group>"; };
+		A9D646091BAD992B00E29D2A /* TranslationDelegateProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TranslationDelegateProtocol.h; path = model/TranslationDelegateProtocol.h; sourceTree = "<group>"; };
+		A9D6460A1BAD999800E29D2A /* Translator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Translator.h; path = model/Translator.h; sourceTree = "<group>"; };
+		A9D6460B1BAD999800E29D2A /* Translator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Translator.m; path = model/Translator.m; sourceTree = "<group>"; };
+		A9D6460D1BADA6BA00E29D2A /* Translation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Translation.h; path = model/Translation.h; sourceTree = "<group>"; };
+		A9D6460E1BADA6BA00E29D2A /* Translation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Translation.m; path = model/Translation.m; sourceTree = "<group>"; };
+		A9D646121BADAC1D00E29D2A /* JSONModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONModel.h; sourceTree = "<group>"; };
+		A9D646131BADAC1D00E29D2A /* JSONModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONModel.m; sourceTree = "<group>"; };
+		A9D646141BADAC1D00E29D2A /* JSONModelArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONModelArray.h; sourceTree = "<group>"; };
+		A9D646151BADAC1D00E29D2A /* JSONModelArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONModelArray.m; sourceTree = "<group>"; };
+		A9D646161BADAC1D00E29D2A /* JSONModelClassProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONModelClassProperty.h; sourceTree = "<group>"; };
+		A9D646171BADAC1D00E29D2A /* JSONModelClassProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONModelClassProperty.m; sourceTree = "<group>"; };
+		A9D646181BADAC1D00E29D2A /* JSONModelError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONModelError.h; sourceTree = "<group>"; };
+		A9D646191BADAC1D00E29D2A /* JSONModelError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONModelError.m; sourceTree = "<group>"; };
+		A9D6461B1BADAC1D00E29D2A /* NSArray+JSONModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+JSONModel.h"; sourceTree = "<group>"; };
+		A9D6461C1BADAC1D00E29D2A /* NSArray+JSONModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+JSONModel.m"; sourceTree = "<group>"; };
+		A9D6461D1BADAC1D00E29D2A /* JSONModelLib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONModelLib.h; sourceTree = "<group>"; };
+		A9D6461F1BADAC1D00E29D2A /* JSONAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONAPI.h; sourceTree = "<group>"; };
+		A9D646201BADAC1D00E29D2A /* JSONAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONAPI.m; sourceTree = "<group>"; };
+		A9D646211BADAC1D00E29D2A /* JSONHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONHTTPClient.h; sourceTree = "<group>"; };
+		A9D646221BADAC1D00E29D2A /* JSONHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONHTTPClient.m; sourceTree = "<group>"; };
+		A9D646231BADAC1D00E29D2A /* JSONModel+networking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "JSONModel+networking.h"; sourceTree = "<group>"; };
+		A9D646241BADAC1D00E29D2A /* JSONModel+networking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "JSONModel+networking.m"; sourceTree = "<group>"; };
+		A9D646261BADAC1D00E29D2A /* JSONKeyMapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKeyMapper.h; sourceTree = "<group>"; };
+		A9D646271BADAC1D00E29D2A /* JSONKeyMapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKeyMapper.m; sourceTree = "<group>"; };
+		A9D646281BADAC1D00E29D2A /* JSONValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONValueTransformer.h; sourceTree = "<group>"; };
+		A9D646291BADAC1D00E29D2A /* JSONValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONValueTransformer.m; sourceTree = "<group>"; };
 		A9EE87461BAD4DC800A63533 /* CrossTranslator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CrossTranslator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A9EE874A1BAD4DC800A63533 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		A9EE874C1BAD4DC800A63533 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -128,6 +199,123 @@
 				A9D645DA1BAD696300E29D2A /* GoogleAudioCell.m */,
 			);
 			name = View;
+			sourceTree = "<group>";
+		};
+		A9D645E01BAD7E2200E29D2A /* CVSParser */ = {
+			isa = PBXGroup;
+			children = (
+				A9EE87871BAD54DA00A63533 /* CHCSVParser.h */,
+				A9EE87881BAD54DA00A63533 /* CHCSVParser.m */,
+			);
+			name = CVSParser;
+			sourceTree = "<group>";
+		};
+		A9D645E11BAD7E5D00E29D2A /* MLPAutoCompleteTextField */ = {
+			isa = PBXGroup;
+			children = (
+				A9D645E21BAD7E5D00E29D2A /* MLPAutoCompleteTextField.h */,
+				A9D645E31BAD7E5D00E29D2A /* MLPAutoCompleteTextField.m */,
+				A9D645E41BAD7E5D00E29D2A /* MLPAutoCompleteTextFieldDataSource.h */,
+				A9D645E51BAD7E5D00E29D2A /* MLPAutoCompleteTextFieldDelegate.h */,
+				A9D645E61BAD7E5D00E29D2A /* MLPAutoCompletionObject.h */,
+				A9D645E71BAD7E5D00E29D2A /* NSString+Levenshtein.h */,
+				A9D645E81BAD7E5D00E29D2A /* NSString+Levenshtein.m */,
+			);
+			path = MLPAutoCompleteTextField;
+			sourceTree = "<group>";
+		};
+		A9D645F11BAD808F00E29D2A /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				A9EE87901BAD5B7700A63533 /* LangCodeModel+CoreDataProperties.h */,
+				A9EE87911BAD5B7700A63533 /* LangCodeModel+CoreDataProperties.m */,
+				A9EE87921BAD5B7700A63533 /* LangCodeModel.h */,
+				A9EE87931BAD5B7700A63533 /* LangCodeModel.m */,
+				A9EE87941BAD5B7700A63533 /* LangName+CoreDataProperties.h */,
+				A9EE87951BAD5B7700A63533 /* LangName+CoreDataProperties.m */,
+				A9EE87961BAD5B7700A63533 /* LangName.h */,
+				A9EE87971BAD5B7700A63533 /* LangName.m */,
+				A9D645EB1BAD805A00E29D2A /* CachedResult+CoreDataProperties.h */,
+				A9D645EC1BAD805A00E29D2A /* CachedResult+CoreDataProperties.m */,
+				A9D645ED1BAD805A00E29D2A /* CachedResult.h */,
+				A9D645EE1BAD805A00E29D2A /* CachedResult.m */,
+				A9D646031BAD982C00E29D2A /* CoreDataTranslationManager.h */,
+				A9D646041BAD982C00E29D2A /* CoreDataTranslationManager.m */,
+			);
+			name = CoreData;
+			sourceTree = "<group>";
+		};
+		A9D646021BAD97F900E29D2A /* ApiClient */ = {
+			isa = PBXGroup;
+			children = (
+				A9D645F61BAD818F00E29D2A /* APNetworkClient.h */,
+				A9D645F71BAD818F00E29D2A /* APNetworkClient.m */,
+				A9D645F81BAD818F00E29D2A /* NSData+Base64.h */,
+				A9D645F91BAD818F00E29D2A /* NSData+Base64.m */,
+				A9D645FA1BAD818F00E29D2A /* NSDictionary+QueryString.h */,
+				A9D645FB1BAD818F00E29D2A /* NSDictionary+QueryString.m */,
+			);
+			name = ApiClient;
+			sourceTree = "<group>";
+		};
+		A9D646101BADAC1D00E29D2A /* JSONModel */ = {
+			isa = PBXGroup;
+			children = (
+				A9D646111BADAC1D00E29D2A /* JSONModel */,
+				A9D6461A1BADAC1D00E29D2A /* JSONModelCategories */,
+				A9D6461D1BADAC1D00E29D2A /* JSONModelLib.h */,
+				A9D6461E1BADAC1D00E29D2A /* JSONModelNetworking */,
+				A9D646251BADAC1D00E29D2A /* JSONModelTransformations */,
+			);
+			path = JSONModel;
+			sourceTree = "<group>";
+		};
+		A9D646111BADAC1D00E29D2A /* JSONModel */ = {
+			isa = PBXGroup;
+			children = (
+				A9D646121BADAC1D00E29D2A /* JSONModel.h */,
+				A9D646131BADAC1D00E29D2A /* JSONModel.m */,
+				A9D646141BADAC1D00E29D2A /* JSONModelArray.h */,
+				A9D646151BADAC1D00E29D2A /* JSONModelArray.m */,
+				A9D646161BADAC1D00E29D2A /* JSONModelClassProperty.h */,
+				A9D646171BADAC1D00E29D2A /* JSONModelClassProperty.m */,
+				A9D646181BADAC1D00E29D2A /* JSONModelError.h */,
+				A9D646191BADAC1D00E29D2A /* JSONModelError.m */,
+			);
+			path = JSONModel;
+			sourceTree = "<group>";
+		};
+		A9D6461A1BADAC1D00E29D2A /* JSONModelCategories */ = {
+			isa = PBXGroup;
+			children = (
+				A9D6461B1BADAC1D00E29D2A /* NSArray+JSONModel.h */,
+				A9D6461C1BADAC1D00E29D2A /* NSArray+JSONModel.m */,
+			);
+			path = JSONModelCategories;
+			sourceTree = "<group>";
+		};
+		A9D6461E1BADAC1D00E29D2A /* JSONModelNetworking */ = {
+			isa = PBXGroup;
+			children = (
+				A9D6461F1BADAC1D00E29D2A /* JSONAPI.h */,
+				A9D646201BADAC1D00E29D2A /* JSONAPI.m */,
+				A9D646211BADAC1D00E29D2A /* JSONHTTPClient.h */,
+				A9D646221BADAC1D00E29D2A /* JSONHTTPClient.m */,
+				A9D646231BADAC1D00E29D2A /* JSONModel+networking.h */,
+				A9D646241BADAC1D00E29D2A /* JSONModel+networking.m */,
+			);
+			path = JSONModelNetworking;
+			sourceTree = "<group>";
+		};
+		A9D646251BADAC1D00E29D2A /* JSONModelTransformations */ = {
+			isa = PBXGroup;
+			children = (
+				A9D646261BADAC1D00E29D2A /* JSONKeyMapper.h */,
+				A9D646271BADAC1D00E29D2A /* JSONKeyMapper.m */,
+				A9D646281BADAC1D00E29D2A /* JSONValueTransformer.h */,
+				A9D646291BADAC1D00E29D2A /* JSONValueTransformer.m */,
+			);
+			path = JSONModelTransformations;
 			sourceTree = "<group>";
 		};
 		A9EE873D1BAD4DC800A63533 = {
@@ -203,8 +391,8 @@
 		A9EE87841BAD549C00A63533 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				A9EE87871BAD54DA00A63533 /* CHCSVParser.h */,
-				A9EE87881BAD54DA00A63533 /* CHCSVParser.m */,
+				A9D645E11BAD7E5D00E29D2A /* MLPAutoCompleteTextField */,
+				A9D645E01BAD7E2200E29D2A /* CVSParser */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -219,16 +407,20 @@
 		A9EE87861BAD54AF00A63533 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				A9EE87901BAD5B7700A63533 /* LangCodeModel+CoreDataProperties.h */,
-				A9EE87911BAD5B7700A63533 /* LangCodeModel+CoreDataProperties.m */,
-				A9EE87921BAD5B7700A63533 /* LangCodeModel.h */,
-				A9EE87931BAD5B7700A63533 /* LangCodeModel.m */,
-				A9EE87941BAD5B7700A63533 /* LangName+CoreDataProperties.h */,
-				A9EE87951BAD5B7700A63533 /* LangName+CoreDataProperties.m */,
-				A9EE87961BAD5B7700A63533 /* LangName.h */,
-				A9EE87971BAD5B7700A63533 /* LangName.m */,
+				A9D646101BADAC1D00E29D2A /* JSONModel */,
+				A9D646021BAD97F900E29D2A /* ApiClient */,
+				A9D645F11BAD808F00E29D2A /* CoreData */,
 				A9D645DD1BAD764200E29D2A /* Constants.h */,
 				A9D645DE1BAD764200E29D2A /* Constants.m */,
+				A9D645F21BAD80D800E29D2A /* APIClient.h */,
+				A9D645F31BAD80D800E29D2A /* APIClient.m */,
+				A9D646091BAD992B00E29D2A /* TranslationDelegateProtocol.h */,
+				A9D645FF1BAD965800E29D2A /* TranslatorFacade.h */,
+				A9D646001BAD965800E29D2A /* TranslatorFacade.m */,
+				A9D6460A1BAD999800E29D2A /* Translator.h */,
+				A9D6460B1BAD999800E29D2A /* Translator.m */,
+				A9D6460D1BADA6BA00E29D2A /* Translation.h */,
+				A9D6460E1BADA6BA00E29D2A /* Translation.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -366,19 +558,41 @@
 			files = (
 				A9EE879B1BAD5B7700A63533 /* LangName.m in Sources */,
 				A9EE87991BAD5B7700A63533 /* LangCodeModel.m in Sources */,
+				A9D646051BAD982C00E29D2A /* CoreDataTranslationManager.m in Sources */,
 				A9D645D51BAD692600E29D2A /* ToLanguageCell.m in Sources */,
+				A9D6462E1BADAC1D00E29D2A /* NSArray+JSONModel.m in Sources */,
+				A9D646011BAD965800E29D2A /* TranslatorFacade.m in Sources */,
+				A9D645FD1BAD818F00E29D2A /* NSData+Base64.m in Sources */,
 				A9D645D81BAD694E00E29D2A /* WikiSuggestsCell.m in Sources */,
+				A9D6460C1BAD999800E29D2A /* Translator.m in Sources */,
 				A9EE87571BAD4DC800A63533 /* DetailViewController.m in Sources */,
+				A9D6462D1BADAC1D00E29D2A /* JSONModelError.m in Sources */,
 				A9D645DF1BAD764200E29D2A /* Constants.m in Sources */,
+				A9D646311BADAC1D00E29D2A /* JSONModel+networking.m in Sources */,
 				A9EE879A1BAD5B7700A63533 /* LangName+CoreDataProperties.m in Sources */,
+				A9D645EA1BAD7E5D00E29D2A /* NSString+Levenshtein.m in Sources */,
+				A9D6460F1BADA6BA00E29D2A /* Translation.m in Sources */,
+				A9D645FE1BAD818F00E29D2A /* NSDictionary+QueryString.m in Sources */,
 				A9EE87541BAD4DC800A63533 /* MasterViewController.m in Sources */,
 				A9D645DB1BAD696300E29D2A /* GoogleAudioCell.m in Sources */,
+				A9D645E91BAD7E5D00E29D2A /* MLPAutoCompleteTextField.m in Sources */,
+				A9D6462C1BADAC1D00E29D2A /* JSONModelClassProperty.m in Sources */,
+				A9D6462F1BADAC1D00E29D2A /* JSONAPI.m in Sources */,
 				A9EE87981BAD5B7700A63533 /* LangCodeModel+CoreDataProperties.m in Sources */,
+				A9D645EF1BAD805A00E29D2A /* CachedResult+CoreDataProperties.m in Sources */,
 				A9EE87891BAD54DA00A63533 /* CHCSVParser.m in Sources */,
 				A9D645D21BAD691000E29D2A /* FromLanguageCell.m in Sources */,
+				A9D646331BADAC1D00E29D2A /* JSONValueTransformer.m in Sources */,
+				A9D6462B1BADAC1D00E29D2A /* JSONModelArray.m in Sources */,
+				A9D6462A1BADAC1D00E29D2A /* JSONModel.m in Sources */,
+				A9D645F41BAD80D800E29D2A /* APIClient.m in Sources */,
 				A9EE874E1BAD4DC800A63533 /* AppDelegate.m in Sources */,
+				A9D646321BADAC1D00E29D2A /* JSONKeyMapper.m in Sources */,
+				A9D645FC1BAD818F00E29D2A /* APNetworkClient.m in Sources */,
+				A9D646301BADAC1D00E29D2A /* JSONHTTPClient.m in Sources */,
 				A9EE874B1BAD4DC800A63533 /* main.m in Sources */,
 				A9EE87511BAD4DC800A63533 /* CrossTranslator.xcdatamodeld in Sources */,
+				A9D645F01BAD805A00E29D2A /* CachedResult.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
