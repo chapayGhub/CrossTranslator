@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "Translator.h"
 
+
 @interface CoreDataTranslationManager : Translator
 
 @end

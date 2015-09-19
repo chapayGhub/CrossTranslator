@@ -18,8 +18,10 @@
 #import "Constants.h"
 
 #import "TranslatorFacade.h"
+#import "KnownWordsDataSource.h"
+#import "LanguageNamesDataSource.h"
 
-@interface MasterViewController ()
+@interface MasterViewController() <MLPAutoCompleteTextFieldDelegate>
 
 @property (strong, nonatomic) NSString *startLangCode;
 @property (strong, nonatomic) NSString *endLangCode;
@@ -36,6 +38,8 @@
 
 @property (strong, nonatomic) TranslatorFacade *translator;
 @property (strong, nonatomic) Translation *translation;
+@property (strong, nonatomic) KnownWordsDataSource * knownWordsDataSource;
+@property (strong, nonatomic) LanguageNamesDataSource *languageNamesDataSource;
 
 @end
 
@@ -44,13 +48,18 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    self.navigationItem.leftBarButtonItem = self.editButtonItem;
+    //self.navigationItem.leftBarButtonItem = self.editButtonItem;
     
     self.translator = [[TranslatorFacade alloc] init];
     //[self.translator translatePhrase:@"begin" from:@"en" to:@"it" completition:nil];
     
+    
+    
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     self.currentLanguage = [prefs objectForKey:kCurrentLang];
+    
+    self.knownWordsDataSource = [[KnownWordsDataSource alloc] initWithStartLanguage:self.startLangCode destinationLanguage:self.endLangCode];
+    self.languageNamesDataSource = [[LanguageNamesDataSource alloc] initWithUILanguage:self.currentLanguage];
     self.translation = nil;
     self.navigationItem.title = @"Back";
 }
@@ -85,19 +94,48 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == 0) {
         return 1;
-    }else if (section == 1){
+    }else if (section == 3){
         if (self.translation == nil) {
             return 0;
         }else{
             return [self.translation.result.tuc count];
         }
-    }else if (section == 2){
+    }else if (section == 1){
         return self.translation == nil ? 0 : 1;
-    }else if (section == 3){
+    }else if (section == 2){
         return self.translation == nil ? 0 : 1;
     }
     
     return 0;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    NSString *sectionName;
+    switch (section)
+    {
+        case 0:
+            sectionName = @"Input";
+            break;
+        case 1:
+            sectionName = @"Wiki Link";
+            break;
+        case 2:
+            sectionName = @"Play Audio";
+            break;
+        case 3:
+            sectionName = @"Translation";
+            break;
+        default:
+            sectionName = @"";
+            break;
+    }
+    return sectionName;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 30;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -112,17 +150,32 @@
         cell = (FromLanguageCell*)[tableView dequeueReusableCellWithIdentifier:fromLangCellID
                                                                   forIndexPath:indexPath];
         
-        [((FromLanguageCell*)cell).translate addTarget:self action:@selector(goTranslate) forControlEvents:UIControlEventTouchUpInside];
-    }else if (indexPath.section == 1){
+        [((FromLanguageCell*)cell).translate addTarget:self
+                                                action:@selector(goTranslate)
+                                      forControlEvents:UIControlEventTouchUpInside];
+        
+        self.inputText = ((FromLanguageCell*)cell).inputText;
+        self.inputText.autoCompleteDataSource = self.knownWordsDataSource;
+        self.inputText.autoCompleteDelegate = self;
+        
+        self.startLang = ((FromLanguageCell*)cell).fromLangValue;
+        self.startLang.autoCompleteDataSource = self.languageNamesDataSource;
+        self.startLang.autoCompleteDelegate = self;
+        
+        self.endLang = ((FromLanguageCell*)cell).toLangValue;
+        self.endLang.autoCompleteDataSource = self.languageNamesDataSource;
+        self.endLang.autoCompleteDelegate = self;
+
+    }else if (indexPath.section == 3){
         cell = (ToLanguageCell*)[tableView dequeueReusableCellWithIdentifier:toLangCellID
                                                                 forIndexPath:indexPath];
         Tuc *tuc = [self.translation.result.tuc objectAtIndex:indexPath.row];
         ((ToLanguageCell*)cell).translatePhrase.text = tuc.phrase.text;
         
-    }else if (indexPath.section == 2){
+    }else if (indexPath.section == 1){
         cell = (WikiSuggestsCell*)[tableView dequeueReusableCellWithIdentifier:wikiCellID
                                                                   forIndexPath:indexPath];
-    }else if (indexPath.section == 3){
+    }else if (indexPath.section == 2){
         cell = (GoogleAudioCell*)[tableView dequeueReusableCellWithIdentifier:googleAudioCellID
                                                                  forIndexPath:indexPath];
         
@@ -140,7 +193,6 @@
     return NO;
 }
 
-
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     NSManagedObject *object = [self.fetchedResultsController objectAtIndexPath:indexPath];
     cell.textLabel.text = [[object valueForKey:@"timeStamp"] description];
@@ -148,12 +200,12 @@
 
 - (double) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
-        return 195;
-    }else if (indexPath.section == 1){
-        return 134;
-    }else if (indexPath.section == 2){
-        return 44;
+        return 255;
     }else if (indexPath.section == 3){
+        return 134;
+    }else if (indexPath.section == 1){
+        return 44;
+    }else if (indexPath.section == 2){
         return 44;
     }
 
@@ -170,6 +222,21 @@
             [self.tableView reloadData];
         }
     }];
+}
+
+#pragma mark - Autocomplete Delegation
+
+- (void)autoCompleteTextField:(MLPAutoCompleteTextField *)textField
+  didSelectAutoCompleteString:(NSString *)selectedString
+       withAutoCompleteObject:(id<MLPAutoCompletionObject>)selectedObject
+            forRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+}
+
+- (void)autoCompleteTextField:(MLPAutoCompleteTextField *)textField
+ didChangeNumberOfSuggestions:(NSInteger)numberOfSuggestions{
+
+    
 }
 
 #pragma mark - Fetched results controller

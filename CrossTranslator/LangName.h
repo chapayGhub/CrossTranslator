@@ -8,10 +8,11 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
+#import "MLPAutoCompletionObject.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface LangName : NSManagedObject
+@interface LangName : NSManagedObject <MLPAutoCompletionObject>
 
 // Insert code here to declare functionality of your managed object subclass
 

@@ -38,6 +38,8 @@
 		A9D646431BADB85F00E29D2A /* DetailMeaningCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D646421BADB85F00E29D2A /* DetailMeaningCell.m */; settings = {ASSET_TAGS = (); }; };
 		A9D646461BADCAF200E29D2A /* NSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D646451BADCAF200E29D2A /* NSString+HTML.m */; settings = {ASSET_TAGS = (); }; };
 		A9D646491BADCB2500E29D2A /* GTMNSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D646481BADCB2500E29D2A /* GTMNSString+HTML.m */; settings = {ASSET_TAGS = (); }; };
+		A9D6468E1BADD96400E29D2A /* LanguageNamesDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D6468D1BADD96400E29D2A /* LanguageNamesDataSource.m */; settings = {ASSET_TAGS = (); }; };
+		A9D646911BADDC8600E29D2A /* KnownWordsDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D646901BADDC8600E29D2A /* KnownWordsDataSource.m */; settings = {ASSET_TAGS = (); }; };
 		A9EE874B1BAD4DC800A63533 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A9EE874A1BAD4DC800A63533 /* main.m */; };
 		A9EE874E1BAD4DC800A63533 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A9EE874D1BAD4DC800A63533 /* AppDelegate.m */; };
 		A9EE87511BAD4DC800A63533 /* CrossTranslator.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A9EE874F1BAD4DC800A63533 /* CrossTranslator.xcdatamodeld */; };
@@ -141,6 +143,10 @@
 		A9D646451BADCAF200E29D2A /* NSString+HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+HTML.m"; sourceTree = "<group>"; };
 		A9D646471BADCB2500E29D2A /* GTMNSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GTMNSString+HTML.h"; sourceTree = "<group>"; };
 		A9D646481BADCB2500E29D2A /* GTMNSString+HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GTMNSString+HTML.m"; sourceTree = "<group>"; };
+		A9D6468C1BADD96400E29D2A /* LanguageNamesDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LanguageNamesDataSource.h; path = model/LanguageNamesDataSource.h; sourceTree = "<group>"; };
+		A9D6468D1BADD96400E29D2A /* LanguageNamesDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LanguageNamesDataSource.m; path = model/LanguageNamesDataSource.m; sourceTree = "<group>"; };
+		A9D6468F1BADDC8600E29D2A /* KnownWordsDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KnownWordsDataSource.h; path = model/KnownWordsDataSource.h; sourceTree = "<group>"; };
+		A9D646901BADDC8600E29D2A /* KnownWordsDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KnownWordsDataSource.m; path = model/KnownWordsDataSource.m; sourceTree = "<group>"; };
 		A9EE87461BAD4DC800A63533 /* CrossTranslator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CrossTranslator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A9EE874A1BAD4DC800A63533 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		A9EE874C1BAD4DC800A63533 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -255,6 +261,10 @@
 				A9D645EE1BAD805A00E29D2A /* CachedResult.m */,
 				A9D646031BAD982C00E29D2A /* CoreDataTranslationManager.h */,
 				A9D646041BAD982C00E29D2A /* CoreDataTranslationManager.m */,
+				A9D6468C1BADD96400E29D2A /* LanguageNamesDataSource.h */,
+				A9D6468D1BADD96400E29D2A /* LanguageNamesDataSource.m */,
+				A9D6468F1BADDC8600E29D2A /* KnownWordsDataSource.h */,
+				A9D646901BADDC8600E29D2A /* KnownWordsDataSource.m */,
 			);
 			name = CoreData;
 			sourceTree = "<group>";
@@ -581,6 +591,7 @@
 				A9D646461BADCAF200E29D2A /* NSString+HTML.m in Sources */,
 				A9D646051BAD982C00E29D2A /* CoreDataTranslationManager.m in Sources */,
 				A9D645D51BAD692600E29D2A /* ToLanguageCell.m in Sources */,
+				A9D6468E1BADD96400E29D2A /* LanguageNamesDataSource.m in Sources */,
 				A9D6462E1BADAC1D00E29D2A /* NSArray+JSONModel.m in Sources */,
 				A9D646011BAD965800E29D2A /* TranslatorFacade.m in Sources */,
 				A9D645FD1BAD818F00E29D2A /* NSData+Base64.m in Sources */,
@@ -592,6 +603,7 @@
 				A9D645DF1BAD764200E29D2A /* Constants.m in Sources */,
 				A9D6463D1BADAD3B00E29D2A /* Phrase.m in Sources */,
 				A9EE879A1BAD5B7700A63533 /* LangName+CoreDataProperties.m in Sources */,
+				A9D646911BADDC8600E29D2A /* KnownWordsDataSource.m in Sources */,
 				A9D646401BADAD4B00E29D2A /* Meaning.m in Sources */,
 				A9D645EA1BAD7E5D00E29D2A /* NSString+Levenshtein.m in Sources */,
 				A9D646491BADCB2500E29D2A /* GTMNSString+HTML.m in Sources */,
