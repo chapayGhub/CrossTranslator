@@ -9,6 +9,7 @@
 #import "TranslatorFacade.h"
 #import "APNetworkClient.h"
 #import "CoreDataTranslationManager.h"
+#import "Translation.h"
 
 
 @interface TranslatorFacade ()
@@ -16,7 +17,11 @@
 @property (strong, nonatomic) APNetworkClient *apiClient;
 @property (strong, nonatomic) CoreDataTranslationManager *localTranslator;
 
-@property (copy, nonatomic) void (^completition)(NSError *error, NSString* translation);
+@property (copy, nonatomic) void (^completition)(NSError *error, Translation* translation);
+
+@property (strong, nonatomic) NSString *from;
+@property (strong, nonatomic) NSString *to;
+@property (strong, nonatomic) NSString *phrase;
 
 @end
 
@@ -35,24 +40,28 @@
 - (void) translatePhrase:(NSString*) phrase
                     from:(NSString*)startLanguage
                       to:(NSString*)endLanguage
-            completition:(void (^)(NSError *error, NSString* translation))completition{
+            completition:(void (^)(NSError *error, Translation* translation))completition{
     self.completition = completition;
+    self.from = startLanguage;
+    self.to = endLanguage;
+    self.phrase = phrase;
     
-    [self.apiClient translatePhrase:phrase from:startLanguage to:endLanguage];
+    [self.localTranslator translatePhrase:phrase from:startLanguage to:endLanguage];
+    
     
 }
 
-- (void) translationForPhrase:(NSString*)phrase
-                           is:(NSString*)translation
-                         from:(NSString*)fromLanguage
-                           to:(NSString*)toLanguage
-                      isLocal:(BOOL)local
-                        error:(NSError*)error{
+- (void) translation:(Translation*)result
+             isLocal:(BOOL)local
+               error:(NSError*)error{
     if (local) {
-        
-        
+        if (error) {
+            [self.apiClient translatePhrase:self.phrase from:self.from to:self.to];
+        }else{
+            self.completition(error,result);
+        }
     }else{
-        
+        self.completition(error,result);
     }
     
 }

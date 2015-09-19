@@ -8,13 +8,13 @@
 
 #import <Foundation/Foundation.h>
 #import "TranslationDelegateProtocol.h"
+#import "Translation.h"
 
 @interface TranslatorFacade : NSObject<TranslationDelegateProtocol>
-
 
 - (void) translatePhrase:(NSString*) phrase
                     from:(NSString*) startLanguage
                       to:(NSString*) endLanguage
-            completition:(void (^)(NSError *error, NSString* translation))completition;
+            completition:(void (^)(NSError *error, Translation* translation))completition;
 
 @end

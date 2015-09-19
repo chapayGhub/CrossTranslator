@@ -7,14 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Translation.h"
 
 @protocol TranslationDelegateProtocol <NSObject>
 
-- (void) translationForPhrase:(NSString*)phrase
-                           is:(NSString*)translation
-                         from:(NSString*)fromLanguage
-                           to:(NSString*)toLanguage
-                      isLocal:(BOOL)local
-                        error:(NSError*)error;
+- (void) translation:(Translation*)result
+             isLocal:(BOOL)local
+               error:(NSError*)error;
 
 @end

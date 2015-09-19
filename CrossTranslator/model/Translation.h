@@ -7,7 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "TranslationResponse.h"
 
 @interface Translation : NSObject
+
+@property (strong, nonatomic) NSString *fromLanguage;
+@property (strong, nonatomic) NSString *toLanguage;
+@property (strong, nonatomic) NSString *phrase;
+@property (strong, nonatomic) TranslationResponse *result;
 
 @end

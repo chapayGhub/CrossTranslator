@@ -9,7 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "APNetworkClient.h"
 #import "NSData+Base64.h"
-#import <CommonCrypto/CommonDigest.h>
+#import "TranslationResponse.h"
+
 
 static NSString *TRANSLATE_URL = @"https://glosbe.com/gapi/translate";
 
@@ -50,7 +51,7 @@ static NSString *TRANSLATE_URL = @"https://glosbe.com/gapi/translate";
                                                                                   NSError *error){
           if (error) {
               dispatch_async(dispatch_get_main_queue(), ^{
-                  
+                  [self.delegate translation:nil isLocal:NO error:error];
               });
               return;
           }
@@ -58,22 +59,30 @@ static NSString *TRANSLATE_URL = @"https://glosbe.com/gapi/translate";
           
           if (httpResponse.statusCode == 200){
               NSError *jsonError = nil;
-              NSDictionary *translationJSON =
-              [NSJSONSerialization JSONObjectWithData:data
-                                              options:NSJSONReadingAllowFragments
-                                                error:&jsonError];
+              TranslationResponse *resp = [[TranslationResponse alloc] initWithData:data error:&jsonError];
+              Translation *translation = [[Translation alloc] init];
+              translation.result = resp;
+              translation.fromLanguage = fromLang;
+              translation.toLanguage = toLang;
+              translation.phrase = phrase;
               
               if (!jsonError) {                    
                   dispatch_async(dispatch_get_main_queue(), ^{
+                      [self.delegate translation:translation isLocal:NO error:nil];
                       
                   });
+              }else{
+                  dispatch_async(dispatch_get_main_queue(), ^{
+                      [self.delegate translation:nil isLocal:NO error:jsonError];
+                  });
               }
-              
-              
-              
           }else{
+              NSError *requestError;
+              NSMutableDictionary* details = [NSMutableDictionary dictionary];
+              [details setValue:@"Network API call error" forKey:NSLocalizedDescriptionKey];
+              requestError = [NSError errorWithDomain:@"NetworkAPI" code:httpResponse.statusCode userInfo:details];
               dispatch_async(dispatch_get_main_queue(), ^{
-                  
+                  [self.delegate translation:nil isLocal:NO error:requestError];
               });
           }
                                                                   

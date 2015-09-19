@@ -34,6 +34,10 @@
 		A9D646311BADAC1D00E29D2A /* JSONModel+networking.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D646241BADAC1D00E29D2A /* JSONModel+networking.m */; settings = {ASSET_TAGS = (); }; };
 		A9D646321BADAC1D00E29D2A /* JSONKeyMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D646271BADAC1D00E29D2A /* JSONKeyMapper.m */; settings = {ASSET_TAGS = (); }; };
 		A9D646331BADAC1D00E29D2A /* JSONValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D646291BADAC1D00E29D2A /* JSONValueTransformer.m */; settings = {ASSET_TAGS = (); }; };
+		A9D646361BADAC9100E29D2A /* TranslationResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D646351BADAC9100E29D2A /* TranslationResponse.m */; settings = {ASSET_TAGS = (); }; };
+		A9D6463A1BADAD0700E29D2A /* Tuc.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D646391BADAD0700E29D2A /* Tuc.m */; settings = {ASSET_TAGS = (); }; };
+		A9D6463D1BADAD3B00E29D2A /* Phrase.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D6463C1BADAD3B00E29D2A /* Phrase.m */; settings = {ASSET_TAGS = (); }; };
+		A9D646401BADAD4B00E29D2A /* Meaning.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D6463F1BADAD4B00E29D2A /* Meaning.m */; settings = {ASSET_TAGS = (); }; };
 		A9EE874B1BAD4DC800A63533 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A9EE874A1BAD4DC800A63533 /* main.m */; };
 		A9EE874E1BAD4DC800A63533 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A9EE874D1BAD4DC800A63533 /* AppDelegate.m */; };
 		A9EE87511BAD4DC800A63533 /* CrossTranslator.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A9EE874F1BAD4DC800A63533 /* CrossTranslator.xcdatamodeld */; };
@@ -129,6 +133,14 @@
 		A9D646271BADAC1D00E29D2A /* JSONKeyMapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKeyMapper.m; sourceTree = "<group>"; };
 		A9D646281BADAC1D00E29D2A /* JSONValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONValueTransformer.h; sourceTree = "<group>"; };
 		A9D646291BADAC1D00E29D2A /* JSONValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONValueTransformer.m; sourceTree = "<group>"; };
+		A9D646341BADAC9100E29D2A /* TranslationResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TranslationResponse.h; path = model/TranslationResponse.h; sourceTree = "<group>"; };
+		A9D646351BADAC9100E29D2A /* TranslationResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TranslationResponse.m; path = model/TranslationResponse.m; sourceTree = "<group>"; };
+		A9D646381BADAD0700E29D2A /* Tuc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Tuc.h; path = model/Tuc.h; sourceTree = "<group>"; };
+		A9D646391BADAD0700E29D2A /* Tuc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Tuc.m; path = model/Tuc.m; sourceTree = "<group>"; };
+		A9D6463B1BADAD3B00E29D2A /* Phrase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Phrase.h; path = model/Phrase.h; sourceTree = "<group>"; };
+		A9D6463C1BADAD3B00E29D2A /* Phrase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Phrase.m; path = model/Phrase.m; sourceTree = "<group>"; };
+		A9D6463E1BADAD4B00E29D2A /* Meaning.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Meaning.h; path = model/Meaning.h; sourceTree = "<group>"; };
+		A9D6463F1BADAD4B00E29D2A /* Meaning.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Meaning.m; path = model/Meaning.m; sourceTree = "<group>"; };
 		A9EE87461BAD4DC800A63533 /* CrossTranslator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CrossTranslator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A9EE874A1BAD4DC800A63533 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		A9EE874C1BAD4DC800A63533 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -318,6 +330,23 @@
 			path = JSONModelTransformations;
 			sourceTree = "<group>";
 		};
+		A9D646371BADAC9B00E29D2A /* Translation */ = {
+			isa = PBXGroup;
+			children = (
+				A9D6460D1BADA6BA00E29D2A /* Translation.h */,
+				A9D6460E1BADA6BA00E29D2A /* Translation.m */,
+				A9D646341BADAC9100E29D2A /* TranslationResponse.h */,
+				A9D646351BADAC9100E29D2A /* TranslationResponse.m */,
+				A9D646381BADAD0700E29D2A /* Tuc.h */,
+				A9D646391BADAD0700E29D2A /* Tuc.m */,
+				A9D6463B1BADAD3B00E29D2A /* Phrase.h */,
+				A9D6463C1BADAD3B00E29D2A /* Phrase.m */,
+				A9D6463E1BADAD4B00E29D2A /* Meaning.h */,
+				A9D6463F1BADAD4B00E29D2A /* Meaning.m */,
+			);
+			name = Translation;
+			sourceTree = "<group>";
+		};
 		A9EE873D1BAD4DC800A63533 = {
 			isa = PBXGroup;
 			children = (
@@ -410,6 +439,7 @@
 				A9D646101BADAC1D00E29D2A /* JSONModel */,
 				A9D646021BAD97F900E29D2A /* ApiClient */,
 				A9D645F11BAD808F00E29D2A /* CoreData */,
+				A9D646371BADAC9B00E29D2A /* Translation */,
 				A9D645DD1BAD764200E29D2A /* Constants.h */,
 				A9D645DE1BAD764200E29D2A /* Constants.m */,
 				A9D645F21BAD80D800E29D2A /* APIClient.h */,
@@ -419,8 +449,6 @@
 				A9D646001BAD965800E29D2A /* TranslatorFacade.m */,
 				A9D6460A1BAD999800E29D2A /* Translator.h */,
 				A9D6460B1BAD999800E29D2A /* Translator.m */,
-				A9D6460D1BADA6BA00E29D2A /* Translation.h */,
-				A9D6460E1BADA6BA00E29D2A /* Translation.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -564,12 +592,15 @@
 				A9D646011BAD965800E29D2A /* TranslatorFacade.m in Sources */,
 				A9D645FD1BAD818F00E29D2A /* NSData+Base64.m in Sources */,
 				A9D645D81BAD694E00E29D2A /* WikiSuggestsCell.m in Sources */,
+				A9D646361BADAC9100E29D2A /* TranslationResponse.m in Sources */,
 				A9D6460C1BAD999800E29D2A /* Translator.m in Sources */,
 				A9EE87571BAD4DC800A63533 /* DetailViewController.m in Sources */,
 				A9D6462D1BADAC1D00E29D2A /* JSONModelError.m in Sources */,
 				A9D645DF1BAD764200E29D2A /* Constants.m in Sources */,
 				A9D646311BADAC1D00E29D2A /* JSONModel+networking.m in Sources */,
+				A9D6463D1BADAD3B00E29D2A /* Phrase.m in Sources */,
 				A9EE879A1BAD5B7700A63533 /* LangName+CoreDataProperties.m in Sources */,
+				A9D646401BADAD4B00E29D2A /* Meaning.m in Sources */,
 				A9D645EA1BAD7E5D00E29D2A /* NSString+Levenshtein.m in Sources */,
 				A9D6460F1BADA6BA00E29D2A /* Translation.m in Sources */,
 				A9D645FE1BAD818F00E29D2A /* NSDictionary+QueryString.m in Sources */,
@@ -585,6 +616,7 @@
 				A9D646331BADAC1D00E29D2A /* JSONValueTransformer.m in Sources */,
 				A9D6462B1BADAC1D00E29D2A /* JSONModelArray.m in Sources */,
 				A9D6462A1BADAC1D00E29D2A /* JSONModel.m in Sources */,
+				A9D6463A1BADAD0700E29D2A /* Tuc.m in Sources */,
 				A9D645F41BAD80D800E29D2A /* APIClient.m in Sources */,
 				A9EE874E1BAD4DC800A63533 /* AppDelegate.m in Sources */,
 				A9D646321BADAC1D00E29D2A /* JSONKeyMapper.m in Sources */,
