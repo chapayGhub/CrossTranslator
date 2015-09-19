@@ -45,10 +45,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     self.navigationItem.leftBarButtonItem = self.editButtonItem;
-
-//    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
-//    self.navigationItem.rightBarButtonItem = addButton;
-    self.detailViewController = (DetailViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
     
     self.translator = [[TranslatorFacade alloc] init];
     //[self.translator translatePhrase:@"begin" from:@"en" to:@"it" completition:nil];
@@ -56,10 +52,10 @@
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     self.currentLanguage = [prefs objectForKey:kCurrentLang];
     self.translation = nil;
+    self.navigationItem.title = @"Back";
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    self.clearsSelectionOnViewWillAppear = self.splitViewController.isCollapsed;
     [super viewWillAppear:animated];
 }
 
@@ -71,10 +67,10 @@
 #pragma mark - Segues
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([[segue identifier] isEqualToString:@"showDetail"]) {
+    if ([[segue identifier] isEqualToString:@"showMeaning"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
         Tuc *object = [self.translation.result.tuc objectAtIndex:indexPath.row];
-        DetailViewController *controller = (DetailViewController *)[[segue destinationViewController] topViewController];
+        DetailViewController *controller = (DetailViewController *)[segue destinationViewController];
         controller.tuc = object;
         controller.navigationItem.leftItemsSupplementBackButton = YES;
     }

@@ -8,6 +8,7 @@
 
 #import "DetailViewController.h"
 #import "DetailMeaningCell.h"
+#import "NSString+HTML.h"
 
 @interface DetailViewController ()
 
@@ -37,7 +38,7 @@
                                                                                forIndexPath:indexPath];
     
     Meaning *meaning = [self.tuc.meanings objectAtIndex:indexPath.row];
-    cell.meaningValue.text = meaning.text;
+    cell.meaningValue.text = [meaning.text stringByConvertingHTMLToPlainText];
     
 
     return cell;
