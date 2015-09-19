@@ -12,6 +12,7 @@
 
 
 - (void) translatePhrase:(NSString*)phrase from:(NSString*)fromLang to:(NSString*)toLang{
-    
+    NSError *error = [NSError errorWithDomain:@"LocalError" code:112 userInfo:nil];
+    [self.delegate translation:nil isLocal:YES error:error];
 }
 @end

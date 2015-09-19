@@ -16,7 +16,7 @@
 
 @interface Tuc : JSONModel
 
-@property (strong, nonatomic) Phrase *phrase;
-@property (strong, nonatomic) NSArray<Meaning*> *meanings;
+@property (strong, nonatomic) Phrase<Optional> *phrase;
+@property (strong, nonatomic) NSArray<Meaning, Optional> *meanings;
 
 @end

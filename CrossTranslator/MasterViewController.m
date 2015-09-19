@@ -21,10 +21,6 @@
 
 @interface MasterViewController ()
 
-@property (strong, nonatomic) NSMutableArray *wikiSuggestions;
-
-
-
 @property (strong, nonatomic) NSString *startLangCode;
 @property (strong, nonatomic) NSString *endLangCode;
 @property (strong, nonatomic) NSString *inputString;
@@ -39,6 +35,7 @@
 @property (strong, nonatomic) NSNumber *currentLanguage;
 
 @property (strong, nonatomic) TranslatorFacade *translator;
+@property (strong, nonatomic) Translation *translation;
 
 @end
 
@@ -54,10 +51,11 @@
     self.detailViewController = (DetailViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
     
     self.translator = [[TranslatorFacade alloc] init];
-    [self.translator translatePhrase:@"begin" from:@"en" to:@"it" completition:nil];
+    //[self.translator translatePhrase:@"begin" from:@"en" to:@"it" completition:nil];
     
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     self.currentLanguage = [prefs objectForKey:kCurrentLang];
+    self.translation = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -75,10 +73,9 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([[segue identifier] isEqualToString:@"showDetail"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        NSManagedObject *object = [[self fetchedResultsController] objectAtIndexPath:indexPath];
+        Tuc *object = [self.translation.result.tuc objectAtIndex:indexPath.row];
         DetailViewController *controller = (DetailViewController *)[[segue destinationViewController] topViewController];
-        [controller setDetailItem:object];
-        controller.navigationItem.leftBarButtonItem = self.splitViewController.displayModeButtonItem;
+        controller.tuc = object;
         controller.navigationItem.leftItemsSupplementBackButton = YES;
     }
 }
@@ -86,17 +83,24 @@
 #pragma mark - Table View
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 3;
+    return self.translation == nil ? 1 : 4;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == 0) {
-        return 2;
-    }else if (section == 1){
-        [self.wikiSuggestions count];
-    }else{
         return 1;
+    }else if (section == 1){
+        if (self.translation == nil) {
+            return 0;
+        }else{
+            return [self.translation.result.tuc count];
+        }
+    }else if (section == 2){
+        return self.translation == nil ? 0 : 1;
+    }else if (section == 3){
+        return self.translation == nil ? 0 : 1;
     }
+    
     return 0;
 }
 
@@ -109,22 +113,24 @@
     UITableViewCell *cell;
     
     if (indexPath.section == 0) {
-        if (indexPath.row == 0) {
-            cell = (FromLanguageCell*)[tableView dequeueReusableCellWithIdentifier:fromLangCellID
-                                                                      forIndexPath:indexPath];
-            
-        }else if (indexPath.row == 1){
-            cell = (ToLanguageCell*)[tableView dequeueReusableCellWithIdentifier:toLangCellID
-                                                                      forIndexPath:indexPath];
-        }
+        cell = (FromLanguageCell*)[tableView dequeueReusableCellWithIdentifier:fromLangCellID
+                                                                  forIndexPath:indexPath];
+        
+        [((FromLanguageCell*)cell).translate addTarget:self action:@selector(goTranslate) forControlEvents:UIControlEventTouchUpInside];
     }else if (indexPath.section == 1){
+        cell = (ToLanguageCell*)[tableView dequeueReusableCellWithIdentifier:toLangCellID
+                                                                forIndexPath:indexPath];
+        Tuc *tuc = [self.translation.result.tuc objectAtIndex:indexPath.row];
+        ((ToLanguageCell*)cell).translatePhrase.text = tuc.phrase.text;
+        
+    }else if (indexPath.section == 2){
         cell = (WikiSuggestsCell*)[tableView dequeueReusableCellWithIdentifier:wikiCellID
                                                                   forIndexPath:indexPath];
-    }else{
+    }else if (indexPath.section == 3){
         cell = (GoogleAudioCell*)[tableView dequeueReusableCellWithIdentifier:googleAudioCellID
-                                                                  forIndexPath:indexPath];
+                                                                 forIndexPath:indexPath];
+        
     }
-
     return cell;
 }
 
@@ -146,17 +152,28 @@
 
 - (double) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
-        if (indexPath.row == 0) {
-            return 195;
-        }else if (indexPath.row == 1){
-            return 149;
-        }
+        return 195;
     }else if (indexPath.section == 1){
+        return 134;
+    }else if (indexPath.section == 2){
         return 44;
-    }else{
+    }else if (indexPath.section == 3){
         return 44;
     }
+
     return 44;
+}
+
+- (void) goTranslate{
+    
+    
+    
+    [self.translator translatePhrase:@"begin" from:@"en" to:@"it" completition:^(NSError *error, Translation *result){
+        if (error == nil) {
+            self.translation = result;
+            [self.tableView reloadData];
+        }
+    }];
 }
 
 #pragma mark - Fetched results controller

@@ -11,7 +11,7 @@
 
 @interface TranslationResponse : JSONModel
 
-@property (strong, nonatomic) NSArray<Tuc*> *tuc;
+@property (strong, nonatomic) NSArray<Tuc> *tuc;
 @property (strong, nonatomic) NSString *result;
 
 @end
