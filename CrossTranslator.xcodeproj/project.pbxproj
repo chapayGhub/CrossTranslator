@@ -16,7 +16,6 @@
 		A9D645EA1BAD7E5D00E29D2A /* NSString+Levenshtein.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D645E81BAD7E5D00E29D2A /* NSString+Levenshtein.m */; settings = {ASSET_TAGS = (); }; };
 		A9D645EF1BAD805A00E29D2A /* CachedResult+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D645EC1BAD805A00E29D2A /* CachedResult+CoreDataProperties.m */; settings = {ASSET_TAGS = (); }; };
 		A9D645F01BAD805A00E29D2A /* CachedResult.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D645EE1BAD805A00E29D2A /* CachedResult.m */; settings = {ASSET_TAGS = (); }; };
-		A9D645F41BAD80D800E29D2A /* APIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D645F31BAD80D800E29D2A /* APIClient.m */; settings = {ASSET_TAGS = (); }; };
 		A9D645FC1BAD818F00E29D2A /* APNetworkClient.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D645F71BAD818F00E29D2A /* APNetworkClient.m */; settings = {ASSET_TAGS = (); }; };
 		A9D645FD1BAD818F00E29D2A /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D645F91BAD818F00E29D2A /* NSData+Base64.m */; settings = {ASSET_TAGS = (); }; };
 		A9D645FE1BAD818F00E29D2A /* NSDictionary+QueryString.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D645FB1BAD818F00E29D2A /* NSDictionary+QueryString.m */; settings = {ASSET_TAGS = (); }; };
@@ -40,9 +39,9 @@
 		A9D646491BADCB2500E29D2A /* GTMNSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D646481BADCB2500E29D2A /* GTMNSString+HTML.m */; settings = {ASSET_TAGS = (); }; };
 		A9D6468E1BADD96400E29D2A /* LanguageNamesDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D6468D1BADD96400E29D2A /* LanguageNamesDataSource.m */; settings = {ASSET_TAGS = (); }; };
 		A9D646911BADDC8600E29D2A /* KnownWordsDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D646901BADDC8600E29D2A /* KnownWordsDataSource.m */; settings = {ASSET_TAGS = (); }; };
-		A9D646941BAE165100E29D2A /* LangSuggestionObject.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D646931BAE165100E29D2A /* LangSuggestionObject.m */; settings = {ASSET_TAGS = (); }; };
 		A9D646971BAE290700E29D2A /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9D646961BAE290700E29D2A /* AVFoundation.framework */; };
 		A9D646991BAE290E00E29D2A /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9D646981BAE290E00E29D2A /* AudioToolbox.framework */; };
+		A9D646A11BAECFD900E29D2A /* SelectLangViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D646A01BAECFD900E29D2A /* SelectLangViewController.m */; settings = {ASSET_TAGS = (); }; };
 		A9EE874B1BAD4DC800A63533 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A9EE874A1BAD4DC800A63533 /* main.m */; };
 		A9EE874E1BAD4DC800A63533 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A9EE874D1BAD4DC800A63533 /* AppDelegate.m */; };
 		A9EE87511BAD4DC800A63533 /* CrossTranslator.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A9EE874F1BAD4DC800A63533 /* CrossTranslator.xcdatamodeld */; };
@@ -100,8 +99,6 @@
 		A9D645EC1BAD805A00E29D2A /* CachedResult+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "CachedResult+CoreDataProperties.m"; path = "model/CachedResult+CoreDataProperties.m"; sourceTree = "<group>"; };
 		A9D645ED1BAD805A00E29D2A /* CachedResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CachedResult.h; path = model/CachedResult.h; sourceTree = "<group>"; };
 		A9D645EE1BAD805A00E29D2A /* CachedResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CachedResult.m; path = model/CachedResult.m; sourceTree = "<group>"; };
-		A9D645F21BAD80D800E29D2A /* APIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = APIClient.h; path = model/APIClient.h; sourceTree = "<group>"; };
-		A9D645F31BAD80D800E29D2A /* APIClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = APIClient.m; path = model/APIClient.m; sourceTree = "<group>"; };
 		A9D645F61BAD818F00E29D2A /* APNetworkClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APNetworkClient.h; sourceTree = "<group>"; };
 		A9D645F71BAD818F00E29D2A /* APNetworkClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APNetworkClient.m; sourceTree = "<group>"; };
 		A9D645F81BAD818F00E29D2A /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
@@ -150,11 +147,11 @@
 		A9D6468D1BADD96400E29D2A /* LanguageNamesDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LanguageNamesDataSource.m; path = model/LanguageNamesDataSource.m; sourceTree = "<group>"; };
 		A9D6468F1BADDC8600E29D2A /* KnownWordsDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KnownWordsDataSource.h; path = model/KnownWordsDataSource.h; sourceTree = "<group>"; };
 		A9D646901BADDC8600E29D2A /* KnownWordsDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KnownWordsDataSource.m; path = model/KnownWordsDataSource.m; sourceTree = "<group>"; };
-		A9D646921BAE165100E29D2A /* LangSuggestionObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LangSuggestionObject.h; path = model/LangSuggestionObject.h; sourceTree = "<group>"; };
-		A9D646931BAE165100E29D2A /* LangSuggestionObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LangSuggestionObject.m; path = model/LangSuggestionObject.m; sourceTree = "<group>"; };
 		A9D646961BAE290700E29D2A /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		A9D646981BAE290E00E29D2A /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		A9D6469A1BAE291C00E29D2A /* AudioUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioUnit.framework; path = System/Library/Frameworks/AudioUnit.framework; sourceTree = SDKROOT; };
+		A9D6469F1BAECFD900E29D2A /* SelectLangViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectLangViewController.h; sourceTree = "<group>"; };
+		A9D646A01BAECFD900E29D2A /* SelectLangViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectLangViewController.m; sourceTree = "<group>"; };
 		A9EE87461BAD4DC800A63533 /* CrossTranslator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CrossTranslator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A9EE874A1BAD4DC800A63533 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		A9EE874C1BAD4DC800A63533 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -257,6 +254,7 @@
 		A9D645F11BAD808F00E29D2A /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
+				A9D646951BAE165C00E29D2A /* Suggestions */,
 				A9EE87901BAD5B7700A63533 /* LangCodeModel+CoreDataProperties.h */,
 				A9EE87911BAD5B7700A63533 /* LangCodeModel+CoreDataProperties.m */,
 				A9EE87921BAD5B7700A63533 /* LangCodeModel.h */,
@@ -271,7 +269,6 @@
 				A9D645EE1BAD805A00E29D2A /* CachedResult.m */,
 				A9D646031BAD982C00E29D2A /* CoreDataTranslationManager.h */,
 				A9D646041BAD982C00E29D2A /* CoreDataTranslationManager.m */,
-				A9D646951BAE165C00E29D2A /* Suggestions */,
 			);
 			name = CoreData;
 			sourceTree = "<group>";
@@ -363,8 +360,6 @@
 				A9D6468D1BADD96400E29D2A /* LanguageNamesDataSource.m */,
 				A9D6468F1BADDC8600E29D2A /* KnownWordsDataSource.h */,
 				A9D646901BADDC8600E29D2A /* KnownWordsDataSource.m */,
-				A9D646921BAE165100E29D2A /* LangSuggestionObject.h */,
-				A9D646931BAE165100E29D2A /* LangSuggestionObject.m */,
 			);
 			name = Suggestions;
 			sourceTree = "<group>";
@@ -405,6 +400,8 @@
 				A9EE87531BAD4DC800A63533 /* MasterViewController.m */,
 				A9EE87551BAD4DC800A63533 /* DetailViewController.h */,
 				A9EE87561BAD4DC800A63533 /* DetailViewController.m */,
+				A9D6469F1BAECFD900E29D2A /* SelectLangViewController.h */,
+				A9D646A01BAECFD900E29D2A /* SelectLangViewController.m */,
 				A9EE87581BAD4DC800A63533 /* Main.storyboard */,
 				A9EE875B1BAD4DC800A63533 /* Assets.xcassets */,
 				A9EE875D1BAD4DC800A63533 /* LaunchScreen.storyboard */,
@@ -467,8 +464,6 @@
 				A9D646371BADAC9B00E29D2A /* Translation */,
 				A9D645DD1BAD764200E29D2A /* Constants.h */,
 				A9D645DE1BAD764200E29D2A /* Constants.m */,
-				A9D645F21BAD80D800E29D2A /* APIClient.h */,
-				A9D645F31BAD80D800E29D2A /* APIClient.m */,
 				A9D646091BAD992B00E29D2A /* TranslationDelegateProtocol.h */,
 				A9D645FF1BAD965800E29D2A /* TranslatorFacade.h */,
 				A9D646001BAD965800E29D2A /* TranslatorFacade.m */,
@@ -628,7 +623,6 @@
 				A9D6463D1BADAD3B00E29D2A /* Phrase.m in Sources */,
 				A9EE879A1BAD5B7700A63533 /* LangName+CoreDataProperties.m in Sources */,
 				A9D646911BADDC8600E29D2A /* KnownWordsDataSource.m in Sources */,
-				A9D646941BAE165100E29D2A /* LangSuggestionObject.m in Sources */,
 				A9D646401BADAD4B00E29D2A /* Meaning.m in Sources */,
 				A9D645EA1BAD7E5D00E29D2A /* NSString+Levenshtein.m in Sources */,
 				A9D646491BADCB2500E29D2A /* GTMNSString+HTML.m in Sources */,
@@ -646,8 +640,8 @@
 				A9D6462B1BADAC1D00E29D2A /* JSONModelArray.m in Sources */,
 				A9D6462A1BADAC1D00E29D2A /* JSONModel.m in Sources */,
 				A9D6463A1BADAD0700E29D2A /* Tuc.m in Sources */,
-				A9D645F41BAD80D800E29D2A /* APIClient.m in Sources */,
 				A9EE874E1BAD4DC800A63533 /* AppDelegate.m in Sources */,
+				A9D646A11BAECFD900E29D2A /* SelectLangViewController.m in Sources */,
 				A9D646321BADAC1D00E29D2A /* JSONKeyMapper.m in Sources */,
 				A9D646431BADB85F00E29D2A /* DetailMeaningCell.m in Sources */,
 				A9D645FC1BAD818F00E29D2A /* APNetworkClient.m in Sources */,

@@ -15,4 +15,6 @@
 
 - (NSString*) getLangNameForCode:(NSString*)code;
 
+- (void) changeLanguage:(NSNumber*) uiLanguage;
+
 @end

@@ -21,9 +21,11 @@
 #import "KnownWordsDataSource.h"
 #import "LanguageNamesDataSource.h"
 #import "LangCodeModel.h"
+#import "NSString+HTML.h"
+#import "SelectLangViewController.h"
 
 
-@interface MasterViewController() <MLPAutoCompleteTextFieldDelegate>
+@interface MasterViewController() <MLPAutoCompleteTextFieldDelegate,LanguageChangedDelegate>
 
 @property (strong, nonatomic) NSString *startLangCode;
 @property (strong, nonatomic) NSString *endLangCode;
@@ -86,6 +88,11 @@
         DetailViewController *controller = (DetailViewController *)[segue destinationViewController];
         controller.tuc = object;
         controller.navigationItem.leftItemsSupplementBackButton = YES;
+    }else if([[segue identifier] isEqualToString:@"showOptions"]){
+        SelectLangViewController * dest = (SelectLangViewController*) [segue destinationViewController];
+        dest.delegate = self;
+        dest.currentLanguage = self.currentLanguage;
+        dest.managedObjectContext = self.managedObjectContext;
     }
 }
 
@@ -162,12 +169,16 @@
         Tuc *tuc = [self.translation.result.tuc objectAtIndex:indexPath.row];
         
         
+        if ((tuc.meanings == nil)|| ([tuc.meanings count] == 0)) {
+            cell.accessoryType = UITableViewCellAccessoryNone;
+        }
+        
         if (tuc.phrase == nil) {
             if([tuc.meanings count] > 0){
-                ((ToLanguageCell*)cell).translatePhrase.text = ((Meaning*)[tuc.meanings objectAtIndex:0]).text;
+                ((ToLanguageCell*)cell).translatePhrase.text = [((Meaning*)[tuc.meanings objectAtIndex:0]).text stringByConvertingHTMLToPlainText];
             }
         }else{
-            ((ToLanguageCell*)cell).translatePhrase.text = tuc.phrase.text;
+            ((ToLanguageCell*)cell).translatePhrase.text = [tuc.phrase.text stringByConvertingHTMLToPlainText];
         }
         
     }else if (indexPath.section == 1){
@@ -178,6 +189,7 @@
                                                                  forIndexPath:indexPath];
         
     }
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
 
@@ -274,6 +286,16 @@
  didChangeNumberOfSuggestions:(NSInteger)numberOfSuggestions{
 
     
+}
+
+#pragma mark - Language change Delegate Methods
+- (void) languageChangedTo:(NSNumber *)newLanguage{
+    self.currentLanguage = newLanguage;
+    
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    [prefs setValue:newLanguage forKey:kCurrentLang];
+    [prefs synchronize];
+    [self.languageNamesDataSource changeLanguage:newLanguage];
 }
 
 @end

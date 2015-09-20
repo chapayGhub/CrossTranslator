@@ -55,20 +55,6 @@
 }
 
 - (void) loadLangCodes{
-    // For the assignment app only Italian and English languages
-    self.langs = [[NSMutableArray alloc] init];
-    
-    LangCodeModel *english = [NSEntityDescription insertNewObjectForEntityForName:@"LangCodeModel" inManagedObjectContext:self.managedObjectContext];
-    [english setValue:@"en" forKey:@"code"];
-    [english setValue:[NSNumber numberWithInt:0] forKey:@"index"];
-    [self.langs addObject:english];
-    
-    
-    LangCodeModel *italian = [NSEntityDescription insertNewObjectForEntityForName:@"LangCodeModel" inManagedObjectContext:self.managedObjectContext];
-    [italian setValue:@"it" forKey:@"code"];
-    [italian setValue:[NSNumber numberWithInt:1] forKey:@"index"];
-    [self.langs addObject:italian];
-    
     NSString *path = [[NSBundle mainBundle] pathForResource:@"codes" ofType:@"csv"];
     NSURL *url = [NSURL fileURLWithPath:path];
     CHCSVParser *parser = [[CHCSVParser alloc] initWithContentsOfDelimitedURL:url delimiter:';'];
@@ -91,21 +77,32 @@
 - (void)parser:(CHCSVParser *)parser didEndLine:(NSUInteger)recordNumber {
     [self.lines addObject:_currentLine];
     
-    //Add english language name
-    LangName *englishName = [NSEntityDescription insertNewObjectForEntityForName:@"LangName" inManagedObjectContext:self.managedObjectContext];
     
-    [englishName setValue:[self.currentLine objectAtIndex:2] forKey:@"code"];
-    [englishName setValue:[self.currentLine objectAtIndex:0] forKey:@"name"];
-    [(LangCodeModel*)[self.langs objectAtIndex:0] addNamesObject:englishName];
-
-    
-    //Add italian language name
-    LangName *italianName = [NSEntityDescription insertNewObjectForEntityForName:@"LangName" inManagedObjectContext:self.managedObjectContext];
-    
-    [italianName setValue:[self.currentLine objectAtIndex:2] forKey:@"code"];
-    [italianName setValue:[self.currentLine objectAtIndex:1] forKey:@"name"];
-    [(LangCodeModel*)[self.langs objectAtIndex:1] addNamesObject:italianName];
-    
+    //First line are supported UI Languages:
+    if ([self.lines count] == 1) {
+        // For the assignment app only Italian and English languages
+        self.langs = [[NSMutableArray alloc] init];
+        
+        LangCodeModel *language;
+        for (int i = 0; i < [self.currentLine count] - 1; i++) {
+            language = [NSEntityDescription insertNewObjectForEntityForName:@"LangCodeModel" inManagedObjectContext:self.managedObjectContext];
+            [language setValue:[self.currentLine objectAtIndex:i] forKey:@"code"];
+            
+            [language setValue:[NSNumber numberWithInt:i] forKey:@"index"];
+            [self.langs addObject:language];
+        }
+        return;
+    }else{
+        LangName * langName;
+        for (int i = 0; i < [self.currentLine count] - 1; i++) {
+            langName = [NSEntityDescription insertNewObjectForEntityForName:@"LangName" inManagedObjectContext:self.managedObjectContext];
+            [langName setValue:[self.currentLine objectAtIndex:[self.currentLine count] - 1]
+                        forKey:@"code"];
+            [langName setValue:[self.currentLine objectAtIndex:i] forKey:@"name"];
+            [(LangCodeModel*)[self.langs objectAtIndex:i] addNamesObject:langName];
+            
+        }
+    }    
     self.currentLine = nil;
 }
 - (void)parserDidEndDocument:(CHCSVParser *)parser {

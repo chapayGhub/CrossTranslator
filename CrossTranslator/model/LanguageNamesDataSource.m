@@ -28,27 +28,36 @@
     return self;
 }
 
+- (void)loadLanguge {
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"LangCodeModel" inManagedObjectContext:self.managedObjectContext];
+    [fetchRequest setEntity:entity];
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"index == %@", self.uiLanguage];
+    
+    [fetchRequest setPredicate:predicate];
+    NSError *error = nil;
+    NSArray *results = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    
+    if ([results count] == 1) {
+        self.languageCodeNames = [results objectAtIndex:0];
+        
+    }
+}
+
 - (id) initWithUILanguage:(NSNumber*) uiLanguage{
     if (self = [self init]) {
         self.uiLanguage = uiLanguage;
         
-        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-        NSEntityDescription *entity = [NSEntityDescription entityForName:@"LangCodeModel" inManagedObjectContext:self.managedObjectContext];
-        [fetchRequest setEntity:entity];
-        
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"index == %@", self.uiLanguage];
-        
-        [fetchRequest setPredicate:predicate];
-        NSError *error = nil;
-        NSArray *results = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
-        
-        if ([results count] == 1) {
-            self.languageCodeNames = [results objectAtIndex:0];
-            
-        }
+        [self loadLanguge];
         
     }
     return self;
+}
+
+- (void) changeLanguage:(NSNumber*) uiLanguage{
+    self.uiLanguage = uiLanguage;
+    [self loadLanguge];
 }
 
 /**
