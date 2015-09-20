@@ -9,15 +9,16 @@
     <entity name="LangCodeModel" representedClassName="LangCodeModel" syncable="YES">
         <attribute name="code" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="index" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
-        <relationship name="names" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="LangName" syncable="YES"/>
+        <relationship name="names" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="LangName" inverseName="belongs" inverseEntity="LangName" syncable="YES"/>
     </entity>
     <entity name="LangName" representedClassName="LangName" syncable="YES">
         <attribute name="code" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="belongs" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="LangCodeModel" inverseName="names" inverseEntity="LangCodeModel" syncable="YES"/>
     </entity>
     <elements>
         <element name="LangCodeModel" positionX="-63" positionY="-18" width="128" height="90"/>
-        <element name="LangName" positionX="288" positionY="9" width="128" height="73"/>
+        <element name="LangName" positionX="288" positionY="9" width="128" height="90"/>
         <element name="CachedResult" positionX="117" positionY="9" width="128" height="105"/>
     </elements>
 </model>

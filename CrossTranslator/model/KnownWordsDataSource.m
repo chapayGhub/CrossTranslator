@@ -45,7 +45,7 @@
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"LangCodeModel" inManagedObjectContext:self.managedObjectContext];
     [fetchRequest setEntity:entity];
     
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"index == %@", self.uiLanguage];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"index == %@", self.startLanguage];
     
     [fetchRequest setPredicate:predicate];
     NSError *error = nil;

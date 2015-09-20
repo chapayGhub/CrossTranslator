@@ -40,6 +40,9 @@
 		A9D646491BADCB2500E29D2A /* GTMNSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D646481BADCB2500E29D2A /* GTMNSString+HTML.m */; settings = {ASSET_TAGS = (); }; };
 		A9D6468E1BADD96400E29D2A /* LanguageNamesDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D6468D1BADD96400E29D2A /* LanguageNamesDataSource.m */; settings = {ASSET_TAGS = (); }; };
 		A9D646911BADDC8600E29D2A /* KnownWordsDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D646901BADDC8600E29D2A /* KnownWordsDataSource.m */; settings = {ASSET_TAGS = (); }; };
+		A9D646941BAE165100E29D2A /* LangSuggestionObject.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D646931BAE165100E29D2A /* LangSuggestionObject.m */; settings = {ASSET_TAGS = (); }; };
+		A9D646971BAE290700E29D2A /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9D646961BAE290700E29D2A /* AVFoundation.framework */; };
+		A9D646991BAE290E00E29D2A /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9D646981BAE290E00E29D2A /* AudioToolbox.framework */; };
 		A9EE874B1BAD4DC800A63533 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A9EE874A1BAD4DC800A63533 /* main.m */; };
 		A9EE874E1BAD4DC800A63533 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A9EE874D1BAD4DC800A63533 /* AppDelegate.m */; };
 		A9EE87511BAD4DC800A63533 /* CrossTranslator.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A9EE874F1BAD4DC800A63533 /* CrossTranslator.xcdatamodeld */; };
@@ -147,6 +150,11 @@
 		A9D6468D1BADD96400E29D2A /* LanguageNamesDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LanguageNamesDataSource.m; path = model/LanguageNamesDataSource.m; sourceTree = "<group>"; };
 		A9D6468F1BADDC8600E29D2A /* KnownWordsDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KnownWordsDataSource.h; path = model/KnownWordsDataSource.h; sourceTree = "<group>"; };
 		A9D646901BADDC8600E29D2A /* KnownWordsDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KnownWordsDataSource.m; path = model/KnownWordsDataSource.m; sourceTree = "<group>"; };
+		A9D646921BAE165100E29D2A /* LangSuggestionObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LangSuggestionObject.h; path = model/LangSuggestionObject.h; sourceTree = "<group>"; };
+		A9D646931BAE165100E29D2A /* LangSuggestionObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LangSuggestionObject.m; path = model/LangSuggestionObject.m; sourceTree = "<group>"; };
+		A9D646961BAE290700E29D2A /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		A9D646981BAE290E00E29D2A /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		A9D6469A1BAE291C00E29D2A /* AudioUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioUnit.framework; path = System/Library/Frameworks/AudioUnit.framework; sourceTree = SDKROOT; };
 		A9EE87461BAD4DC800A63533 /* CrossTranslator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CrossTranslator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A9EE874A1BAD4DC800A63533 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		A9EE874C1BAD4DC800A63533 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -184,6 +192,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A9D646991BAE290E00E29D2A /* AudioToolbox.framework in Frameworks */,
+				A9D646971BAE290700E29D2A /* AVFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -261,10 +271,7 @@
 				A9D645EE1BAD805A00E29D2A /* CachedResult.m */,
 				A9D646031BAD982C00E29D2A /* CoreDataTranslationManager.h */,
 				A9D646041BAD982C00E29D2A /* CoreDataTranslationManager.m */,
-				A9D6468C1BADD96400E29D2A /* LanguageNamesDataSource.h */,
-				A9D6468D1BADD96400E29D2A /* LanguageNamesDataSource.m */,
-				A9D6468F1BADDC8600E29D2A /* KnownWordsDataSource.h */,
-				A9D646901BADDC8600E29D2A /* KnownWordsDataSource.m */,
+				A9D646951BAE165C00E29D2A /* Suggestions */,
 			);
 			name = CoreData;
 			sourceTree = "<group>";
@@ -272,16 +279,16 @@
 		A9D646021BAD97F900E29D2A /* ApiClient */ = {
 			isa = PBXGroup;
 			children = (
-				A9D646471BADCB2500E29D2A /* GTMNSString+HTML.h */,
-				A9D646481BADCB2500E29D2A /* GTMNSString+HTML.m */,
-				A9D646441BADCAF200E29D2A /* NSString+HTML.h */,
-				A9D646451BADCAF200E29D2A /* NSString+HTML.m */,
 				A9D645F61BAD818F00E29D2A /* APNetworkClient.h */,
 				A9D645F71BAD818F00E29D2A /* APNetworkClient.m */,
 				A9D645F81BAD818F00E29D2A /* NSData+Base64.h */,
 				A9D645F91BAD818F00E29D2A /* NSData+Base64.m */,
 				A9D645FA1BAD818F00E29D2A /* NSDictionary+QueryString.h */,
 				A9D645FB1BAD818F00E29D2A /* NSDictionary+QueryString.m */,
+				A9D646471BADCB2500E29D2A /* GTMNSString+HTML.h */,
+				A9D646481BADCB2500E29D2A /* GTMNSString+HTML.m */,
+				A9D646441BADCAF200E29D2A /* NSString+HTML.h */,
+				A9D646451BADCAF200E29D2A /* NSString+HTML.m */,
 			);
 			name = ApiClient;
 			sourceTree = "<group>";
@@ -349,9 +356,25 @@
 			name = Translation;
 			sourceTree = "<group>";
 		};
+		A9D646951BAE165C00E29D2A /* Suggestions */ = {
+			isa = PBXGroup;
+			children = (
+				A9D6468C1BADD96400E29D2A /* LanguageNamesDataSource.h */,
+				A9D6468D1BADD96400E29D2A /* LanguageNamesDataSource.m */,
+				A9D6468F1BADDC8600E29D2A /* KnownWordsDataSource.h */,
+				A9D646901BADDC8600E29D2A /* KnownWordsDataSource.m */,
+				A9D646921BAE165100E29D2A /* LangSuggestionObject.h */,
+				A9D646931BAE165100E29D2A /* LangSuggestionObject.m */,
+			);
+			name = Suggestions;
+			sourceTree = "<group>";
+		};
 		A9EE873D1BAD4DC800A63533 = {
 			isa = PBXGroup;
 			children = (
+				A9D6469A1BAE291C00E29D2A /* AudioUnit.framework */,
+				A9D646981BAE290E00E29D2A /* AudioToolbox.framework */,
+				A9D646961BAE290700E29D2A /* AVFoundation.framework */,
 				A9EE87481BAD4DC800A63533 /* CrossTranslator */,
 				A9EE87681BAD4DC800A63533 /* CrossTranslatorTests */,
 				A9EE87731BAD4DC800A63533 /* CrossTranslatorUITests */,
@@ -522,6 +545,7 @@
 				TargetAttributes = {
 					A9EE87451BAD4DC800A63533 = {
 						CreatedOnToolsVersion = 7.0;
+						DevelopmentTeam = 78U7Q7Y878;
 					};
 					A9EE87641BAD4DC800A63533 = {
 						CreatedOnToolsVersion = 7.0;
@@ -604,6 +628,7 @@
 				A9D6463D1BADAD3B00E29D2A /* Phrase.m in Sources */,
 				A9EE879A1BAD5B7700A63533 /* LangName+CoreDataProperties.m in Sources */,
 				A9D646911BADDC8600E29D2A /* KnownWordsDataSource.m in Sources */,
+				A9D646941BAE165100E29D2A /* LangSuggestionObject.m in Sources */,
 				A9D646401BADAD4B00E29D2A /* Meaning.m in Sources */,
 				A9D645EA1BAD7E5D00E29D2A /* NSString+Levenshtein.m in Sources */,
 				A9D646491BADCB2500E29D2A /* GTMNSString+HTML.m in Sources */,
@@ -719,7 +744,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -757,7 +782,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -769,6 +794,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = CrossTranslator/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.crossover.CrossTranslator;
@@ -781,6 +807,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = CrossTranslator/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.crossover.CrossTranslator;

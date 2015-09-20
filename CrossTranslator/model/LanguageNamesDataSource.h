@@ -13,4 +13,6 @@
 
 - (id) initWithUILanguage:(NSNumber*) uiLanguage;
 
+- (NSString*) getLangNameForCode:(NSString*)code;
+
 @end

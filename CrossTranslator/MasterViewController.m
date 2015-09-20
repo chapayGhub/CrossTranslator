@@ -20,6 +20,8 @@
 #import "TranslatorFacade.h"
 #import "KnownWordsDataSource.h"
 #import "LanguageNamesDataSource.h"
+#import "LangCodeModel.h"
+
 
 @interface MasterViewController() <MLPAutoCompleteTextFieldDelegate>
 
@@ -51,17 +53,19 @@
     //self.navigationItem.leftBarButtonItem = self.editButtonItem;
     
     self.translator = [[TranslatorFacade alloc] init];
-    //[self.translator translatePhrase:@"begin" from:@"en" to:@"it" completition:nil];
-    
-    
     
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     self.currentLanguage = [prefs objectForKey:kCurrentLang];
     
+    self.startLangCode = [prefs objectForKey:kStartLanguage];
+    self.endLangCode = [prefs objectForKey:kEndLanguage];
+    
+    
     self.knownWordsDataSource = [[KnownWordsDataSource alloc] initWithStartLanguage:self.startLangCode destinationLanguage:self.endLangCode];
     self.languageNamesDataSource = [[LanguageNamesDataSource alloc] initWithUILanguage:self.currentLanguage];
+    
     self.translation = nil;
-    self.navigationItem.title = @"Back";
+    self.navigationItem.title = @"Main";
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -150,27 +154,21 @@
         cell = (FromLanguageCell*)[tableView dequeueReusableCellWithIdentifier:fromLangCellID
                                                                   forIndexPath:indexPath];
         
-        [((FromLanguageCell*)cell).translate addTarget:self
-                                                action:@selector(goTranslate)
-                                      forControlEvents:UIControlEventTouchUpInside];
-        
-        self.inputText = ((FromLanguageCell*)cell).inputText;
-        self.inputText.autoCompleteDataSource = self.knownWordsDataSource;
-        self.inputText.autoCompleteDelegate = self;
-        
-        self.startLang = ((FromLanguageCell*)cell).fromLangValue;
-        self.startLang.autoCompleteDataSource = self.languageNamesDataSource;
-        self.startLang.autoCompleteDelegate = self;
-        
-        self.endLang = ((FromLanguageCell*)cell).toLangValue;
-        self.endLang.autoCompleteDataSource = self.languageNamesDataSource;
-        self.endLang.autoCompleteDelegate = self;
+        [self customizeInputCell:(FromLanguageCell*)cell];
 
     }else if (indexPath.section == 3){
         cell = (ToLanguageCell*)[tableView dequeueReusableCellWithIdentifier:toLangCellID
                                                                 forIndexPath:indexPath];
         Tuc *tuc = [self.translation.result.tuc objectAtIndex:indexPath.row];
-        ((ToLanguageCell*)cell).translatePhrase.text = tuc.phrase.text;
+        
+        
+        if (tuc.phrase == nil) {
+            if([tuc.meanings count] > 0){
+                ((ToLanguageCell*)cell).translatePhrase.text = ((Meaning*)[tuc.meanings objectAtIndex:0]).text;
+            }
+        }else{
+            ((ToLanguageCell*)cell).translatePhrase.text = tuc.phrase.text;
+        }
         
     }else if (indexPath.section == 1){
         cell = (WikiSuggestsCell*)[tableView dequeueReusableCellWithIdentifier:wikiCellID
@@ -181,6 +179,32 @@
         
     }
     return cell;
+}
+
+- (void) customizeInputCell:(FromLanguageCell*)cell{
+    [cell.translate addTarget:self
+                       action:@selector(goTranslate)
+             forControlEvents:UIControlEventTouchUpInside];
+    
+    self.inputText = cell.inputText;
+    self.inputText.autoCompleteDataSource = self.knownWordsDataSource;
+    self.inputText.autoCompleteDelegate = self;
+    
+    self.startLang = cell.fromLangValue;
+    self.startLang.autoCompleteDataSource = self.languageNamesDataSource;
+    self.startLang.autoCompleteDelegate = self;
+    
+    self.endLang = cell.toLangValue;
+    self.endLang.autoCompleteDataSource = self.languageNamesDataSource;
+    self.endLang.autoCompleteDelegate = self;
+    
+    
+    if (self.startLangCode != nil) {
+        [self.startLang setText:[self.languageNamesDataSource getLangNameForCode:self.startLangCode]];
+    }
+    if (self.endLangCode != nil) {
+        self.endLang.text = [self.languageNamesDataSource getLangNameForCode:self.endLangCode];
+    }
 }
 
 
@@ -213,10 +237,10 @@
 }
 
 - (void) goTranslate{
-    
-    
-    
-    [self.translator translatePhrase:@"begin" from:@"en" to:@"it" completition:^(NSError *error, Translation *result){
+    [self.translator translatePhrase:self.inputText.text
+                                from:self.startLangCode
+                                  to:self.endLangCode
+                        completition:^(NSError *error, Translation *result){
         if (error == nil) {
             self.translation = result;
             [self.tableView reloadData];
@@ -231,103 +255,25 @@
        withAutoCompleteObject:(id<MLPAutoCompletionObject>)selectedObject
             forRowAtIndexPath:(NSIndexPath *)indexPath{
     
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    
+    if (textField == self.startLang) {
+        self.startLangCode = ((LangCodeModel*)selectedObject).code;
+        [prefs setValue:self.startLangCode forKey:kStartLanguage];
+    }else if (textField == self.endLang){
+        self.endLangCode = ((LangCodeModel*)selectedObject).code;
+        [prefs setValue:self.endLangCode forKey:kEndLanguage];
+    }else if (textField == self.inputText){
+
+    }
+    [prefs synchronize];
+    
 }
 
 - (void)autoCompleteTextField:(MLPAutoCompleteTextField *)textField
  didChangeNumberOfSuggestions:(NSInteger)numberOfSuggestions{
 
     
-}
-
-#pragma mark - Fetched results controller
-
-- (NSFetchedResultsController *)fetchedResultsController
-{
-    if (_fetchedResultsController != nil) {
-        return _fetchedResultsController;
-    }
-    
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    // Edit the entity name as appropriate.
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Event" inManagedObjectContext:self.managedObjectContext];
-    [fetchRequest setEntity:entity];
-    
-    // Set the batch size to a suitable number.
-    [fetchRequest setFetchBatchSize:20];
-    
-    // Edit the sort key as appropriate.
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"timeStamp" ascending:NO];
-
-    [fetchRequest setSortDescriptors:@[sortDescriptor]];
-    
-    // Edit the section name key path and cache name if appropriate.
-    // nil for section name key path means "no sections".
-    NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:@"Master"];
-    aFetchedResultsController.delegate = self;
-    self.fetchedResultsController = aFetchedResultsController;
-    
-	NSError *error = nil;
-	if (![self.fetchedResultsController performFetch:&error]) {
-	     // Replace this implementation with code to handle the error appropriately.
-	     // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. 
-	    NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-	    abort();
-	}
-    
-    return _fetchedResultsController;
-}    
-
-- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller
-{
-    [self.tableView beginUpdates];
-}
-
-- (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id <NSFetchedResultsSectionInfo>)sectionInfo
-           atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type
-{
-    switch(type) {
-        case NSFetchedResultsChangeInsert:
-            [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
-            break;
-            
-        case NSFetchedResultsChangeDelete:
-            [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
-            break;
-            
-        default:
-            return;
-    }
-}
-
-- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject
-       atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type
-      newIndexPath:(NSIndexPath *)newIndexPath
-{
-    UITableView *tableView = self.tableView;
-    
-    switch(type) {
-        case NSFetchedResultsChangeInsert:
-            [tableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
-            break;
-            
-        case NSFetchedResultsChangeDelete:
-            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-            break;
-            
-        case NSFetchedResultsChangeUpdate:
-            [self configureCell:[tableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
-            break;
-            
-        case NSFetchedResultsChangeMove:
-            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-            [tableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
-            break;
-    }
-}
-
-- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
-{
-    [self.tableView endUpdates];
 }
 
 @end
