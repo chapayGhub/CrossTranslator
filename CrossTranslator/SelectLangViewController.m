@@ -48,7 +48,7 @@
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:langCellID];
     NSString* code = ((LangCodeModel*)[self.displayObjects objectAtIndex:indexPath.row]).code;
-    cell.textLabel.text = [self.ds getLangNameForCode:code];
+    cell.textLabel.text = [self.ds getLangNameForCode:code inLanguage:code];
     
     if (indexPath.row == [self.currentLanguage integerValue]) {
         [tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionNone];
@@ -57,8 +57,11 @@
     return cell;
 }
 
-- (void) tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath{
+- (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.row != [self.currentLanguage integerValue]) {
+        NSIndexPath *previous = [[NSIndexPath alloc] initWithIndex:[self.currentLanguage integerValue]];
+        [tableView deselectRowAtIndexPath:previous animated:YES];
+        
         [self.delegate languageChangedTo:((LangCodeModel*)[self.displayObjects objectAtIndex:indexPath.row]).index];
     }
     [self.navigationController popViewControllerAnimated:YES];

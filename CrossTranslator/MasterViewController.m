@@ -296,6 +296,11 @@
     [prefs setValue:newLanguage forKey:kCurrentLang];
     [prefs synchronize];
     [self.languageNamesDataSource changeLanguage:newLanguage];
+    
+    self.startLang.text = [self.languageNamesDataSource getLangNameForCode:self.startLangCode];
+    self.endLang.text = [self.languageNamesDataSource getLangNameForCode:self.endLangCode];
+    
+    
 }
 
 @end

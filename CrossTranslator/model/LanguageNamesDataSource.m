@@ -88,6 +88,38 @@
 }
 
 
+- (NSString*) getLangNameForCode:(NSString*)code inLanguage:(NSString*)inLanguage{
+    
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"LangCodeModel" inManagedObjectContext:self.managedObjectContext];
+    [fetchRequest setEntity:entity];
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"code == %@", inLanguage];
+    
+    [fetchRequest setPredicate:predicate];
+    NSError *error = nil;
+    NSArray *results = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    
+    LangCodeModel *languageModel;
+    
+    if ([results count] == 1) {
+        languageModel = [results objectAtIndex:0];
+        
+    }else{
+        return nil;
+    }
+    
+    
+    predicate = [NSPredicate predicateWithFormat:@"code == %@", code];
+    results = [[languageModel.names filteredSetUsingPredicate:predicate] allObjects];
+    if ([results count] == 1) {
+        LangName * name = (LangName*) [results objectAtIndex:0];
+        return name.name;
+    }else{
+        return nil;
+    }
+}
+
 
 
 
