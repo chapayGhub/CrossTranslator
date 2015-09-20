@@ -13,7 +13,7 @@ NSString *const kCurrentLang = @"preferredLanguage";
 
 NSString *const kStartLanguage = @"startLanguage";
 NSString *const kEndLanguage = @"endLanguage";
-
+NSString *const kUILanguageLoaded = @"LoadedNewLanguage";
 
 
 @implementation Constants

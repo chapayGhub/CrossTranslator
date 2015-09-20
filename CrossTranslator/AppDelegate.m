@@ -14,12 +14,14 @@
 #import "LangCodeModel.h"
 #import "CHCSVParser.h"
 #import "Constants.h"
+#import "GUILanguageManager.h"
 
 @interface AppDelegate () <CHCSVParserDelegate>
 
 @property (strong, nonatomic) NSMutableArray *lines;
 @property (strong, nonatomic) NSMutableArray *currentLine;
 @property (strong, nonatomic) NSMutableArray * langs;
+
 
 @end
 
@@ -46,12 +48,39 @@
         [[NSUserDefaults standardUserDefaults] setValue:@"1strun" forKey:@"FirstRun"];
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
+    
+    
+    //load ui strings
+    [self loadUIStrings];
+    
     [NSThread sleepForTimeInterval:0.5];
     
     
     MasterViewController *controller = (MasterViewController *)[(UINavigationController*)self.window.rootViewController topViewController];
     controller.managedObjectContext = self.managedObjectContext;
     return YES;
+}
+
+- (void) loadUIStrings{
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    NSNumber *column = [prefs objectForKey:kCurrentLang];
+    [GUILanguageManager sharedInstance];
+    
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"LangCodeModel" inManagedObjectContext:self.managedObjectContext];
+    [fetchRequest setEntity:entity];
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"index == %@", column];
+    
+    [fetchRequest setPredicate:predicate];
+    NSError *error = nil;
+    NSArray *results = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    
+    if ([results count] == 1) {
+        LangCodeModel *model = [results objectAtIndex:0];
+        [GUILanguageManager setNewLanguage:model.code];
+        
+    }
 }
 
 - (void) loadLangCodes{
@@ -80,8 +109,10 @@
     
     //First line are supported UI Languages:
     if ([self.lines count] == 1) {
-        // For the assignment app only Italian and English languages
         self.langs = [[NSMutableArray alloc] init];
+        
+        
+
         
         LangCodeModel *language;
         for (int i = 0; i < [self.currentLine count] - 1; i++) {
@@ -91,6 +122,8 @@
             [language setValue:[NSNumber numberWithInt:i] forKey:@"index"];
             [self.langs addObject:language];
         }
+        
+        
         return;
     }else{
         LangName * langName;

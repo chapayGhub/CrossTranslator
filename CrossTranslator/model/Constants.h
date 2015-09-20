@@ -12,6 +12,7 @@ extern NSString *const kCurrentLang;
 
 extern NSString *const kStartLanguage;
 extern NSString *const kEndLanguage;
+extern NSString *const kUILanguageLoaded;
 
 @interface Constants : NSObject
 

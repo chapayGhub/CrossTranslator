@@ -42,6 +42,8 @@
 		A9D646971BAE290700E29D2A /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9D646961BAE290700E29D2A /* AVFoundation.framework */; };
 		A9D646991BAE290E00E29D2A /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9D646981BAE290E00E29D2A /* AudioToolbox.framework */; };
 		A9D646A11BAECFD900E29D2A /* SelectLangViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D646A01BAECFD900E29D2A /* SelectLangViewController.m */; settings = {ASSET_TAGS = (); }; };
+		A9D646A31BAF038C00E29D2A /* ui_langs.csv in Resources */ = {isa = PBXBuildFile; fileRef = A9D646A21BAF038C00E29D2A /* ui_langs.csv */; settings = {ASSET_TAGS = (); }; };
+		A9D646A61BAF068800E29D2A /* GUILanguageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D646A51BAF068800E29D2A /* GUILanguageManager.m */; settings = {ASSET_TAGS = (); }; };
 		A9EE874B1BAD4DC800A63533 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A9EE874A1BAD4DC800A63533 /* main.m */; };
 		A9EE874E1BAD4DC800A63533 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A9EE874D1BAD4DC800A63533 /* AppDelegate.m */; };
 		A9EE87511BAD4DC800A63533 /* CrossTranslator.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A9EE874F1BAD4DC800A63533 /* CrossTranslator.xcdatamodeld */; };
@@ -152,6 +154,9 @@
 		A9D6469A1BAE291C00E29D2A /* AudioUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioUnit.framework; path = System/Library/Frameworks/AudioUnit.framework; sourceTree = SDKROOT; };
 		A9D6469F1BAECFD900E29D2A /* SelectLangViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectLangViewController.h; sourceTree = "<group>"; };
 		A9D646A01BAECFD900E29D2A /* SelectLangViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectLangViewController.m; sourceTree = "<group>"; };
+		A9D646A21BAF038C00E29D2A /* ui_langs.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ui_langs.csv; sourceTree = "<group>"; };
+		A9D646A41BAF068800E29D2A /* GUILanguageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GUILanguageManager.h; path = model/GUILanguageManager.h; sourceTree = "<group>"; };
+		A9D646A51BAF068800E29D2A /* GUILanguageManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GUILanguageManager.m; path = model/GUILanguageManager.m; sourceTree = "<group>"; };
 		A9EE87461BAD4DC800A63533 /* CrossTranslator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CrossTranslator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A9EE874A1BAD4DC800A63533 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		A9EE874C1BAD4DC800A63533 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -416,6 +421,7 @@
 			isa = PBXGroup;
 			children = (
 				A9EE87821BAD516000A63533 /* codes.csv */,
+				A9D646A21BAF038C00E29D2A /* ui_langs.csv */,
 				A9EE874A1BAD4DC800A63533 /* main.m */,
 			);
 			name = "Supporting Files";
@@ -469,6 +475,8 @@
 				A9D646001BAD965800E29D2A /* TranslatorFacade.m */,
 				A9D6460A1BAD999800E29D2A /* Translator.h */,
 				A9D6460B1BAD999800E29D2A /* Translator.m */,
+				A9D646A41BAF068800E29D2A /* GUILanguageManager.h */,
+				A9D646A51BAF068800E29D2A /* GUILanguageManager.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -581,6 +589,7 @@
 				A9EE87831BAD516000A63533 /* codes.csv in Resources */,
 				A9EE875C1BAD4DC800A63533 /* Assets.xcassets in Resources */,
 				A9EE875A1BAD4DC800A63533 /* Main.storyboard in Resources */,
+				A9D646A31BAF038C00E29D2A /* ui_langs.csv in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -636,6 +645,7 @@
 				A9D645EF1BAD805A00E29D2A /* CachedResult+CoreDataProperties.m in Sources */,
 				A9EE87891BAD54DA00A63533 /* CHCSVParser.m in Sources */,
 				A9D645D21BAD691000E29D2A /* FromLanguageCell.m in Sources */,
+				A9D646A61BAF068800E29D2A /* GUILanguageManager.m in Sources */,
 				A9D646331BADAC1D00E29D2A /* JSONValueTransformer.m in Sources */,
 				A9D6462B1BADAC1D00E29D2A /* JSONModelArray.m in Sources */,
 				A9D6462A1BADAC1D00E29D2A /* JSONModel.m in Sources */,

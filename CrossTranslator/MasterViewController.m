@@ -23,6 +23,7 @@
 #import "LangCodeModel.h"
 #import "NSString+HTML.h"
 #import "SelectLangViewController.h"
+#import "GUILanguageManager.h"
 
 
 @interface MasterViewController() <MLPAutoCompleteTextFieldDelegate,LanguageChangedDelegate>
@@ -67,7 +68,22 @@
     self.languageNamesDataSource = [[LanguageNamesDataSource alloc] initWithUILanguage:self.currentLanguage];
     
     self.translation = nil;
-    self.navigationItem.title = @"Main";
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(updateUIStrings:)
+                                                 name:kUILanguageLoaded
+                                               object:nil];
+}
+
+- (void) updateUIStrings:(NSNotification*)notification{
+    [self.tableView reloadData];
+    
+    self.navigationItem.title = [GUILanguageManager getUIStringForCode:@"main_title"];
+}
+
+- (void) dealloc{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -126,19 +142,19 @@
     switch (section)
     {
         case 0:
-            sectionName = @"Input";
+            sectionName = [GUILanguageManager getUIStringForCode:@"main_input_sct"];
             break;
         case 1:
-            sectionName = @"Wiki Link";
+            sectionName = [GUILanguageManager getUIStringForCode:@"Wiki Link"];
             break;
         case 2:
-            sectionName = @"Play Audio";
+            sectionName = [GUILanguageManager getUIStringForCode:@"Play Audio"];
             break;
         case 3:
-            sectionName = @"Translation";
+            sectionName = [GUILanguageManager getUIStringForCode:@"Translation"];
             break;
         default:
-            sectionName = @"";
+            sectionName = [GUILanguageManager getUIStringForCode:@""];
             break;
     }
     return sectionName;
@@ -198,6 +214,12 @@
                        action:@selector(goTranslate)
              forControlEvents:UIControlEventTouchUpInside];
     
+    
+    cell.titleLabel.text = [GUILanguageManager getUIStringForCode:@"main_input_lbl"];
+    cell.fromLang.text = [GUILanguageManager getUIStringForCode:@"main_from_lbl"];
+    cell.toLang.text = [GUILanguageManager getUIStringForCode:@"main_to_lbl"];
+    [cell.translate setTitle:[GUILanguageManager getUIStringForCode:@"main_trn_btn"] forState:UIControlStateNormal];
+    
     self.inputText = cell.inputText;
     self.inputText.autoCompleteDataSource = self.knownWordsDataSource;
     self.inputText.autoCompleteDelegate = self;
@@ -227,11 +249,6 @@
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     // Return NO if you do not want the specified item to be editable.
     return NO;
-}
-
-- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-    NSManagedObject *object = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    cell.textLabel.text = [[object valueForKey:@"timeStamp"] description];
 }
 
 - (double) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{

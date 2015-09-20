@@ -9,6 +9,7 @@
 #import "SelectLangViewController.h"
 #import "LanguageNamesDataSource.h"
 #import "LangCodeModel.h"
+#import "GUILanguageManager.h"
 
 @interface SelectLangViewController ()
 @property (strong, nonatomic) NSArray *displayObjects;
@@ -63,6 +64,7 @@
         [tableView deselectRowAtIndexPath:previous animated:YES];
         
         [self.delegate languageChangedTo:((LangCodeModel*)[self.displayObjects objectAtIndex:indexPath.row]).index];
+        [GUILanguageManager setNewLanguage:((LangCodeModel*)[self.displayObjects objectAtIndex:indexPath.row]).code];
     }
     [self.navigationController popViewControllerAnimated:YES];
 }
