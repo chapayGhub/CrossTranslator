@@ -42,15 +42,19 @@
             completionHandler:(void(^)(NSArray *suggestions))handler{
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"LangCodeModel" inManagedObjectContext:self.managedObjectContext];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"CachedResult" inManagedObjectContext:self.managedObjectContext];
     [fetchRequest setEntity:entity];
     
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"index == %@", self.startLanguage];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"fromText CONTAINS[cd] %@",string];
     
     [fetchRequest setPredicate:predicate];
     NSError *error = nil;
     NSArray *results = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
-    
+    if ([results count] > 0) {
+        handler(results);
+    }else{
+        handler(@[]);
+    }
     
 }
 

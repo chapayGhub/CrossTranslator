@@ -11,5 +11,8 @@
 @implementation CachedResult
 
 // Insert code here to add functionality to your managed object subclass
+- (NSString *)autocompleteString{
+    return self.fromText;
+}
 
 @end

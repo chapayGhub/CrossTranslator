@@ -64,6 +64,19 @@
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wTZ-h2-VFz">
+                                            <rect key="frame" x="251" y="216" width="98" height="30"/>
+                                            <color key="backgroundColor" red="0.51904296875" green="0.83151726973684215" blue="0.38163034539473684" alpha="1" colorSpace="calibratedRGB"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="30" id="rXi-Vn-Elv"/>
+                                                <constraint firstAttribute="width" constant="98" id="sMj-74-2in"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                            <state key="normal" title="Translate"/>
+                                            <connections>
+                                                <action selector="translateAction:" destination="WCw-Qf-5nD" eventType="touchUpInside" id="1ZP-ws-arU"/>
+                                            </connections>
+                                        </button>
                                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="l3c-dw-Hia" customClass="MLPAutoCompleteTextField">
                                             <rect key="frame" x="56" y="85" width="197" height="30"/>
                                             <constraints>
@@ -83,35 +96,22 @@
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Text To Translate" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DzY-k8-kcj">
-                                            <rect key="frame" x="235" y="10" width="131" height="21"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Text To Translate" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DzY-k8-kcj">
+                                            <rect key="frame" x="198" y="8" width="204" height="21"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="21" id="Vy9-OB-qs5"/>
-                                                <constraint firstAttribute="width" constant="131" id="Yc3-pg-eas"/>
+                                                <constraint firstAttribute="width" constant="204" id="Yc3-pg-eas"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wTZ-h2-VFz">
-                                            <rect key="frame" x="251" y="216" width="98" height="30"/>
-                                            <color key="backgroundColor" red="0.51904296875" green="0.83151726973684215" blue="0.38163034539473684" alpha="1" colorSpace="calibratedRGB"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="30" id="rXi-Vn-Elv"/>
-                                                <constraint firstAttribute="width" constant="98" id="sMj-74-2in"/>
-                                            </constraints>
-                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                            <state key="normal" title="Translate"/>
-                                            <connections>
-                                                <action selector="translateAction:" destination="WCw-Qf-5nD" eventType="touchUpInside" id="1ZP-ws-arU"/>
-                                            </connections>
-                                        </button>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="DzY-k8-kcj" firstAttribute="top" secondItem="37f-cq-3Eg" secondAttribute="top" constant="10" id="55W-ho-po2"/>
+                                        <constraint firstItem="DzY-k8-kcj" firstAttribute="top" secondItem="37f-cq-3Eg" secondAttribute="top" constant="8" id="55W-ho-po2"/>
                                         <constraint firstItem="63H-ml-82M" firstAttribute="top" secondItem="jR7-Dv-W8u" secondAttribute="bottom" constant="20" id="DNM-EB-yc0"/>
                                         <constraint firstItem="l3c-dw-Hia" firstAttribute="centerY" secondItem="63H-ml-82M" secondAttribute="centerY" id="Ivz-zW-Sql"/>
-                                        <constraint firstItem="jR7-Dv-W8u" firstAttribute="top" secondItem="DzY-k8-kcj" secondAttribute="bottom" constant="8" id="KrE-oG-D2k"/>
+                                        <constraint firstItem="jR7-Dv-W8u" firstAttribute="top" secondItem="DzY-k8-kcj" secondAttribute="bottom" constant="10" id="KrE-oG-D2k"/>
                                         <constraint firstItem="u2e-XH-ST7" firstAttribute="centerY" secondItem="Z5i-rd-CD6" secondAttribute="centerY" id="OpN-bH-2B1"/>
                                         <constraint firstItem="l3c-dw-Hia" firstAttribute="leading" secondItem="63H-ml-82M" secondAttribute="trailing" constant="8" id="brf-IJ-Z4D"/>
                                         <constraint firstItem="jR7-Dv-W8u" firstAttribute="leading" secondItem="37f-cq-3Eg" secondAttribute="leading" constant="8" id="cAE-Xd-pgE"/>

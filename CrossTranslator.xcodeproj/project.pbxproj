@@ -260,18 +260,7 @@
 			isa = PBXGroup;
 			children = (
 				A9D646951BAE165C00E29D2A /* Suggestions */,
-				A9EE87901BAD5B7700A63533 /* LangCodeModel+CoreDataProperties.h */,
-				A9EE87911BAD5B7700A63533 /* LangCodeModel+CoreDataProperties.m */,
-				A9EE87921BAD5B7700A63533 /* LangCodeModel.h */,
-				A9EE87931BAD5B7700A63533 /* LangCodeModel.m */,
-				A9EE87941BAD5B7700A63533 /* LangName+CoreDataProperties.h */,
-				A9EE87951BAD5B7700A63533 /* LangName+CoreDataProperties.m */,
-				A9EE87961BAD5B7700A63533 /* LangName.h */,
-				A9EE87971BAD5B7700A63533 /* LangName.m */,
-				A9D645EB1BAD805A00E29D2A /* CachedResult+CoreDataProperties.h */,
-				A9D645EC1BAD805A00E29D2A /* CachedResult+CoreDataProperties.m */,
-				A9D645ED1BAD805A00E29D2A /* CachedResult.h */,
-				A9D645EE1BAD805A00E29D2A /* CachedResult.m */,
+				A9D646A91BAF263600E29D2A /* Entities */,
 				A9D646031BAD982C00E29D2A /* CoreDataTranslationManager.h */,
 				A9D646041BAD982C00E29D2A /* CoreDataTranslationManager.m */,
 			);
@@ -367,6 +356,25 @@
 				A9D646901BADDC8600E29D2A /* KnownWordsDataSource.m */,
 			);
 			name = Suggestions;
+			sourceTree = "<group>";
+		};
+		A9D646A91BAF263600E29D2A /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				A9EE87901BAD5B7700A63533 /* LangCodeModel+CoreDataProperties.h */,
+				A9EE87911BAD5B7700A63533 /* LangCodeModel+CoreDataProperties.m */,
+				A9EE87921BAD5B7700A63533 /* LangCodeModel.h */,
+				A9EE87931BAD5B7700A63533 /* LangCodeModel.m */,
+				A9EE87941BAD5B7700A63533 /* LangName+CoreDataProperties.h */,
+				A9EE87951BAD5B7700A63533 /* LangName+CoreDataProperties.m */,
+				A9EE87961BAD5B7700A63533 /* LangName.h */,
+				A9EE87971BAD5B7700A63533 /* LangName.m */,
+				A9D645EB1BAD805A00E29D2A /* CachedResult+CoreDataProperties.h */,
+				A9D645EC1BAD805A00E29D2A /* CachedResult+CoreDataProperties.m */,
+				A9D645ED1BAD805A00E29D2A /* CachedResult.h */,
+				A9D645EE1BAD805A00E29D2A /* CachedResult.m */,
+			);
+			name = Entities;
 			sourceTree = "<group>";
 		};
 		A9EE873D1BAD4DC800A63533 = {
