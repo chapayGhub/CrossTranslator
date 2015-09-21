@@ -229,7 +229,9 @@
         [self customizeInputCell:(FromLanguageCell*)cell];
 
     }else if (indexPath.section == 3){
-        cell = (ToLanguageCell*)[tableView dequeueReusableCellWithIdentifier:toLangCellID
+        
+        ToLanguageCell* tCell;
+        tCell = (ToLanguageCell*)[tableView dequeueReusableCellWithIdentifier:toLangCellID
                                                                 forIndexPath:indexPath];
         Tuc *tuc = [self.translation.result.tuc objectAtIndex:indexPath.row];
         
@@ -240,11 +242,14 @@
         
         if (tuc.phrase == nil) {
             if([tuc.meanings count] > 0){
-                ((ToLanguageCell*)cell).translatePhrase.text = [((Meaning*)[tuc.meanings objectAtIndex:0]).text stringByConvertingHTMLToPlainText];
+                tCell.translatePhrase.text = [((Meaning*)[tuc.meanings objectAtIndex:0]).text stringByConvertingHTMLToPlainText];
+                tCell.translateLabel.text = [self.languageNamesDataSource getLangNameForCode:((Meaning*)[tuc.meanings objectAtIndex:0]).language];
             }
         }else{
-            ((ToLanguageCell*)cell).translatePhrase.text = [tuc.phrase.text stringByConvertingHTMLToPlainText];
+            tCell.translatePhrase.text = [tuc.phrase.text stringByConvertingHTMLToPlainText];
+            tCell.translateLabel.text = [self.languageNamesDataSource getLangNameForCode:tuc.phrase.language];
         }
+        return tCell;
         
     }else if (indexPath.section == 1){
         cell = (WikiSuggestsCell*)[tableView dequeueReusableCellWithIdentifier:wikiCellID

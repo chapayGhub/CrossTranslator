@@ -377,6 +377,19 @@
 			name = Entities;
 			sourceTree = "<group>";
 		};
+		A9E7CFC41BB007B500F96E50 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				A9EE87521BAD4DC800A63533 /* MasterViewController.h */,
+				A9EE87531BAD4DC800A63533 /* MasterViewController.m */,
+				A9EE87551BAD4DC800A63533 /* DetailViewController.h */,
+				A9EE87561BAD4DC800A63533 /* DetailViewController.m */,
+				A9D6469F1BAECFD900E29D2A /* SelectLangViewController.h */,
+				A9D646A01BAECFD900E29D2A /* SelectLangViewController.m */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
 		A9EE873D1BAD4DC800A63533 = {
 			isa = PBXGroup;
 			children = (
@@ -409,12 +422,7 @@
 				A9D645CF1BAD68C100E29D2A /* View */,
 				A9EE874C1BAD4DC800A63533 /* AppDelegate.h */,
 				A9EE874D1BAD4DC800A63533 /* AppDelegate.m */,
-				A9EE87521BAD4DC800A63533 /* MasterViewController.h */,
-				A9EE87531BAD4DC800A63533 /* MasterViewController.m */,
-				A9EE87551BAD4DC800A63533 /* DetailViewController.h */,
-				A9EE87561BAD4DC800A63533 /* DetailViewController.m */,
-				A9D6469F1BAECFD900E29D2A /* SelectLangViewController.h */,
-				A9D646A01BAECFD900E29D2A /* SelectLangViewController.m */,
+				A9E7CFC41BB007B500F96E50 /* Controllers */,
 				A9EE87581BAD4DC800A63533 /* Main.storyboard */,
 				A9EE875B1BAD4DC800A63533 /* Assets.xcassets */,
 				A9EE875D1BAD4DC800A63533 /* LaunchScreen.storyboard */,
