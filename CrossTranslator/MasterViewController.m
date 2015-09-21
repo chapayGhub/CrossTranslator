@@ -37,7 +37,7 @@
 @property (weak, nonatomic) MLPAutoCompleteTextField *startLang;
 @property (weak, nonatomic) MLPAutoCompleteTextField *endLang;
 
-@property (weak, nonatomic) UITextView *translatedText;
+@property (strong, nonatomic) UITextView *translatedText;
 
 @property (strong, nonatomic) NSNumber *currentLanguage;
 
@@ -45,6 +45,8 @@
 @property (strong, nonatomic) Translation *translation;
 @property (strong, nonatomic) KnownWordsDataSource * knownWordsDataSource;
 @property (strong, nonatomic) LanguageNamesDataSource *languageNamesDataSource;
+
+@property (nonatomic) BOOL hasSuggestions;
 
 @end
 
@@ -74,6 +76,22 @@
                                              selector:@selector(updateUIStrings:)
                                                  name:kUILanguageLoaded
                                                object:nil];
+    
+    
+    // Hide keyboard on tap outside the text fields
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
+                                   initWithTarget:self
+                                   action:@selector(dismissKeyboard)];
+    
+    [tap setCancelsTouchesInView:NO];
+    [self.view addGestureRecognizer:tap];
+    
+}
+
+- (void) dismissKeyboard {
+    if (!self.hasSuggestions) {
+        [self.inputText resignFirstResponder];
+    }
 }
 
 - (void) updateUIStrings:(NSNotification*)notification{
@@ -285,24 +303,44 @@
             forRowAtIndexPath:(NSIndexPath *)indexPath{
     
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    LangCodeModel *lcm = (LangCodeModel*)selectedObject;
+    BOOL changes = NO;
     
     if (textField == self.startLang) {
-        self.startLangCode = ((LangCodeModel*)selectedObject).code;
-        [prefs setValue:self.startLangCode forKey:kStartLanguage];
+        if (![lcm.code isEqualToString:self.startLangCode]) {
+            self.startLangCode = lcm.code;
+            [prefs setValue:self.startLangCode forKey:kStartLanguage];
+            changes =YES;
+        }
     }else if (textField == self.endLang){
-        self.endLangCode = ((LangCodeModel*)selectedObject).code;
-        [prefs setValue:self.endLangCode forKey:kEndLanguage];
+        if (![lcm.code isEqualToString:self.endLangCode]) {
+            self.endLangCode = ((LangCodeModel*)selectedObject).code;
+            [prefs setValue:self.endLangCode forKey:kEndLanguage];
+            changes = YES;
+        }
     }else if (textField == self.inputText){
 
     }
-    [prefs synchronize];
+    if (changes) {
+        [prefs synchronize];
+        self.knownWordsDataSource = [[KnownWordsDataSource alloc] initWithStartLanguage:self.startLangCode destinationLanguage:self.endLangCode];
+        self.inputText.autoCompleteDataSource = self.knownWordsDataSource;
+    }
+    self.hasSuggestions = NO;
     
 }
 
 - (void)autoCompleteTextField:(MLPAutoCompleteTextField *)textField
  didChangeNumberOfSuggestions:(NSInteger)numberOfSuggestions{
 
-    
+    NSLog(@"TEST");
+    if (numberOfSuggestions == 0) {
+        self.hasSuggestions = NO;
+    }
+}
+- (void)autoCompleteTextField:(MLPAutoCompleteTextField *)textField
+willShowAutoCompleteTableView:(UITableView *)autoCompleteTableView{
+    self.hasSuggestions = YES;
 }
 
 #pragma mark - Language change Delegate Methods

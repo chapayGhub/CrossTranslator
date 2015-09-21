@@ -45,7 +45,7 @@
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"CachedResult" inManagedObjectContext:self.managedObjectContext];
     [fetchRequest setEntity:entity];
     
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"fromText CONTAINS[cd] %@",string];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(fromText CONTAINS[cd] %@) AND (fromLanguage == %@) AND (toLanguage == %@)",string,self.startLanguage,self.destLanguage];
     
     [fetchRequest setPredicate:predicate];
     NSError *error = nil;
