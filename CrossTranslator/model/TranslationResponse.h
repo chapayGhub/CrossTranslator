@@ -13,5 +13,6 @@
 
 @property (strong, nonatomic) NSArray<Tuc> *tuc;
 @property (strong, nonatomic) NSString *result;
+@property (strong, nonatomic) NSDictionary<Optional> *authors;
 
 @end

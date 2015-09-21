@@ -149,6 +149,13 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([[segue identifier] isEqualToString:@"showMeaning"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+        
+        Tuc *tuc = [self.translation.result.tuc objectAtIndex:indexPath.row];
+        
+        
+        if ((tuc.meanings == nil) || ([tuc.meanings count] == 0)) {
+            return;
+        }
         Tuc *object = [self.translation.result.tuc objectAtIndex:indexPath.row];
         DetailViewController *controller = (DetailViewController *)[segue destinationViewController];
         controller.tuc = object;
@@ -159,6 +166,17 @@
         dest.currentLanguage = self.currentLanguage;
         dest.managedObjectContext = self.managedObjectContext;
     }
+}
+
+- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
+    if ([identifier isEqualToString:@"showMeaning"]) {
+        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+        Tuc *tuc = [self.translation.result.tuc objectAtIndex:indexPath.row];
+        if ((tuc.meanings == nil) || ([tuc.meanings count] == 0)) {
+            return NO;
+        }
+    }
+    return YES;
 }
 
 #pragma mark - Table View
@@ -214,6 +232,39 @@
     return 30;
 }
 
+- (void)customizeOutputCell:(ToLanguageCell*)tCell inIndexPath:(NSIndexPath*)indexPath{
+    Tuc *tuc = [self.translation.result.tuc objectAtIndex:indexPath.row];
+    
+    
+    if ((tuc.meanings == nil) || ([tuc.meanings count] == 0)) {
+        tCell.accessoryType = UITableViewCellAccessoryNone;
+    }else{
+        tCell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    }
+    
+    if (tuc.phrase == nil) {
+        if([tuc.meanings count] > 0){
+            tCell.translatePhrase.text = [((Meaning*)[tuc.meanings objectAtIndex:0]).text stringByConvertingHTMLToPlainText];
+            tCell.translateLabel.text = [self.languageNamesDataSource getLangNameForCode:((Meaning*)[tuc.meanings objectAtIndex:0]).language];
+        }
+    }else{
+        tCell.translatePhrase.text = [tuc.phrase.text stringByConvertingHTMLToPlainText];
+        tCell.translateLabel.text = [self.languageNamesDataSource getLangNameForCode:tuc.phrase.language];
+    }
+    
+    if ([tuc.authors count] > 0) {
+        NSString *authorKey = [NSString stringWithFormat:@"%d",[[tuc.authors objectAtIndex:0] intValue]];
+        tCell.authorValue.text = [[self.translation.result.authors valueForKey:authorKey] valueForKey:@"U"];
+    }
+    tCell.selectionStyle = UITableViewCellSelectionStyleNone;
+}
+
+- (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (indexPath.section == 1) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://%@.wikipedia.org/wiki/%@", self.startLangCode,self.inputText.text]]];
+    }
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString* fromLangCellID = @"FromTranslate";
     static NSString* toLangCellID = @"ToTranslate";
@@ -233,27 +284,14 @@
         ToLanguageCell* tCell;
         tCell = (ToLanguageCell*)[tableView dequeueReusableCellWithIdentifier:toLangCellID
                                                                 forIndexPath:indexPath];
-        Tuc *tuc = [self.translation.result.tuc objectAtIndex:indexPath.row];
-        
-        
-        if ((tuc.meanings == nil)|| ([tuc.meanings count] == 0)) {
-            cell.accessoryType = UITableViewCellAccessoryNone;
-        }
-        
-        if (tuc.phrase == nil) {
-            if([tuc.meanings count] > 0){
-                tCell.translatePhrase.text = [((Meaning*)[tuc.meanings objectAtIndex:0]).text stringByConvertingHTMLToPlainText];
-                tCell.translateLabel.text = [self.languageNamesDataSource getLangNameForCode:((Meaning*)[tuc.meanings objectAtIndex:0]).language];
-            }
-        }else{
-            tCell.translatePhrase.text = [tuc.phrase.text stringByConvertingHTMLToPlainText];
-            tCell.translateLabel.text = [self.languageNamesDataSource getLangNameForCode:tuc.phrase.language];
-        }
+        [self customizeOutputCell:tCell inIndexPath:indexPath];
         return tCell;
         
     }else if (indexPath.section == 1){
         cell = (WikiSuggestsCell*)[tableView dequeueReusableCellWithIdentifier:wikiCellID
                                                                   forIndexPath:indexPath];
+        ((WikiSuggestsCell*)cell).linkLabel.text = [NSString stringWithFormat:@"https://%@.wikipedia.org/wiki/%@", self.startLangCode,self.inputText.text];
+        
     }else if (indexPath.section == 2){
         cell = (GoogleAudioCell*)[tableView dequeueReusableCellWithIdentifier:googleAudioCellID
                                                                  forIndexPath:indexPath];
@@ -372,8 +410,6 @@
 
 - (void)autoCompleteTextField:(MLPAutoCompleteTextField *)textField
  didChangeNumberOfSuggestions:(NSInteger)numberOfSuggestions{
-
-    NSLog(@"TEST");
     if (numberOfSuggestions == 0) {
         self.hasSuggestions = NO;
     }

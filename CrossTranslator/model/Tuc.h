@@ -18,5 +18,6 @@
 
 @property (strong, nonatomic) Phrase<Optional> *phrase;
 @property (strong, nonatomic) NSArray<Meaning, Optional> *meanings;
+@property (strong, nonatomic) NSArray<Optional> *authors;
 
 @end
