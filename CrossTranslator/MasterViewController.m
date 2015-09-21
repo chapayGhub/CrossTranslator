@@ -33,7 +33,7 @@
 @property (strong, nonatomic) NSString *inputString;
 
 
-@property (weak, nonatomic) MLPAutoCompleteTextField *inputText;
+@property (strong, nonatomic) MLPAutoCompleteTextField *inputText;
 @property (weak, nonatomic) MLPAutoCompleteTextField *startLang;
 @property (weak, nonatomic) MLPAutoCompleteTextField *endLang;
 
@@ -47,6 +47,7 @@
 @property (strong, nonatomic) LanguageNamesDataSource *languageNamesDataSource;
 
 @property (nonatomic) BOOL hasSuggestions;
+@property (nonatomic) BOOL isValid;
 
 @end
 
@@ -111,6 +112,36 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+
+- (BOOL)checkField:(NSString *)aString{
+    NSError *error = nil;
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\d"
+                                                                           options:NSRegularExpressionCaseInsensitive
+                                                                             error:&error];
+    
+    if (error) {
+        NSLog(@"%@", [error localizedDescription]);
+    }
+    
+    NSArray* matches = [regex matchesInString:aString
+                                      options:0
+                                        range:NSMakeRange(0, [aString length])];
+    if ([matches count] > 0) {
+        return NO;
+    }
+    return YES;
+}
+
+-(void) userEnteredInputText{
+    self.isValid = [self checkField:self.inputText.text];
+    if (self.isValid) {
+        self.inputText.textColor = [UIColor blackColor];
+    }else{
+        self.inputText.textColor = [UIColor redColor];
+        
+    }
 }
 
 #pragma mark - Segues
@@ -241,6 +272,10 @@
     self.inputText = cell.inputText;
     self.inputText.autoCompleteDataSource = self.knownWordsDataSource;
     self.inputText.autoCompleteDelegate = self;
+    
+    [self.inputText addTarget:self
+                       action:@selector(userEnteredInputText)
+             forControlEvents:UIControlEventEditingDidEnd];
     
     self.startLang = cell.fromLangValue;
     self.startLang.autoCompleteDataSource = self.languageNamesDataSource;
