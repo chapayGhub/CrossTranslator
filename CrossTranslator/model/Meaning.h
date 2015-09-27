@@ -13,7 +13,7 @@
 
 @interface Meaning : JSONModel
 
-@property (strong, nonatomic) NSString *text;
+@property (strong, nonatomic, getter=getText) NSString *text;
 @property (strong, nonatomic) NSString *language;
 
 @end

@@ -7,7 +7,12 @@
 //
 
 #import "Phrase.h"
+#import "NSString+HTML.h"
 
 @implementation Phrase
 
+
+- (NSString*) getText{
+    return [_text stringByConvertingHTMLToPlainText];
+}
 @end

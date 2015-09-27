@@ -21,9 +21,10 @@
 #import "KnownWordsDataSource.h"
 #import "LanguageNamesDataSource.h"
 #import "LangCodeModel.h"
-#import "NSString+HTML.h"
 #import "SelectLangViewController.h"
 #import "GUILanguageManager.h"
+
+#import "MBProgressHUD.h"
 
 
 @interface MasterViewController() <MLPAutoCompleteTextFieldDelegate,LanguageChangedDelegate>
@@ -46,6 +47,12 @@
 @property (strong, nonatomic) KnownWordsDataSource * knownWordsDataSource;
 @property (strong, nonatomic) LanguageNamesDataSource *languageNamesDataSource;
 
+
+/**
+ *  has suggestions tracks the state of the Autocomplete Text Fields,
+ *  whether they are displaying suggestions or not. 
+ *  This is needed when user taps outside of soft keyboard
+ */
 @property (nonatomic) BOOL hasSuggestions;
 @property (nonatomic) BOOL isValid;
 
@@ -61,8 +68,9 @@
     self.translator = [[TranslatorFacade alloc] init];
     
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    self.currentLanguage = [prefs objectForKey:kCurrentLang];
     
+    //Load user Prefernces
+    self.currentLanguage = [prefs objectForKey:kCurrentLang];
     self.startLangCode = [prefs objectForKey:kStartLanguage];
     self.endLangCode = [prefs objectForKey:kEndLanguage];
     
@@ -73,6 +81,7 @@
     self.translation = nil;
     
     
+    // Register for UI language changes notifications in order to update UI accordingly
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(updateUIStrings:)
                                                  name:kUILanguageLoaded
@@ -86,22 +95,29 @@
     
     [tap setCancelsTouchesInView:NO];
     [self.view addGestureRecognizer:tap];
-    
 }
 
 - (void) dismissKeyboard {
+    // Don't dismiss keyboard if Autocomplete is tableview has appeared.
+    // User should select an option from autocomplete
     if (!self.hasSuggestions) {
         [self.inputText resignFirstResponder];
     }
 }
 
+/**
+ *  In this method are updated all UI elements with the new language Strings
+ *
+ *  @param notification The notification that arrived
+ */
 - (void) updateUIStrings:(NSNotification*)notification{
-    [self.tableView reloadData];
     
+    [self.tableView reloadData];
     self.navigationItem.title = [GUILanguageManager getUIStringForCode:@"main_title"];
 }
 
 - (void) dealloc{
+    //In order to dealloc this object succesfully remove it from Notification Center
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
@@ -114,7 +130,13 @@
     // Dispose of any resources that can be recreated.
 }
 
-
+/**
+ *  Checks if the Content of the Text Field is valid input to be translated
+ *
+ *  @param aString Content of Text Field
+ *
+ *  @return Is valid string
+ */
 - (BOOL)checkField:(NSString *)aString{
     NSError *error = nil;
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\d"
@@ -134,6 +156,9 @@
     return YES;
 }
 
+/**
+ *  If user entered invalid String change the Text Field text color
+ */
 -(void) userEnteredInputText{
     self.isValid = [self checkField:self.inputText.text];
     if (self.isValid) {
@@ -145,14 +170,11 @@
 }
 
 #pragma mark - Segues
-
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    //Opens the details of this Translation
     if ([[segue identifier] isEqualToString:@"showMeaning"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        
         Tuc *tuc = [self.translation.result.tuc objectAtIndex:indexPath.row];
-        
-        
         if ((tuc.meanings == nil) || ([tuc.meanings count] == 0)) {
             return;
         }
@@ -160,6 +182,8 @@
         DetailViewController *controller = (DetailViewController *)[segue destinationViewController];
         controller.tuc = object;
         controller.navigationItem.leftItemsSupplementBackButton = YES;
+
+    // Opens the change Language ViewController
     }else if([[segue identifier] isEqualToString:@"showOptions"]){
         SelectLangViewController * dest = (SelectLangViewController*) [segue destinationViewController];
         dest.delegate = self;
@@ -168,6 +192,16 @@
     }
 }
 
+
+/**
+ *  Some cells contain a Translation that does not have detailed explanation
+ *  In this case we forbid the segue for the DetailViewController
+ *
+ *  @param identifier identifier of the segue
+ *  @param sender
+ *
+ *  @return
+ */
 - (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
     if ([identifier isEqualToString:@"showMeaning"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
@@ -179,11 +213,13 @@
     return YES;
 }
 
-#pragma mark - Table View
 
+#pragma mark - Table View
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    // If there is no translation yet display only the Input TableViewCell
     return self.translation == nil ? 1 : 4;
 }
+
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == 0) {
@@ -232,23 +268,33 @@
     return 30;
 }
 
+
+/**
+ *  Customize the Output (translation entry) cell
+ *
+ *  @param tCell     a ToLanguageCell
+ *  @param indexPath selected IndexPath
+ */
 - (void)customizeOutputCell:(ToLanguageCell*)tCell inIndexPath:(NSIndexPath*)indexPath{
     Tuc *tuc = [self.translation.result.tuc objectAtIndex:indexPath.row];
     
     
+    // Don't show accessory image for translation expression without further details
     if ((tuc.meanings == nil) || ([tuc.meanings count] == 0)) {
         tCell.accessoryType = UITableViewCellAccessoryNone;
     }else{
+        // Even though the default value in Interface Builder is UITableViewCellAccessoryDisclosureIndicator
+        // the else clause is needed due to cell reuse
         tCell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     
     if (tuc.phrase == nil) {
         if([tuc.meanings count] > 0){
-            tCell.translatePhrase.text = [((Meaning*)[tuc.meanings objectAtIndex:0]).text stringByConvertingHTMLToPlainText];
+            tCell.translatePhrase.text = ((Meaning*)[tuc.meanings objectAtIndex:0]).text;
             tCell.translateLabel.text = [self.languageNamesDataSource getLangNameForCode:((Meaning*)[tuc.meanings objectAtIndex:0]).language];
         }
     }else{
-        tCell.translatePhrase.text = [tuc.phrase.text stringByConvertingHTMLToPlainText];
+        tCell.translatePhrase.text = tuc.phrase.text;
         tCell.translateLabel.text = [self.languageNamesDataSource getLangNameForCode:tuc.phrase.language];
     }
     
@@ -259,6 +305,8 @@
     tCell.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 
+
+// Open Safari at the correct Wiki Url
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 1) {
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://%@.wikipedia.org/wiki/%@", self.startLangCode,self.inputText.text]]];
@@ -337,11 +385,6 @@
     }
 }
 
-
-- (void) invokeTranslate{
-    
-}
-
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     // Return NO if you do not want the specified item to be editable.
     return NO;
@@ -362,11 +405,21 @@
 }
 
 - (void) goTranslate{
+    
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.mode = MBProgressHUDModeIndeterminate;
+    hud.labelText = [GUILanguageManager getUIStringForCode:@"Translating"];
+    
+    // if is in valid state do translate
     if (self.isValid) {
         [self.translator translatePhrase:self.inputText.text
                                     from:self.startLangCode
                                       to:self.endLangCode
                             completition:^(NSError *error, Translation *result){
+                                //Hide HUD regardless of translation outcome
+                                [MBProgressHUD hideHUDForView:self.view animated:YES];
+                                
+                                
                                 if (error == nil) {
                                     self.translation = result;
                                     [self.tableView reloadData];
@@ -390,12 +443,13 @@
 }
 
 #pragma mark - Autocomplete Delegation
-
 - (void)autoCompleteTextField:(MLPAutoCompleteTextField *)textField
   didSelectAutoCompleteString:(NSString *)selectedString
        withAutoCompleteObject:(id<MLPAutoCompletionObject>)selectedObject
             forRowAtIndexPath:(NSIndexPath *)indexPath{
     
+    
+    //Save user selection in the preferences
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     LangCodeModel *lcm = (LangCodeModel*)selectedObject;
     BOOL changes = NO;
@@ -415,8 +469,13 @@
     }else if (textField == self.inputText){
 
     }
+    
     if (changes) {
         [prefs synchronize];
+        // One of the languages (source and/or destination) has changed
+        // create a new autocomplete datasource object with the new languages
+        // one would not expect to autocomplete for the same word but different source languages
+        
         self.knownWordsDataSource = [[KnownWordsDataSource alloc] initWithStartLanguage:self.startLangCode destinationLanguage:self.endLangCode];
         self.inputText.autoCompleteDataSource = self.knownWordsDataSource;
     }

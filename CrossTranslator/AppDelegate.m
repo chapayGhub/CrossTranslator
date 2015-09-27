@@ -60,7 +60,9 @@
     controller.managedObjectContext = self.managedObjectContext;
     return YES;
 }
-
+/**
+ *  Loads the localized String that populate the UI elements
+ */
 - (void) loadUIStrings{
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     NSNumber *column = [prefs objectForKey:kCurrentLang];
@@ -82,7 +84,9 @@
         
     }
 }
-
+/*!
+ *  This method load the available languages in Core Data.
+ */
 - (void) loadLangCodes{
     NSString *path = [[NSBundle mainBundle] pathForResource:@"codes" ofType:@"csv"];
     NSURL *url = [NSURL fileURLWithPath:path];
@@ -107,13 +111,9 @@
     [self.lines addObject:_currentLine];
     
     
-    //First line are supported UI Languages:
+    //In the first line we find supported UI Languages:
     if ([self.lines count] == 1) {
         self.langs = [[NSMutableArray alloc] init];
-        
-        
-
-        
         LangCodeModel *language;
         for (int i = 0; i < [self.currentLine count] - 1; i++) {
             language = [NSEntityDescription insertNewObjectForEntityForName:@"LangCodeModel" inManagedObjectContext:self.managedObjectContext];
@@ -126,6 +126,8 @@
         
         return;
     }else{
+        // The other lines contain the code of the language and
+        // the respective Language Name in each UI language
         LangName * langName;
         for (int i = 0; i < [self.currentLine count] - 1; i++) {
             langName = [NSEntityDescription insertNewObjectForEntityForName:@"LangName" inManagedObjectContext:self.managedObjectContext];

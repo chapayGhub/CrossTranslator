@@ -11,7 +11,11 @@
 @end
 
 @interface Phrase : JSONModel
-@property (strong, nonatomic) NSString *text;
+
+/**
+ *  Synthesize custom getter to return HTML free chars from text
+ */
+@property (strong, nonatomic, getter=getText) NSString *text;
 @property (strong, nonatomic) NSString *language;
 
 @end

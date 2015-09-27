@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A94984451BB8499200079876 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = A94984441BB8499200079876 /* MBProgressHUD.m */; settings = {ASSET_TAGS = (); }; };
 		A9D645D21BAD691000E29D2A /* FromLanguageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D645D11BAD691000E29D2A /* FromLanguageCell.m */; settings = {ASSET_TAGS = (); }; };
 		A9D645D51BAD692600E29D2A /* ToLanguageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D645D41BAD692600E29D2A /* ToLanguageCell.m */; settings = {ASSET_TAGS = (); }; };
 		A9D645D81BAD694E00E29D2A /* WikiSuggestsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A9D645D71BAD694E00E29D2A /* WikiSuggestsCell.m */; settings = {ASSET_TAGS = (); }; };
@@ -83,6 +84,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A94984431BB8499200079876 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
+		A94984441BB8499200079876 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		A9D645D01BAD691000E29D2A /* FromLanguageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FromLanguageCell.h; path = view/FromLanguageCell.h; sourceTree = "<group>"; };
 		A9D645D11BAD691000E29D2A /* FromLanguageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FromLanguageCell.m; path = view/FromLanguageCell.m; sourceTree = "<group>"; };
 		A9D645D31BAD692600E29D2A /* ToLanguageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ToLanguageCell.h; path = view/ToLanguageCell.h; sourceTree = "<group>"; };
@@ -222,6 +225,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A94984461BB8499800079876 /* MBProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				A94984431BB8499200079876 /* MBProgressHUD.h */,
+				A94984441BB8499200079876 /* MBProgressHUD.m */,
+			);
+			name = MBProgressHUD;
+			sourceTree = "<group>";
+		};
 		A9D645CF1BAD68C100E29D2A /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -472,6 +484,7 @@
 		A9EE87841BAD549C00A63533 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				A94984461BB8499800079876 /* MBProgressHUD */,
 				A9D646101BADAC1D00E29D2A /* JSONModel */,
 				A9D645E11BAD7E5D00E29D2A /* MLPAutoCompleteTextField */,
 				A9D645E01BAD7E2200E29D2A /* CVSParser */,
@@ -653,6 +666,7 @@
 				A9D645EA1BAD7E5D00E29D2A /* NSString+Levenshtein.m in Sources */,
 				A9D646491BADCB2500E29D2A /* GTMNSString+HTML.m in Sources */,
 				A9D6460F1BADA6BA00E29D2A /* Translation.m in Sources */,
+				A94984451BB8499200079876 /* MBProgressHUD.m in Sources */,
 				A9D645FE1BAD818F00E29D2A /* NSDictionary+QueryString.m in Sources */,
 				A9EE87541BAD4DC800A63533 /* MasterViewController.m in Sources */,
 				A9D645DB1BAD696300E29D2A /* GoogleAudioCell.m in Sources */,
