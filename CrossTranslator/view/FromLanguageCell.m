@@ -20,6 +20,9 @@
     // Configure the view for the selected state
 }
 
+- (IBAction)swapLanguages:(id)sender {
+}
+
 - (IBAction)translateAction:(id)sender {
 }
 @end

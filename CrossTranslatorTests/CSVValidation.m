@@ -9,6 +9,8 @@
 #import <XCTest/XCTest.h>
 #import <CoreData/CoreData.h>
 #import "CHCSVParser.h"
+#import "AppDelegate.h"
+
 
 @interface CSVValidation : XCTestCase<CHCSVParserDelegate>
 
@@ -81,6 +83,9 @@
 
 
 - (void) testAllInputIsSavedInCoreData{
+    AppDelegate *app = [[AppDelegate alloc] init];
+    [app loadLangCodesInMOC:self.moc];
+    
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"LangCodeModel"
@@ -91,7 +96,7 @@
     NSArray *results = [_moc executeFetchRequest:fetchRequest error:&error];
     
     
-    XCTAssertEqual([[_lines objectAtIndex:0] count], [results count],@"Missmatch in saved data read %lu but saved %lu",(unsigned long)[[_lines objectAtIndex:0] count], (unsigned long)[results count]);
+    XCTAssertEqual([[_lines objectAtIndex:0] count] - 1, [results count],@"Missmatch in saved data read %lu but saved %lu",(unsigned long)[[_lines objectAtIndex:0] count], (unsigned long)[results count]);
 }
 
 

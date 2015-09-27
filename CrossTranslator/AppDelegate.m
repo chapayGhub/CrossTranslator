@@ -23,6 +23,13 @@
 @property (strong, nonatomic) NSMutableArray * langs;
 
 
+/**
+ *  this managed object context is used essentially for testing.
+ *  so we pass it during test
+ */
+@property (strong, nonatomic) NSManagedObjectContext *saveObjectMOC;
+
+
 @end
 
 @implementation AppDelegate
@@ -44,12 +51,11 @@
     
     //Load language codes in Core Data the first time app runs
     if (![[NSUserDefaults standardUserDefaults] objectForKey:@"FirstRun"]) {
-        [self loadLangCodes];
+        [self loadLangCodesInMOC:self.managedObjectContext];
         [[NSUserDefaults standardUserDefaults] setValue:@"1strun" forKey:@"FirstRun"];
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
-    
-    
+
     //load ui strings
     [self loadUIStrings];
     
@@ -87,11 +93,14 @@
 /*!
  *  This method load the available languages in Core Data.
  */
-- (void) loadLangCodes{
+- (void) loadLangCodesInMOC:(NSManagedObjectContext*)moc;{
     NSString *path = [[NSBundle mainBundle] pathForResource:@"codes" ofType:@"csv"];
     NSURL *url = [NSURL fileURLWithPath:path];
     CHCSVParser *parser = [[CHCSVParser alloc] initWithContentsOfDelimitedURL:url delimiter:';'];
     parser.delegate = self;
+    
+    //Set in which moc to save objects
+    _saveObjectMOC = moc;
     [parser parse];
 }
 
@@ -116,7 +125,7 @@
         self.langs = [[NSMutableArray alloc] init];
         LangCodeModel *language;
         for (int i = 0; i < [self.currentLine count] - 1; i++) {
-            language = [NSEntityDescription insertNewObjectForEntityForName:@"LangCodeModel" inManagedObjectContext:self.managedObjectContext];
+            language = [NSEntityDescription insertNewObjectForEntityForName:@"LangCodeModel" inManagedObjectContext:_saveObjectMOC];
             [language setValue:[self.currentLine objectAtIndex:i] forKey:@"code"];
             
             [language setValue:[NSNumber numberWithInt:i] forKey:@"index"];
@@ -130,7 +139,7 @@
         // the respective Language Name in each UI language
         LangName * langName;
         for (int i = 0; i < [self.currentLine count] - 1; i++) {
-            langName = [NSEntityDescription insertNewObjectForEntityForName:@"LangName" inManagedObjectContext:self.managedObjectContext];
+            langName = [NSEntityDescription insertNewObjectForEntityForName:@"LangName" inManagedObjectContext:_saveObjectMOC];
             [langName setValue:[self.currentLine objectAtIndex:[self.currentLine count] - 1]
                         forKey:@"code"];
             [langName setValue:[self.currentLine objectAtIndex:i] forKey:@"name"];

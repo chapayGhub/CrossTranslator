@@ -9,14 +9,16 @@
 #import "MasterViewController.h"
 #import "DetailViewController.h"
 
-#import "MLPAutoCompleteTextField.h"
+#import "Constants.h"
 
+
+//Custom Cells
 #import "FromLanguageCell.h"
 #import "ToLanguageCell.h"
 #import "WikiSuggestsCell.h"
 #import "GoogleAudioCell.h"
-#import "Constants.h"
 
+// Models and Utils
 #import "TranslatorFacade.h"
 #import "KnownWordsDataSource.h"
 #import "LanguageNamesDataSource.h"
@@ -24,7 +26,13 @@
 #import "SelectLangViewController.h"
 #import "GUILanguageManager.h"
 
+//External libs
+#import "MLPAutoCompleteTextField.h"
 #import "MBProgressHUD.h"
+#import "Reachability.h"
+#import "Chameleon/Chameleon.h"
+#import "Chameleon.h"
+
 
 
 @interface MasterViewController() <MLPAutoCompleteTextFieldDelegate,LanguageChangedDelegate>
@@ -47,6 +55,8 @@
 @property (strong, nonatomic) KnownWordsDataSource * knownWordsDataSource;
 @property (strong, nonatomic) LanguageNamesDataSource *languageNamesDataSource;
 
+
+@property (nonatomic) BOOL networkIsReachable;
 
 /**
  *  has suggestions tracks the state of the Autocomplete Text Fields,
@@ -81,6 +91,15 @@
     self.translation = nil;
     
     
+    
+    self.navigationController.navigationBar.tintColor = FlatWhite;
+    self.navigationController.navigationBar.barTintColor = FlatRed;
+    [self.navigationController setStatusBarStyle:UIStatusBarStyleContrast];
+    NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:FlatWhite, NSForegroundColorAttributeName, nil];
+    [self.navigationController.navigationBar setTitleTextAttributes:attributes];
+
+    
+    
     // Register for UI language changes notifications in order to update UI accordingly
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(updateUIStrings:)
@@ -95,6 +114,39 @@
     
     [tap setCancelsTouchesInView:NO];
     [self.view addGestureRecognizer:tap];
+    
+    [self monitorNetworkState];
+}
+
+- (void) monitorNetworkState{
+    // Allocate a reachability object
+    Reachability* reach = [Reachability reachabilityWithHostname:@"www.apple.com"];
+    
+    // Set the blocks
+    reach.reachableBlock = ^(Reachability*reach)
+    {
+        NSLog(@"Network unreachable");
+        _networkIsReachable = YES;
+    };
+    
+    reach.unreachableBlock = ^(Reachability*reach)
+    {
+        if (!_networkIsReachable) {
+            return;
+        }
+        _networkIsReachable = NO;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            UIAlertView * alert =[[UIAlertView alloc ] initWithTitle:[GUILanguageManager getUIStringForCode:@"No Internet Connection"]
+                                                             message:[GUILanguageManager getUIStringForCode:@"No more translations from remote service, only cached words will be displayed"]
+                                                            delegate:self
+                                                   cancelButtonTitle:NSLocalizedString(@"OK", nil)
+                                                   otherButtonTitles: nil];
+            [alert show];
+        });
+    };
+    
+    // Start the notifier, which will cause the reachability object to retain itself!
+    [reach startNotifier];
 }
 
 - (void) dismissKeyboard {
@@ -239,34 +291,34 @@
     return 0;
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-{
-    NSString *sectionName;
-    switch (section)
-    {
-        case 0:
-            sectionName = [GUILanguageManager getUIStringForCode:@"main_input_sct"];
-            break;
-        case 1:
-            sectionName = [GUILanguageManager getUIStringForCode:@"Wiki Link"];
-            break;
-        case 2:
-            sectionName = [GUILanguageManager getUIStringForCode:@"Play Audio"];
-            break;
-        case 3:
-            sectionName = [GUILanguageManager getUIStringForCode:@"Translation"];
-            break;
-        default:
-            sectionName = [GUILanguageManager getUIStringForCode:@""];
-            break;
-    }
-    return sectionName;
-}
+//- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+//{
+//    NSString *sectionName;
+//    switch (section)
+//    {
+//        case 0:
+//            sectionName = [GUILanguageManager getUIStringForCode:@"main_input_sct"];
+//            break;
+//        case 1:
+//            sectionName = [GUILanguageManager getUIStringForCode:@"Wiki Link"];
+//            break;
+//        case 2:
+//            sectionName = [GUILanguageManager getUIStringForCode:@"Play Audio"];
+//            break;
+//        case 3:
+//            sectionName = [GUILanguageManager getUIStringForCode:@"Translation"];
+//            break;
+//        default:
+//            sectionName = [GUILanguageManager getUIStringForCode:@""];
+//            break;
+//    }
+//    return sectionName;
+//}
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-{
-    return 30;
-}
+//- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+//{
+//    return 30;
+//}
 
 
 /**
@@ -354,13 +406,12 @@
                        action:@selector(goTranslate)
              forControlEvents:UIControlEventTouchUpInside];
     
-    
-    cell.titleLabel.text = [GUILanguageManager getUIStringForCode:@"main_input_lbl"];
-    cell.fromLang.text = [GUILanguageManager getUIStringForCode:@"main_from_lbl"];
-    cell.toLang.text = [GUILanguageManager getUIStringForCode:@"main_to_lbl"];
     [cell.translate setTitle:[GUILanguageManager getUIStringForCode:@"main_trn_btn"] forState:UIControlStateNormal];
     
+    [cell.swapLanguagesButton addTarget:self action:@selector(swapLanguages) forControlEvents:UIControlEventTouchUpInside];
+    
     self.inputText = cell.inputText;
+    cell.inputText.placeholder = [GUILanguageManager getUIStringForCode:@"main_input_lbl"];
     self.inputText.autoCompleteDataSource = self.knownWordsDataSource;
     self.inputText.autoCompleteDelegate = self;
     
@@ -440,6 +491,10 @@
                                                otherButtonTitles: nil];
         [alert show];
     }
+}
+
+- (void) swapLanguages{
+    
 }
 
 #pragma mark - Autocomplete Delegation

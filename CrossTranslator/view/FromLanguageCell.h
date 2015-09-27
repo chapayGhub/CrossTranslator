@@ -11,16 +11,15 @@
 
 @interface FromLanguageCell : UITableViewCell
 
-@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet MLPAutoCompleteTextField *inputText;
 
-@property (weak, nonatomic) IBOutlet UILabel *fromLang;
 @property (weak, nonatomic) IBOutlet MLPAutoCompleteTextField *fromLangValue;
 
-@property (weak, nonatomic) IBOutlet UILabel *toLang;
 @property (weak, nonatomic) IBOutlet MLPAutoCompleteTextField *toLangValue;
 
 @property (weak, nonatomic) IBOutlet UIButton *translate;
+
+@property (weak, nonatomic) IBOutlet UIButton *swapLanguagesButton;
 
 - (IBAction)translateAction:(id)sender;
 @end
