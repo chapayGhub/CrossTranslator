@@ -60,6 +60,9 @@
 		A9EE87991BAD5B7700A63533 /* LangCodeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A9EE87931BAD5B7700A63533 /* LangCodeModel.m */; settings = {ASSET_TAGS = (); }; };
 		A9EE879A1BAD5B7700A63533 /* LangName+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = A9EE87951BAD5B7700A63533 /* LangName+CoreDataProperties.m */; settings = {ASSET_TAGS = (); }; };
 		A9EE879B1BAD5B7700A63533 /* LangName.m in Sources */ = {isa = PBXBuildFile; fileRef = A9EE87971BAD5B7700A63533 /* LangName.m */; settings = {ASSET_TAGS = (); }; };
+		A9FDCB1A1BB7E27600F537EB /* CSVValidation.m in Sources */ = {isa = PBXBuildFile; fileRef = A9FDCB191BB7E27600F537EB /* CSVValidation.m */; settings = {ASSET_TAGS = (); }; };
+		A9FDCB221BB82C9200F537EB /* APIClientTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A9FDCB211BB82C9200F537EB /* APIClientTest.m */; settings = {ASSET_TAGS = (); }; };
+		A9FDCB241BB8388A00F537EB /* TranslationFacadeTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A9FDCB231BB8388A00F537EB /* TranslationFacadeTest.m */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -187,6 +190,9 @@
 		A9EE87951BAD5B7700A63533 /* LangName+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "LangName+CoreDataProperties.m"; sourceTree = "<group>"; };
 		A9EE87961BAD5B7700A63533 /* LangName.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LangName.h; sourceTree = "<group>"; };
 		A9EE87971BAD5B7700A63533 /* LangName.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LangName.m; sourceTree = "<group>"; };
+		A9FDCB191BB7E27600F537EB /* CSVValidation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSVValidation.m; sourceTree = "<group>"; };
+		A9FDCB211BB82C9200F537EB /* APIClientTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APIClientTest.m; sourceTree = "<group>"; };
+		A9FDCB231BB8388A00F537EB /* TranslationFacadeTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TranslationFacadeTest.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -416,7 +422,6 @@
 		A9EE87481BAD4DC800A63533 /* CrossTranslator */ = {
 			isa = PBXGroup;
 			children = (
-				A9EE87851BAD54A800A63533 /* Libs */,
 				A9EE87841BAD549C00A63533 /* Utils */,
 				A9EE87861BAD54AF00A63533 /* Model */,
 				A9D645CF1BAD68C100E29D2A /* View */,
@@ -447,6 +452,9 @@
 			isa = PBXGroup;
 			children = (
 				A9EE87691BAD4DC800A63533 /* CrossTranslatorTests.m */,
+				A9FDCB191BB7E27600F537EB /* CSVValidation.m */,
+				A9FDCB211BB82C9200F537EB /* APIClientTest.m */,
+				A9FDCB231BB8388A00F537EB /* TranslationFacadeTest.m */,
 				A9EE876B1BAD4DC800A63533 /* Info.plist */,
 			);
 			path = CrossTranslatorTests;
@@ -464,23 +472,16 @@
 		A9EE87841BAD549C00A63533 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				A9D646101BADAC1D00E29D2A /* JSONModel */,
 				A9D645E11BAD7E5D00E29D2A /* MLPAutoCompleteTextField */,
 				A9D645E01BAD7E2200E29D2A /* CVSParser */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
 		};
-		A9EE87851BAD54A800A63533 /* Libs */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Libs;
-			sourceTree = "<group>";
-		};
 		A9EE87861BAD54AF00A63533 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				A9D646101BADAC1D00E29D2A /* JSONModel */,
 				A9D646021BAD97F900E29D2A /* ApiClient */,
 				A9D645F11BAD808F00E29D2A /* CoreData */,
 				A9D646371BADAC9B00E29D2A /* Translation */,
@@ -682,6 +683,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				A9EE876A1BAD4DC800A63533 /* CrossTranslatorTests.m in Sources */,
+				A9FDCB241BB8388A00F537EB /* TranslationFacadeTest.m in Sources */,
+				A9FDCB221BB82C9200F537EB /* APIClientTest.m in Sources */,
+				A9FDCB1A1BB7E27600F537EB /* CSVValidation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -816,6 +820,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = CrossTranslator/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.crossover.CrossTranslator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -829,6 +834,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = CrossTranslator/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.crossover.CrossTranslator;
 				PRODUCT_NAME = "$(TARGET_NAME)";

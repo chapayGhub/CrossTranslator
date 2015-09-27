@@ -73,7 +73,7 @@ static NSMutableDictionary *allUIStrings;
     self.currentLine = [[NSMutableArray alloc] init];
 }
 - (void)parser:(CHCSVParser *)parser didReadField:(NSString *)field atIndex:(NSInteger)fieldIndex {
-    NSLog(@"%@", field);
+//    NSLog(@"%@", field);
     [self.currentLine addObject:field];
 }
 - (void)parser:(CHCSVParser *)parser didEndLine:(NSUInteger)recordNumber {
@@ -92,7 +92,7 @@ static NSMutableDictionary *allUIStrings;
     self.currentLine = nil;
 }
 - (void)parserDidEndDocument:(CHCSVParser *)parser {
-    NSLog(@"parser ended");
+//    NSLog(@"parser ended");
     dispatch_async(dispatch_get_main_queue(), ^{
         [[NSNotificationCenter defaultCenter] postNotificationName:kUILanguageLoaded object:nil];
     });

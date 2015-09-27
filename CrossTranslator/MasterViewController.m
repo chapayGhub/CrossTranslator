@@ -362,15 +362,31 @@
 }
 
 - (void) goTranslate{
-    [self.translator translatePhrase:self.inputText.text
-                                from:self.startLangCode
-                                  to:self.endLangCode
-                        completition:^(NSError *error, Translation *result){
-        if (error == nil) {
-            self.translation = result;
-            [self.tableView reloadData];
-        }
-    }];
+    if (self.isValid) {
+        [self.translator translatePhrase:self.inputText.text
+                                    from:self.startLangCode
+                                      to:self.endLangCode
+                            completition:^(NSError *error, Translation *result){
+                                if (error == nil) {
+                                    self.translation = result;
+                                    [self.tableView reloadData];
+                                }else{
+                                    UIAlertView * alert =[[UIAlertView alloc ] initWithTitle:NSLocalizedString(@"Error", nil)
+                                                                                     message:[error localizedDescription]
+                                                                                    delegate:self
+                                                                           cancelButtonTitle:NSLocalizedString(@"OK", nil)
+                                                                           otherButtonTitles: nil];
+                                    [alert show];
+                                }
+                            }];
+    }else{
+        UIAlertView * alert =[[UIAlertView alloc ] initWithTitle:NSLocalizedString(@"Error", nil)
+                                                         message:@"Invalid Input string"
+                                                        delegate:self
+                                               cancelButtonTitle:NSLocalizedString(@"OK", nil)
+                                               otherButtonTitles: nil];
+        [alert show];
+    }
 }
 
 #pragma mark - Autocomplete Delegation

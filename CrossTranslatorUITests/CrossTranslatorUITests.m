@@ -35,6 +35,53 @@
 - (void)testExample {
     // Use recording to get started writing UI tests.
     // Use XCTAssert and related functions to verify your tests produce the correct results.
+    
+    XCUIApplication *app = [[XCUIApplication alloc] init];
+    XCUIElementQuery *tablesQuery = app.tables;
+    XCUIElementQuery *cellsQuery = tablesQuery.cells;
+    XCUIElement *textField = [[cellsQuery childrenMatchingType:XCUIElementTypeTextField] elementBoundByIndex:0];
+    [textField tap];
+    [textField typeText:@"five"];
+    
+    XCUIElement *textField2 = [[cellsQuery childrenMatchingType:XCUIElementTypeTextField] elementBoundByIndex:1];
+    [textField2 tap];
+    
+    XCUIElement *eliminaKey = app.keys[@"Elimina"];
+    [eliminaKey doubleTap];
+    [eliminaKey doubleTap];
+    [eliminaKey doubleTap];
+    [eliminaKey tap];
+    [textField2 typeText:@"eng"];
+    
+    XCUIElement *textField3 = [[cellsQuery childrenMatchingType:XCUIElementTypeTextField] elementBoundByIndex:2];
+    [textField3 tap];
+    [textField3 tap];
+    [eliminaKey tap];
+    [eliminaKey tap];
+    [eliminaKey tap];
+    [eliminaKey tap];
+    [eliminaKey tap];
+    [eliminaKey tap];
+    [eliminaKey tap];
+    [eliminaKey tap];
+    [eliminaKey doubleTap];
+    [textField3 typeText:@"ita"];
+    [textField2 tap];
+    [tablesQuery.buttons[@"Translate"] tap];
+    [[tablesQuery.cells containingType:XCUIElementTypeButton identifier:@"Play Audio"].element swipeUp];
+    [[tablesQuery.cells containingType:XCUIElementTypeStaticText identifier:@"5"].staticTexts[@"LinkValue"] swipeUp];
+    [[tablesQuery.cells containingType:XCUIElementTypeStaticText identifier:@"The digit/figure 5."].staticTexts[@"http://en.wiktionary.org"] tap];
+    
+    XCUIElement *mainButton = app.navigationBars[@"Master"].buttons[@"Main"];
+    [mainButton tap];
+    [[tablesQuery.cells containingType:XCUIElementTypeStaticText identifier:@"A person who is five years old."].staticTexts[@"http://en.wiktionary.org"] tap];
+    [mainButton tap];
+    [[tablesQuery.cells containingType:XCUIElementTypeStaticText identifier:@"A short rest, especially one of five minutes."].staticTexts[@"LinkValue"] swipeDown];
+    [tablesQuery.otherElements[@"TRANSLATION"] swipeDown];
+    [XCUIDevice sharedDevice].orientation = UIDeviceOrientationPortrait;
+    [XCUIDevice sharedDevice].orientation = UIDeviceOrientationPortrait;
+    [tablesQuery.staticTexts[@"https://en.wikipedia.org/wiki/five"] tap];
+    
 }
 
 @end
