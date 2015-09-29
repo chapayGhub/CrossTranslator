@@ -7,10 +7,20 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreData/CoreData.h>
 #import "MLPAutoCompleteTextFieldDataSource.h"
 
 @interface KnownWordsDataSource : NSObject <MLPAutoCompleteTextFieldDataSource>
 
+/**
+ *  dependency injection of ManagedObjectContext
+ *
+ *  @return
+ */
+
+- (void) setMOC:(NSManagedObjectContext*)moc;
+
 - (id) initWithStartLanguage:(NSString*) startLanguage destinationLanguage:(NSString*) destLanguage;
+
 
 @end

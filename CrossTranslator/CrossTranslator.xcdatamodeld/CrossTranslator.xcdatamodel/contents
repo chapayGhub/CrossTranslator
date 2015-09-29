@@ -2,7 +2,7 @@
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="8195" systemVersion="14F27" minimumToolsVersion="Automatic">
     <entity name="CachedResult" representedClassName="CachedResult" syncable="YES">
         <attribute name="fromLanguage" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="fromText" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fromText" attributeType="String" syncable="YES"/>
         <attribute name="toLanguage" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="toText" optional="YES" attributeType="Binary" syncable="YES"/>
     </entity>
@@ -17,8 +17,8 @@
         <relationship name="belongs" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="LangCodeModel" inverseName="names" inverseEntity="LangCodeModel" syncable="YES"/>
     </entity>
     <elements>
+        <element name="CachedResult" positionX="117" positionY="9" width="128" height="105"/>
         <element name="LangCodeModel" positionX="-63" positionY="-18" width="128" height="90"/>
         <element name="LangName" positionX="288" positionY="9" width="128" height="90"/>
-        <element name="CachedResult" positionX="117" positionY="9" width="128" height="105"/>
     </elements>
 </model>

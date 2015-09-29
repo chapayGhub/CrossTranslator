@@ -7,7 +7,6 @@
 //
 
 #import "KnownWordsDataSource.h"
-#import "AppDelegate.h"
 
 @interface KnownWordsDataSource()
 
@@ -22,7 +21,7 @@
 - (id) init
 {
     if (self == [super init]) {
-        self.managedObjectContext = ((AppDelegate *)[[UIApplication sharedApplication] delegate]).managedObjectContext;
+        
     }
     return self;
 }
@@ -32,6 +31,10 @@
         self.destLanguage = destLanguage;
     }
     return self;
+}
+
+- (void) setMOC:(NSManagedObjectContext*)moc{
+    self.managedObjectContext = moc;
 }
 
 /**
@@ -45,13 +48,19 @@
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"CachedResult" inManagedObjectContext:self.managedObjectContext];
     [fetchRequest setEntity:entity];
     
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(fromText CONTAINS[cd] %@) AND (fromLanguage == %@) AND (toLanguage == %@)",string,self.startLanguage,self.destLanguage];
-    
+//    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(fromText CONTAINS[cd] %@) AND (fromLanguage == %@) AND (toLanguage == %@)",string,self.startLanguage,self.destLanguage];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"fromText CONTAINS[cd] %@",string];
     [fetchRequest setPredicate:predicate];
     NSError *error = nil;
     NSArray *results = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
     if ([results count] > 0) {
-        handler(results);
+        //remove duplicate results
+        NSMutableDictionary *unique = [[NSMutableDictionary alloc] init];
+        
+        for (id obj in results) {
+            [unique setObject:obj forKey:[obj valueForKey:@"fromText"]];
+        }
+        handler([unique allValues]);
     }else{
         handler(@[]);
     }

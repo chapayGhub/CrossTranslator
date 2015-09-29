@@ -10,11 +10,10 @@
 
 @interface ToLanguageCell : UITableViewCell
 
-@property (weak, nonatomic) IBOutlet UILabel *translateLabel;
+
 @property (weak, nonatomic) IBOutlet UILabel *translatePhrase;
 @property (weak, nonatomic) IBOutlet UILabel *authorLabel;
 @property (weak, nonatomic) IBOutlet UILabel *authorValue;
-@property (weak, nonatomic) IBOutlet UILabel *linkLabel;
-@property (weak, nonatomic) IBOutlet UILabel *linkValue;
+@property (weak, nonatomic) IBOutlet UIButton *speakLoad;
 
 @end

@@ -12,6 +12,7 @@
 @interface DetailViewController : UITableViewController
 
 @property (strong, nonatomic) Tuc *tuc;
+@property (strong, nonatomic) NSNumber *uiLangCode;
 
 @end
 

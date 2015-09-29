@@ -11,9 +11,6 @@
 #import "NSData+Base64.h"
 #import "TranslationResponse.h"
 
-#import <AudioToolbox/AudioToolbox.h>
-
-
 static NSString *TRANSLATE_URL = @"https://glosbe.com/gapi/translate";
 
 @interface  APNetworkClient()
@@ -37,7 +34,7 @@ static NSString *TRANSLATE_URL = @"https://glosbe.com/gapi/translate";
 }
 
 - (void) translatePhrase:(NSString*)phrase from:(NSString*)fromLang to:(NSString*)toLang{
-    [self gtts];
+
     NSURLComponents *components = [NSURLComponents componentsWithString:TRANSLATE_URL];
     NSURLQueryItem *item1 = [NSURLQueryItem queryItemWithName:@"from" value:fromLang];
     NSURLQueryItem *item2 = [NSURLQueryItem queryItemWithName:@"dest" value:toLang];
@@ -95,29 +92,6 @@ static NSString *TRANSLATE_URL = @"https://glosbe.com/gapi/translate";
 
 
 
-- (void) gtts{
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *path = [documentsDirectory stringByAppendingPathComponent:@"file.mp3"];
-    
-    NSString *text = @"Hello World"; //@"You are one chromosome away from being a potato.";
-    NSString *urlString = [NSString stringWithFormat:@"http://www.translate.google.com/translate_tts?tl=en&q=%@",text];
-    NSURL *url = [NSURL URLWithString:[urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-    NSMutableURLRequest* request = [[NSMutableURLRequest alloc] initWithURL:url] ;
-    [request setValue:@"Mozilla/5.0 (Macintosh; Intel Mac OS X 10.6; rv:2.0.1) Gecko/20100101 Firefox/4.0.1" forHTTPHeaderField:@"User-Agent"];
-    NSURLResponse* response = nil;
-    NSError* error = nil;
-    NSData* data = [NSURLConnection sendSynchronousRequest:request
-                                         returningResponse:&response
-                                                     error:&error];
-    [data writeToFile:path atomically:YES];
-    
-    SystemSoundID soundID;
-    NSURL *url2 = [NSURL fileURLWithPath:path];
-    
-    AudioServicesCreateSystemSoundID((__bridge CFURLRef)url2, &soundID);
-    AudioServicesPlaySystemSound (soundID);
-}
 
 
 #pragma mark - NSURLSessionDownloadDelegate

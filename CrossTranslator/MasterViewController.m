@@ -9,7 +9,8 @@
 #import "MasterViewController.h"
 #import "DetailViewController.h"
 
-#import "Constants.h"
+//System
+#import <AudioToolbox/AudioToolbox.h>
 
 
 //Custom Cells
@@ -19,6 +20,7 @@
 #import "GoogleAudioCell.h"
 
 // Models and Utils
+#import "Constants.h"
 #import "TranslatorFacade.h"
 #import "KnownWordsDataSource.h"
 #import "LanguageNamesDataSource.h"
@@ -32,7 +34,6 @@
 #import "Reachability.h"
 #import "Chameleon/Chameleon.h"
 #import "Chameleon.h"
-
 
 
 @interface MasterViewController() <MLPAutoCompleteTextFieldDelegate,LanguageChangedDelegate>
@@ -85,7 +86,8 @@
     self.endLangCode = [prefs objectForKey:kEndLanguage];
     
     
-    self.knownWordsDataSource = [[KnownWordsDataSource alloc] initWithStartLanguage:self.startLangCode destinationLanguage:self.endLangCode];
+    self.knownWordsDataSource = [[KnownWordsDataSource alloc] init];
+    [self.knownWordsDataSource setMOC:self.managedObjectContext];
     self.languageNamesDataSource = [[LanguageNamesDataSource alloc] initWithUILanguage:self.currentLanguage];
     
     self.translation = nil;
@@ -233,6 +235,7 @@
         Tuc *object = [self.translation.result.tuc objectAtIndex:indexPath.row];
         DetailViewController *controller = (DetailViewController *)[segue destinationViewController];
         controller.tuc = object;
+        controller.uiLangCode = self.currentLanguage;
         controller.navigationItem.leftItemsSupplementBackButton = YES;
 
     // Opens the change Language ViewController
@@ -343,17 +346,19 @@
     if (tuc.phrase == nil) {
         if([tuc.meanings count] > 0){
             tCell.translatePhrase.text = ((Meaning*)[tuc.meanings objectAtIndex:0]).text;
-            tCell.translateLabel.text = [self.languageNamesDataSource getLangNameForCode:((Meaning*)[tuc.meanings objectAtIndex:0]).language];
         }
     }else{
         tCell.translatePhrase.text = tuc.phrase.text;
-        tCell.translateLabel.text = [self.languageNamesDataSource getLangNameForCode:tuc.phrase.language];
     }
     
     if ([tuc.authors count] > 0) {
         NSString *authorKey = [NSString stringWithFormat:@"%d",[[tuc.authors objectAtIndex:0] intValue]];
         tCell.authorValue.text = [[self.translation.result.authors valueForKey:authorKey] valueForKey:@"U"];
     }
+    [tCell.speakLoad addTarget:self
+                        action:@selector(gtts:)
+              forControlEvents:UIControlEventTouchUpInside];
+    
     tCell.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 
@@ -443,9 +448,9 @@
 
 - (double) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
-        return 255;
+        return 200;
     }else if (indexPath.section == 3){
-        return 134;
+        return 90;
     }else if (indexPath.section == 1){
         return 44;
     }else if (indexPath.section == 2){
@@ -457,12 +462,13 @@
 
 - (void) goTranslate{
     
-    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    hud.mode = MBProgressHUDModeIndeterminate;
-    hud.labelText = [GUILanguageManager getUIStringForCode:@"Translating"];
     
     // if is in valid state do translate
     if (self.isValid) {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.mode = MBProgressHUDModeIndeterminate;
+        hud.labelText = [GUILanguageManager getUIStringForCode:@"Translating"];
+        
         [self.translator translatePhrase:self.inputText.text
                                     from:self.startLangCode
                                       to:self.endLangCode
@@ -494,8 +500,47 @@
 }
 
 - (void) swapLanguages{
+    NSString *temp = self.startLangCode;
+    self.startLangCode = self.endLangCode;
+    self.endLangCode = temp;
+    
+    temp = self.startLang.text;
+    self.startLang.text = self.endLang.text;
+    self.endLang.text = temp;
     
 }
+
+- (void)gtts:(id) sender{
+    
+    //call button was pressed on a row, find the point of the screen of this info button
+    CGPoint buttonOriginInTableView = [sender convertPoint:CGPointZero toView:self.tableView];
+    
+    //Find the row that corresponds to this point
+    NSIndexPath *ipath = [self.tableView indexPathForRowAtPoint:buttonOriginInTableView];
+    Phrase *selectedPhrase = [self.translation.result.tuc objectAtIndex:ipath.row];
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *path = [documentsDirectory stringByAppendingPathComponent:@"file.mp3"];
+
+    NSString *urlString = [NSString stringWithFormat:@"http://www.translate.google.com/translate_tts?tl=en&q=%@",selectedPhrase];
+    NSURL *url = [NSURL URLWithString:[urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    NSMutableURLRequest* request = [[NSMutableURLRequest alloc] initWithURL:url] ;
+    [request setValue:@"Mozilla/5.0 (Macintosh; Intel Mac OS X 10.6; rv:2.0.1) Gecko/20100101 Firefox/4.0.1" forHTTPHeaderField:@"User-Agent"];
+    NSURLResponse* response = nil;
+    NSError* error = nil;
+    NSData* data = [NSURLConnection sendSynchronousRequest:request
+                                         returningResponse:&response
+                                                     error:&error];
+    [data writeToFile:path atomically:YES];
+
+    SystemSoundID soundID;
+    NSURL *url2 = [NSURL fileURLWithPath:path];
+
+    AudioServicesCreateSystemSoundID((__bridge CFURLRef)url2, &soundID);
+    AudioServicesPlaySystemSound (soundID);
+}
+
 
 #pragma mark - Autocomplete Delegation
 - (void)autoCompleteTextField:(MLPAutoCompleteTextField *)textField
@@ -527,12 +572,6 @@
     
     if (changes) {
         [prefs synchronize];
-        // One of the languages (source and/or destination) has changed
-        // create a new autocomplete datasource object with the new languages
-        // one would not expect to autocomplete for the same word but different source languages
-        
-        self.knownWordsDataSource = [[KnownWordsDataSource alloc] initWithStartLanguage:self.startLangCode destinationLanguage:self.endLangCode];
-        self.inputText.autoCompleteDataSource = self.knownWordsDataSource;
     }
     self.hasSuggestions = NO;
     

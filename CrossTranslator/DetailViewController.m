@@ -9,8 +9,10 @@
 #import "DetailViewController.h"
 #import "DetailMeaningCell.h"
 #import "NSString+HTML.h"
+#import "LanguageNamesDataSource.h"
 
 @interface DetailViewController ()
+@property (strong, nonatomic) LanguageNamesDataSource *dataSource;
 
 @end
 
@@ -20,7 +22,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+    self.dataSource = [[LanguageNamesDataSource alloc] initWithUILanguage:self.uiLangCode];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -39,6 +41,8 @@
     
     Meaning *meaning = [self.tuc.meanings objectAtIndex:indexPath.row];
     cell.meaningValue.text = [meaning.text stringByConvertingHTMLToPlainText];
+    
+    cell.meaningLabel.text = [self.dataSource getLangNameForCode:meaning.language];
     
 
     return cell;
