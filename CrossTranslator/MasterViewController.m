@@ -1,3 +1,21 @@
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in all
+// copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.
+
 //
 //  MasterViewController.m
 //  CrossTranslator
@@ -36,18 +54,20 @@
 #import "Chameleon.h"
 
 
-@interface MasterViewController() <MLPAutoCompleteTextFieldDelegate,LanguageChangedDelegate>
+@interface MasterViewController() <MLPAutoCompleteTextFieldDelegate,LanguageChangedDelegate, UITableViewDataSource, UITableViewDelegate>
 
 @property (strong, nonatomic) NSString *startLangCode;
 @property (strong, nonatomic) NSString *endLangCode;
 @property (strong, nonatomic) NSString *inputString;
 
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet MLPAutoCompleteTextField *inputText;
+@property (weak, nonatomic) IBOutlet MLPAutoCompleteTextField *startLang;
+@property (weak, nonatomic) IBOutlet MLPAutoCompleteTextField *endLang;
+@property (weak, nonatomic) IBOutlet UIButton *swapLangs;
+@property (weak, nonatomic) IBOutlet UIButton *translate;
 
-@property (strong, nonatomic) MLPAutoCompleteTextField *inputText;
-@property (weak, nonatomic) MLPAutoCompleteTextField *startLang;
-@property (weak, nonatomic) MLPAutoCompleteTextField *endLang;
 
-@property (strong, nonatomic) UITextView *translatedText;
 
 @property (strong, nonatomic) NSNumber *currentLanguage;
 
@@ -117,7 +137,44 @@
     [tap setCancelsTouchesInView:NO];
     [self.view addGestureRecognizer:tap];
     
+    [self customizeFixedHeader];
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    
     [self monitorNetworkState];
+}
+
+- (void) customizeFixedHeader{
+    [self.translate addTarget:self
+                       action:@selector(goTranslate)
+             forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.translate setTitle:[GUILanguageManager getUIStringForCode:@"main_trn_btn"] forState:UIControlStateNormal];
+    
+    [self.swapLangs addTarget:self action:@selector(swapLanguages) forControlEvents:UIControlEventTouchUpInside];
+    
+ 
+    self.inputText.placeholder = [GUILanguageManager getUIStringForCode:@"main_input_lbl"];
+    self.inputText.autoCompleteDataSource = self.knownWordsDataSource;
+    self.inputText.autoCompleteDelegate = self;
+    
+    [self.inputText addTarget:self
+                       action:@selector(userEnteredInputText)
+             forControlEvents:UIControlEventEditingDidEnd];
+    
+    self.startLang.autoCompleteDataSource = self.languageNamesDataSource;
+    self.startLang.autoCompleteDelegate = self;
+    
+    self.endLang.autoCompleteDataSource = self.languageNamesDataSource;
+    self.endLang.autoCompleteDelegate = self;
+    
+    
+    if (self.startLangCode != nil) {
+        [self.startLang setText:[self.languageNamesDataSource getLangNameForCode:self.startLangCode]];
+    }
+    if (self.endLangCode != nil) {
+        self.endLang.text = [self.languageNamesDataSource getLangNameForCode:self.endLangCode];
+    }
 }
 
 - (void) monitorNetworkState{
@@ -272,56 +329,23 @@
 #pragma mark - Table View
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     // If there is no translation yet display only the Input TableViewCell
-    return self.translation == nil ? 1 : 4;
+    return self.translation == nil ? 0 : 2;
 }
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (section == 0) {
-        return 1;
-    }else if (section == 3){
+    if (section == 1){
         if (self.translation == nil) {
             return 0;
         }else{
             return [self.translation.result.tuc count];
         }
-    }else if (section == 1){
-        return self.translation == nil ? 0 : 1;
-    }else if (section == 2){
+    }else if (section == 0){
         return self.translation == nil ? 0 : 1;
     }
     
     return 0;
 }
-
-//- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-//{
-//    NSString *sectionName;
-//    switch (section)
-//    {
-//        case 0:
-//            sectionName = [GUILanguageManager getUIStringForCode:@"main_input_sct"];
-//            break;
-//        case 1:
-//            sectionName = [GUILanguageManager getUIStringForCode:@"Wiki Link"];
-//            break;
-//        case 2:
-//            sectionName = [GUILanguageManager getUIStringForCode:@"Play Audio"];
-//            break;
-//        case 3:
-//            sectionName = [GUILanguageManager getUIStringForCode:@"Translation"];
-//            break;
-//        default:
-//            sectionName = [GUILanguageManager getUIStringForCode:@""];
-//            break;
-//    }
-//    return sectionName;
-//}
-
-//- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-//{
-//    return 30;
-//}
 
 
 /**
@@ -365,26 +389,18 @@
 
 // Open Safari at the correct Wiki Url
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.section == 1) {
+    if (indexPath.section == 0) {
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://%@.wikipedia.org/wiki/%@", self.startLangCode,self.inputText.text]]];
     }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString* fromLangCellID = @"FromTranslate";
     static NSString* toLangCellID = @"ToTranslate";
     static NSString* wikiCellID = @"WikiSuggests";
-    static NSString* googleAudioCellID = @"GoogleAudio";
     
     UITableViewCell *cell;
     
-    if (indexPath.section == 0) {
-        cell = (FromLanguageCell*)[tableView dequeueReusableCellWithIdentifier:fromLangCellID
-                                                                  forIndexPath:indexPath];
-        
-        [self customizeInputCell:(FromLanguageCell*)cell];
-
-    }else if (indexPath.section == 3){
+    if (indexPath.section == 1){
         
         ToLanguageCell* tCell;
         tCell = (ToLanguageCell*)[tableView dequeueReusableCellWithIdentifier:toLangCellID
@@ -392,53 +408,14 @@
         [self customizeOutputCell:tCell inIndexPath:indexPath];
         return tCell;
         
-    }else if (indexPath.section == 1){
+    }else if (indexPath.section == 0){
         cell = (WikiSuggestsCell*)[tableView dequeueReusableCellWithIdentifier:wikiCellID
                                                                   forIndexPath:indexPath];
         ((WikiSuggestsCell*)cell).linkLabel.text = [NSString stringWithFormat:@"https://%@.wikipedia.org/wiki/%@", self.startLangCode,self.inputText.text];
         
-    }else if (indexPath.section == 2){
-        cell = (GoogleAudioCell*)[tableView dequeueReusableCellWithIdentifier:googleAudioCellID
-                                                                 forIndexPath:indexPath];
-        
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
-}
-
-- (void) customizeInputCell:(FromLanguageCell*)cell{
-    [cell.translate addTarget:self
-                       action:@selector(goTranslate)
-             forControlEvents:UIControlEventTouchUpInside];
-    
-    [cell.translate setTitle:[GUILanguageManager getUIStringForCode:@"main_trn_btn"] forState:UIControlStateNormal];
-    
-    [cell.swapLanguagesButton addTarget:self action:@selector(swapLanguages) forControlEvents:UIControlEventTouchUpInside];
-    
-    self.inputText = cell.inputText;
-    cell.inputText.placeholder = [GUILanguageManager getUIStringForCode:@"main_input_lbl"];
-    self.inputText.autoCompleteDataSource = self.knownWordsDataSource;
-    self.inputText.autoCompleteDelegate = self;
-    
-    [self.inputText addTarget:self
-                       action:@selector(userEnteredInputText)
-             forControlEvents:UIControlEventEditingDidEnd];
-    
-    self.startLang = cell.fromLangValue;
-    self.startLang.autoCompleteDataSource = self.languageNamesDataSource;
-    self.startLang.autoCompleteDelegate = self;
-    
-    self.endLang = cell.toLangValue;
-    self.endLang.autoCompleteDataSource = self.languageNamesDataSource;
-    self.endLang.autoCompleteDelegate = self;
-    
-    
-    if (self.startLangCode != nil) {
-        [self.startLang setText:[self.languageNamesDataSource getLangNameForCode:self.startLangCode]];
-    }
-    if (self.endLangCode != nil) {
-        self.endLang.text = [self.languageNamesDataSource getLangNameForCode:self.endLangCode];
-    }
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -447,13 +424,9 @@
 }
 
 - (double) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.section == 0) {
-        return 200;
-    }else if (indexPath.section == 3){
+    if (indexPath.section == 1){
         return 90;
-    }else if (indexPath.section == 1){
-        return 44;
-    }else if (indexPath.section == 2){
+    }else if (indexPath.section == 0){
         return 44;
     }
 
